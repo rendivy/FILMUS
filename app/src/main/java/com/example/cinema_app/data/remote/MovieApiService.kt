@@ -1,10 +1,16 @@
 package com.example.cinema_app.data.remote
 
-import retrofit2.http.GET
+import com.example.cinema_app.data.entity.RegistrationRequest
+import com.example.cinema_app.data.entity.TokenBody
+import retrofit2.http.Body
 import retrofit2.http.POST
 
 
 interface MovieApiService {
-    @POST("api/)
+    @POST("api/account/register")
+    suspend fun register(
+        @Body registrationRequest: RegistrationRequest
+    ): TokenBody
+
 
 }
