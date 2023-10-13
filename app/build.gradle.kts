@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
+    id("kotlin-kapt")
 }
 
 android {
@@ -51,22 +54,37 @@ android {
 
 dependencies {
     val coreKtxVersion = "1.12.0"
+    val hiltVersion = "2.48"
+    val kotlinSerializationVersion = "1.5.1"
+    val retrofitVersion = "2.9.0"
     val lifecycleRuntimeVersion = "2.6.2"
+    val kotlinSerialization = "1.0.0"
+    val okHttpVersion = "4.11.0"
     val activityComposeVersion = "1.8.0"
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeVersion")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:$okHttpVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinSerialization")
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation("junit:junit:4.13.2")
+
+    kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 }
