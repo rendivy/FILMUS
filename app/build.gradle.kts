@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
     id("kotlin-kapt")
 }
 
@@ -55,7 +55,7 @@ android {
 dependencies {
     val coreKtxVersion = "1.12.0"
     val hiltVersion = "2.48"
-    val kotlinSerializationVersion = "1.5.1"
+    val kotlinSerializationVersion = "1.6.0"
     val retrofitVersion = "2.9.0"
     val lifecycleRuntimeVersion = "2.6.2"
     val kotlinSerialization = "1.0.0"

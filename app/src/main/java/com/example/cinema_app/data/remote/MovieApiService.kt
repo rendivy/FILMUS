@@ -7,10 +7,6 @@ import retrofit2.http.POST
 
 
 interface MovieApiService {
-    @POST("api/account/register")
-    suspend fun register(
-        @Body registrationRequest: RegistrationRequest
-    ): TokenBody
-
-
+    @POST("/api/account/register")
+    suspend fun register(@Body registrationRequest: RegistrationRequest): TokenBody
 }
