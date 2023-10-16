@@ -64,6 +64,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeVersion")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

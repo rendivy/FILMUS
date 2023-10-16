@@ -1,9 +1,11 @@
 package com.example.cinema_app.presentation
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.data.entity.RegistrationRequest
-import com.example.cinema_app.data.entity.TokenBody
+import com.example.cinema_app.data.entity.Token
 import com.example.cinema_app.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserAuthViewModel @Inject constructor(private val repository: AuthRepository) : ViewModel() {
 
-    private val _tokenBody = MutableStateFlow<TokenBody?>(null)
-    val tokenBody: StateFlow<TokenBody?> = _tokenBody
+    private val _tokenBody = MutableStateFlow<Token>(Token("EMPTY_STRING"))
+    val tokenBody: StateFlow<Token> = _tokenBody
 
 
     fun registerUser(
@@ -24,10 +26,9 @@ class UserAuthViewModel @Inject constructor(private val repository: AuthReposito
         name: String,
         password: String,
         email: String,
-        birthDate: String = "2023-10-13T04:45:15.430Z",
     ) {
         viewModelScope.launch {
-            try{
+            try {
                 _tokenBody.value = repository.registerUser(
                     RegistrationRequest(
                         userName = userName,
@@ -36,12 +37,16 @@ class UserAuthViewModel @Inject constructor(private val repository: AuthReposito
                         email = email,
                     )
                 )
-            }
-            catch (_: Exception){
-
+            } catch (e: Exception) {
+                Log.d("TAG", "Exception during request -> ${e.localizedMessage}")
             }
 
         }
-    }
 
+        Log.d(TAG, "Correct")
+        Log.d(TAG, "Token: ${tokenBody.value.token}")
+
+
+    }
 }
+

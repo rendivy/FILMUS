@@ -1,11 +1,12 @@
 package com.example.cinema_app.data.entity
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegistrationRequest(
-    val userName: String,
-    val name: String,
-    val password: String,
-    val email: String,
+    @SerialName("userName") val userName: String,
+    @SerialName("name") val name: String,
+    @SerialName("password") val password: String,
+    @SerialName("email") val email: String,
 )

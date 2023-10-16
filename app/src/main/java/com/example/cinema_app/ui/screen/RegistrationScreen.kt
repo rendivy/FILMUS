@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.screen.common.CustomTextField
 import com.example.cinema_app.ui.theme.backgroundPrimaryColor
@@ -42,12 +43,13 @@ import com.example.cinema_app.ui.theme.backgroundPrimaryColor
 fun RegistrationScreen(
     userAuthViewModel: UserAuthViewModel
 ) {
-    val name = remember { mutableStateOf("tyyyyasd") }
-    val username = remember { mutableStateOf("tyyyy") }
-    val password = remember { mutableStateOf("21312321") }
-    val email = remember { mutableStateOf("arlosane77") }
+    val name = remember { mutableStateOf("yuuuuur1121312") }
+    val username = remember { mutableStateOf("tyyyy123112312") }
+    val password = remember { mutableStateOf("21312321121312") }
+    val email = remember { mutableStateOf("arlosane7123213121123") }
 
-    val tokenBody by userAuthViewModel.tokenBody.collectAsState()
+    val tokenState by userAuthViewModel.tokenBody.collectAsStateWithLifecycle()
+
     val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
@@ -105,24 +107,22 @@ fun RegistrationScreen(
             textAlign = TextAlign.Start
         )
         CustomTextField(email)
-        Button(onClick = { userAuthViewModel.registerUser(
-            username.value, name.value, password.value, email.value
-        ) }) {
+        Button(onClick = {
+            userAuthViewModel.registerUser(
+                username.value, name.value, password.value, email.value
+            )
+        }) {
             Text(text = "Registration")
         }
         Text(
-            text = "1231231",
-            color = Color.White,
-            fontSize = 24.sp
+            text = tokenState.token, color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(2.dp),
+            fontSize = 24.sp,
+            textAlign = TextAlign.Start
         )
-        if (tokenBody?.authToken != null) {
-            println(tokenBody!!.authToken)
-            Text(
-                text = "1231231",
-                color = Color.White,
-                fontSize = 24.sp
-            )
-        }
+
     }
 
 
