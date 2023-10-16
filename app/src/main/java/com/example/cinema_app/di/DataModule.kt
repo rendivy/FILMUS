@@ -28,7 +28,6 @@ object DataModule {
 
     private val gson: Gson = GsonBuilder().create()
 
-
     private val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(Constants.CONNECT_TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)

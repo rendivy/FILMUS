@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">cinema-app</string>
+    <string name="name_label">Имя</string>
+    <string name="login_label">Логин</string>
+    <string name="password_label">Пароль</string>
+    <string name="main_registration">Регистрация</string>
+    <string name="continue_label">Продолжить</string>
+    <string name="email_label">Электронная почта</string>
 </resources>
