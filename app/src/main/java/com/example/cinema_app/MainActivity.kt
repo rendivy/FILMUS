@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.cinema_app.presentation.UserAuthViewModel
-import com.example.cinema_app.ui.screen.registration.RegistrationScreen
+import com.example.cinema_app.ui.navigation.CinemaNavHost
 import com.example.cinema_app.ui.theme.CinemaappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RegistrationScreen(userAuthViewModel = authViewModel)
+                    CinemaNavHost(userAuthViewModel = authViewModel)
                 }
             }
         }

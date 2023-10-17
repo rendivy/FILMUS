@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.theme.InterFontBold
@@ -45,7 +44,7 @@ fun RegistrationScreen(
     val password = remember { mutableStateOf("21312321121312") }
     val email = remember { mutableStateOf("arlosane7123213121123") }
 
-    val tokenState by userAuthViewModel.tokenBody.collectAsStateWithLifecycle()
+    val userState by remember { userAuthViewModel.registrationState }
     val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
@@ -69,18 +68,16 @@ fun RegistrationScreen(
             textAlign = TextAlign.Center
         )
         FieldSection(
-            username = username, name = name, password = password, email = email,
+            userState = userState,
+            userAuthViewModel = userAuthViewModel,
             focusManager = focusManager
         )
         Spacer(modifier = Modifier.height(20.dp))
         Button(
-            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
-            onClick = {
-                userAuthViewModel.registerUser(
-                    username.value, name.value, password.value, email.value
-                )
-
-            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
+            onClick = { userAuthViewModel.registerUser() },
             shape = RoundedCornerShape(size = 10.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = primaryActionColor
@@ -97,14 +94,6 @@ fun RegistrationScreen(
                 )
             )
         }
-        Text(
-            text = tokenState.token, color = Color.White,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(2.dp),
-            fontSize = 24.sp,
-            textAlign = TextAlign.Center
-        )
     }
 
 

@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val backgroundPrimaryColor = Color(16, 16, 16)
 val primaryActionColor = Color(252, 49, 94)
+val secondaryContainerColor = Color(41, 41, 41)

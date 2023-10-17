@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,15 +21,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
+import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
+import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.InterFontMedium
 
 @Composable
 fun FieldSection(
-    username: MutableState<String>,
-    name: MutableState<String>,
-    password: MutableState<String>,
-    email: MutableState<String>,
+    userState: RegistrationContent,
+    userAuthViewModel: UserAuthViewModel,
     focusManager: FocusManager
 ) {
     Column(
@@ -69,7 +67,10 @@ fun FieldSection(
             fontFamily = InterFontMedium,
             textAlign = TextAlign.Start
         )
-        CustomTextField(name)
+        CustomTextField(
+            textFieldValue = userState.name,
+            onValueChange = userAuthViewModel::setName,
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.login_label),
@@ -81,7 +82,10 @@ fun FieldSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
-        CustomTextField(username)
+        CustomTextField(
+            textFieldValue = userState.login,
+            onValueChange = userAuthViewModel::setLogin,
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.password_label),
@@ -93,7 +97,10 @@ fun FieldSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
-        CustomTextField(password)
+        CustomTextField(
+            textFieldValue = userState.password,
+            onValueChange = userAuthViewModel::setPassword
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.email_label),
@@ -105,7 +112,10 @@ fun FieldSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
-        CustomTextField(email)
+        CustomTextField(
+            textFieldValue = userState.email,
+            onValueChange = userAuthViewModel::setEmail
+        )
 
     }
 }
