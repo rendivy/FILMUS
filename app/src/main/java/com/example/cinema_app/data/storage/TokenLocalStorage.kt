@@ -19,7 +19,8 @@ class TokenLocalStorage(context: Context) {
         )
 
     fun getToken(): String {
-        return encryptedSharedPreferences.getString("token", "") ?: ""
+        return encryptedSharedPreferences.getString("token", Constants.EMPTY_STRING)
+            ?: Constants.EMPTY_STRING
     }
 
     fun saveToken(token: String) {

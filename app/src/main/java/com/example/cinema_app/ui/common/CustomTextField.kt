@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -19,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.InterFontMedium
-import com.example.cinema_app.ui.theme.backgroundPrimaryColor
+import com.example.cinema_app.ui.theme.Gray900
 
 
 @Composable
@@ -31,7 +30,7 @@ fun CustomTextField(
     BasicTextField(
         modifier = Modifier
             .background(
-                color = backgroundPrimaryColor,
+                color = Gray900,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
@@ -39,8 +38,7 @@ fun CustomTextField(
                 color = Color.Gray,
                 shape = RoundedCornerShape(8.dp)
             )
-            .fillMaxWidth()
-            .height(45.dp),
+            .fillMaxWidth(),
         value = textFieldValue,
         onValueChange = onValueChange,
         textStyle = TextStyle(
@@ -55,7 +53,7 @@ fun CustomTextField(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
 
                 ) {

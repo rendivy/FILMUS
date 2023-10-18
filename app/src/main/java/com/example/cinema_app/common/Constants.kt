@@ -9,5 +9,7 @@ object Constants {
     const val WRITE_TIMEOUT = 10L
     const val TOKEN_REFERENCES = "secret_shared_prefs"
     const val EMPTY_STRING = ""
+    const val GREETINGS_ROUTE = "Greetings"
+    const val REGISTRATION_ROUTE = "Registration"
     const val SHORT_SPACE = " "
 }

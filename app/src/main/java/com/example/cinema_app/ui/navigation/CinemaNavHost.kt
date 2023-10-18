@@ -11,15 +11,22 @@ import com.example.cinema_app.ui.screen.registration.RegistrationScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CinemaNavHost(userAuthViewModel: UserAuthViewModel) {
+fun CinemaNavHost(
+    userAuthViewModel: UserAuthViewModel,
+) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "Greetings") {
-        composable("Greetings") {
+    NavHost(navController = navController, startDestination = NavigationRoutes.Greetings.route) {
+        composable(NavigationRoutes.Greetings.route) {
             GreetingsScreen(navController = navController)
         }
-        composable("Registration") {
-            RegistrationScreen(userAuthViewModel = userAuthViewModel)
+        composable(NavigationRoutes.Registration.route) {
+            RegistrationScreen(
+                userAuthViewModel = userAuthViewModel,
+                navController = navController
+            )
         }
 
     }
+
+
 }

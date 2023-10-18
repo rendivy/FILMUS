@@ -62,7 +62,7 @@ fun CinemaappTheme(
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
             systemUiController.setSystemBarsColor(
-                color = backgroundPrimaryColor,
+                color = Gray900,
                 darkIcons = !darkTheme
             )
         }
