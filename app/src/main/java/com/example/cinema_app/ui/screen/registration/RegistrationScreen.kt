@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleSmall
@@ -45,7 +46,7 @@ fun RegistrationScreen(
     userAuthViewModel: UserAuthViewModel,
     navController: NavController
 ) {
-    val userState by remember { userAuthViewModel.registrationState }
+    val registrationState by remember { userAuthViewModel.registrationState }
     val focusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
@@ -85,8 +86,8 @@ fun RegistrationScreen(
                 verticalArrangement = Arrangement.Top,
             ) {
 
-                FieldSection(
-                    userState = userState,
+                RegistrationSection(
+                    userState = registrationState,
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
                 )
@@ -117,13 +118,18 @@ fun RegistrationScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.continue_label),
+                    text = stringResource(id = R.string.already_registered),
                     style = TitleSmall
                 )
                 Spacer(modifier = Modifier.size(2.dp))
                 Text(
-                    text = stringResource(id = R.string.continue_label),
-                    modifier = Modifier.clickable(onClick = { navController.navigate("Registration") }),
+                    text = stringResource(id = R.string.enter_button),
+                    modifier = Modifier.clickable(onClick = {
+                        navController.navigate(
+                            NavigationRoutes.Login.route
+                        )
+                    }),
+                    color = Accent,
                     style = TitleSmall
                 )
 

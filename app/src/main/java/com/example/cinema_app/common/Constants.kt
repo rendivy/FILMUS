@@ -11,5 +11,6 @@ object Constants {
     const val EMPTY_STRING = ""
     const val GREETINGS_ROUTE = "Greetings"
     const val REGISTRATION_ROUTE = "Registration"
+    const val LOGIN_ROUTE = "Login"
     const val SHORT_SPACE = " "
 }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.screen.greetings.GreetingsScreen
+import com.example.cinema_app.ui.screen.login.LoginScreen
 import com.example.cinema_app.ui.screen.registration.RegistrationScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,6 +24,11 @@ fun CinemaNavHost(
             RegistrationScreen(
                 userAuthViewModel = userAuthViewModel,
                 navController = navController
+            )
+        }
+        composable(NavigationRoutes.Login.route) {
+            LoginScreen(
+                userAuthViewModel = userAuthViewModel,
             )
         }
 
