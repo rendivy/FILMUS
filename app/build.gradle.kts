@@ -66,6 +66,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("androidx.security:security-crypto:$securityCryptoVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")

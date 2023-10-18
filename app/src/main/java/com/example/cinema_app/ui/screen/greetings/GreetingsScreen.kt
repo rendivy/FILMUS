@@ -35,6 +35,7 @@ import com.example.cinema_app.ui.theme.TitleSmall
 
 @Composable
 fun GreetingsScreen(navController: NavController) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
