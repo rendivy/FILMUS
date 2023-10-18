@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.login
+package com.example.cinema_app.ui.screen.login.utils
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -21,14 +21,15 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
-import com.example.cinema_app.ui.state.LoginContent
+import com.example.cinema_app.ui.common.PasswordTextField
+import com.example.cinema_app.ui.state.AuthenticationContent
 import com.example.cinema_app.ui.theme.InterFontMedium
 import com.example.cinema_app.ui.theme.TitleLarge
 
 
 @Composable
 fun LoginSection(
-    loginState: LoginContent,
+    loginState: AuthenticationContent,
     userAuthViewModel: UserAuthViewModel,
     focusManager: FocusManager
 ) {
@@ -62,7 +63,7 @@ fun LoginSection(
             textAlign = TextAlign.Start
         )
         CustomTextField(
-            textFieldValue = loginState.login,
+            textFieldValue = loginState.username,
             onValueChange = userAuthViewModel::setAuthLogin,
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -76,7 +77,7 @@ fun LoginSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
-        CustomTextField(
+        PasswordTextField(
             textFieldValue = loginState.password,
             onValueChange = userAuthViewModel::setAuthPassword
         )
