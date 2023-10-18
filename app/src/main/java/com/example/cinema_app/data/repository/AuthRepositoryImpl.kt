@@ -2,7 +2,7 @@ package com.example.cinema_app.data.repository
 
 
 import android.util.Log
-import com.example.cinema_app.data.entity.LoginBody
+import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
@@ -22,7 +22,7 @@ class AuthRepositoryImpl @Inject constructor(
         Log.d("TAG", "registerUser: ${tokenLocalStorage.getToken()}")
     }
 
-    override suspend fun loginUser(loginBody: LoginBody) {
+    override suspend fun loginUser(loginBody: AuthenticationBody) {
         tokenLocalStorage.saveToken(movieApiService.login(loginBody = loginBody).token)
         Log.d("TAG", "loginUser: ${tokenLocalStorage.getToken()}")
     }

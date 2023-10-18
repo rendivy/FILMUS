@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.utils
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
