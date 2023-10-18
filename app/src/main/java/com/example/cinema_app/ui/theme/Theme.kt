@@ -41,6 +41,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun CinemaappTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    isStatusBarVisible: Boolean = true,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
