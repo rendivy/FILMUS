@@ -86,7 +86,7 @@ fun GreetingsScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(15.dp))
         Button(
             onClick = {
-                navController.navigate(NavigationRoutes.Registration.route)
+                navController.navigate(NavigationRoutes.Login.route)
             },
 
             modifier = Modifier
