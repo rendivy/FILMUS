@@ -33,17 +33,20 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBold
+import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.TitleSmall
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(userAuthViewModel: UserAuthViewModel) {
+fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavController) {
     val loginState by remember { userAuthViewModel.loginState }
     val focusManager = LocalFocusManager.current
     Scaffold(
@@ -57,7 +60,9 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                        navController.navigate(NavigationRoutes.Greetings.route)}) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
@@ -115,13 +120,20 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.continue_label),
+                    text = stringResource(id = R.string.dont_have_account),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(2.dp))
+                Spacer(modifier = Modifier.size(ShortSpace))
                 Text(
-                    text = stringResource(id = R.string.continue_label),
-                    modifier = Modifier.clickable(onClick = { }),
+                    text = stringResource(id = R.string.register_label),
+                    modifier = Modifier.clickable(onClick = {
+                        if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Registration.route) {
+                            navController.popBackStack()
+                        } else {
+                            navController.navigate(NavigationRoutes.Registration.route)
+                        }
+                    }),
+                    color = Accent,
                     style = TitleSmall
                 )
 

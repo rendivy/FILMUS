@@ -29,6 +29,7 @@ fun CinemaNavHost(
         composable(NavigationRoutes.Login.route) {
             LoginScreen(
                 userAuthViewModel = userAuthViewModel,
+                navController = navController
             )
         }
 
