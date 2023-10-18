@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.login
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -15,20 +15,20 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
-import com.example.cinema_app.ui.state.RegistrationContent
+import com.example.cinema_app.ui.state.LoginContent
 import com.example.cinema_app.ui.theme.InterFontMedium
+import com.example.cinema_app.ui.theme.TitleLarge
+
 
 @Composable
-fun FieldSection(
-    userState: RegistrationContent,
+fun LoginSection(
+    loginState: LoginContent,
     userAuthViewModel: UserAuthViewModel,
     focusManager: FocusManager
 ) {
@@ -45,31 +45,10 @@ fun FieldSection(
         verticalArrangement = Arrangement.Top
     ) {
         Text(
-            text = stringResource(id = R.string.main_registration),
+            text = stringResource(id = R.string.login_screen_label),
             modifier = Modifier.fillMaxWidth(),
-            style = TextStyle(
-                fontFamily = InterFontMedium,
-                fontWeight = FontWeight(700),
-                fontSize = 20.sp,
-                lineHeight = 24.sp,
-                color = Color.White
-            ),
+            style = TitleLarge,
             textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.name_label),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(2.dp),
-            color = Color.White,
-            fontSize = 15.sp,
-            fontFamily = InterFontMedium,
-            textAlign = TextAlign.Start
-        )
-        CustomTextField(
-            textFieldValue = userState.name,
-            onValueChange = userAuthViewModel::setName,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -83,8 +62,8 @@ fun FieldSection(
             textAlign = TextAlign.Start
         )
         CustomTextField(
-            textFieldValue = userState.login,
-            onValueChange = userAuthViewModel::setLogin,
+            textFieldValue = loginState.login,
+            onValueChange = userAuthViewModel::setAuthLogin,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -98,24 +77,11 @@ fun FieldSection(
             textAlign = TextAlign.Start
         )
         CustomTextField(
-            textFieldValue = userState.password,
-            onValueChange = userAuthViewModel::setPassword
+            textFieldValue = loginState.password,
+            onValueChange = userAuthViewModel::setAuthPassword
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.email_label),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(2.dp),
-            color = Color.White,
-            fontFamily = InterFontMedium,
-            fontSize = 15.sp,
-            textAlign = TextAlign.Start
-        )
-        CustomTextField(
-            textFieldValue = userState.email,
-            onValueChange = userAuthViewModel::setEmail
-        )
+        Spacer(modifier = Modifier.height(20.dp))
+
 
     }
 }

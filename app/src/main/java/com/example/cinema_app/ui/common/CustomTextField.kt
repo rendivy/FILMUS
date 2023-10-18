@@ -17,8 +17,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
-import com.example.cinema_app.ui.theme.InterFontMedium
 import com.example.cinema_app.ui.theme.Gray900
+import com.example.cinema_app.ui.theme.InterFontMedium
 
 
 @Composable
