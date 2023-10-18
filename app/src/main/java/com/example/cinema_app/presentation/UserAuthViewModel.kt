@@ -1,5 +1,6 @@
 package com.example.cinema_app.presentation
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -49,14 +50,20 @@ class UserAuthViewModel @Inject constructor(
 
     fun registerUser() {
         viewModelScope.launch {
-            registrationUseCase.registerUser(
-                RegistrationBody(
-                    userName = registrationState.value.login,
-                    name = registrationState.value.name,
-                    password = registrationState.value.password,
-                    email = registrationState.value.email,
+            try {
+                registrationUseCase.registerUser(
+                    RegistrationBody(
+                        userName = registrationState.value.login,
+                        name = registrationState.value.name,
+                        password = registrationState.value.password,
+                        email = registrationState.value.email,
+                    )
                 )
-            )
+            }
+            catch (e: Exception) {
+                Log.d("TAG", "registerUser: ${e.message}")
+            }
+
         }
 
     }
