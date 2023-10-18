@@ -4,13 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import com.example.cinema_app.presentation.UserAuthViewModel
-import com.example.cinema_app.ui.screen.registration.RegistrationScreen
+import com.example.cinema_app.ui.navigation.CinemaNavHost
 import com.example.cinema_app.ui.theme.CinemaappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,12 +18,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CinemaappTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    RegistrationScreen(userAuthViewModel = authViewModel)
-                }
+                CinemaNavHost(
+                    userAuthViewModel = authViewModel
+                )
             }
         }
     }
