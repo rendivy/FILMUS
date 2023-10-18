@@ -58,7 +58,6 @@ fun RegistrationScreen(
                         color = Accent,
                         style = TitleSmall,
                     )
-
                 },
                 navigationIcon = {
                     IconButton(onClick = {

@@ -1,4 +1,8 @@
 package com.example.cinema_app.data.entity
 
-class LoginBody {
-}
+
+
+data class LoginBody(
+    val login: String,
+    val password: String,
+)

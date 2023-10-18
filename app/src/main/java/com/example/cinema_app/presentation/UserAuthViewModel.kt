@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.entity.LoginBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegistrationUseCase
 import com.example.cinema_app.ui.state.LoginContent
@@ -68,6 +69,22 @@ class UserAuthViewModel @Inject constructor(
         _registrationState.value = _registrationState.value.copy(login = login)
     }
 
+    fun loginUser() {
+        viewModelScope.launch {
+            try {
+                registrationUseCase.loginUser(
+                    LoginBody(
+                        login = loginState.value.login,
+                        password = loginState.value.password,
+                    )
+                )
+            } catch (e: Exception) {
+                Log.d("TAG", "registerUser: ${e.message}")
+            }
+
+        }
+    }
+
     fun registerUser() {
         viewModelScope.launch {
             try {
@@ -79,8 +96,7 @@ class UserAuthViewModel @Inject constructor(
                         email = registrationState.value.email,
                     )
                 )
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
 

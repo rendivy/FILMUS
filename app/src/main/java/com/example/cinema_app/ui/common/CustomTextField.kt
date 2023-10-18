@@ -25,7 +25,6 @@ import com.example.cinema_app.ui.theme.InterFontMedium
 fun CustomTextField(
     textFieldValue: String = Constants.EMPTY_STRING,
     onValueChange: (String) -> Unit,
-    keyboardType: KeyboardOptions = KeyboardOptions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     BasicTextField(

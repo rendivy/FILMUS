@@ -62,7 +62,8 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
-                        navController.navigate(NavigationRoutes.Greetings.route)}) {
+                        navController.navigate(NavigationRoutes.Greetings.route)
+                    }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
@@ -97,7 +98,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { },
+                    onClick = { userAuthViewModel.loginUser() },
                     contentPadding = PaddingValues(12.dp),
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
