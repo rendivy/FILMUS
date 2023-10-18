@@ -117,7 +117,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Gray900),
+                    .background(color = Gray900).padding(bottom = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {

@@ -6,4 +6,5 @@ sealed class NavigationRoutes(val route: String) {
     data object Greetings : NavigationRoutes(Constants.GREETINGS_ROUTE)
     data object Registration : NavigationRoutes(Constants.REGISTRATION_ROUTE)
     data object Login: NavigationRoutes(Constants.LOGIN_ROUTE)
+    data object LaunchScreen: NavigationRoutes(Constants.SPLASH_SCREEN_ROUTE)
 }

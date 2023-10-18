@@ -8,10 +8,11 @@ object Constants {
     const val CONNECT_TIMEOUT = 10L
     const val READ_TIMEOUT = 10L
     const val WRITE_TIMEOUT = 10L
-    const val TOKEN_REFERENCES = "secret_shared_prefs"
-    const val EMPTY_STRING = ""
+    const val SPLASH_SCREEN_ROUTE = "SplashScreen"
     const val GREETINGS_ROUTE = "Greetings"
     const val REGISTRATION_ROUTE = "Registration"
     const val LOGIN_ROUTE = "Login"
+    const val EMPTY_STRING = ""
+    const val TOKEN_REFERENCES = "secret_shared_prefs"
     const val SHORT_SPACE = " "
 }
