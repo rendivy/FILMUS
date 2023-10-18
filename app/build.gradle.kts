@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
     id("kotlin-kapt")
 }
 
@@ -55,15 +55,21 @@ android {
 dependencies {
     val coreKtxVersion = "1.12.0"
     val hiltVersion = "2.48"
-    val kotlinSerializationVersion = "1.5.1"
+    val navVersion = "2.7.4"
+    val kotlinSerializationVersion = "1.6.0"
     val retrofitVersion = "2.9.0"
     val lifecycleRuntimeVersion = "2.6.2"
     val kotlinSerialization = "1.0.0"
     val okHttpVersion = "4.11.0"
     val activityComposeVersion = "1.8.0"
+    val securityCryptoVersion = "1.1.0-alpha06"
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation("androidx.security:security-crypto:$securityCryptoVersion")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeVersion")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
