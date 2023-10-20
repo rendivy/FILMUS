@@ -35,8 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.ui.navigation.NavigationRoutes
+import com.example.cinema_app.ui.screen.registration.utils.RegistrationSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
+import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
 @ExperimentalMaterial3Api
@@ -45,7 +48,7 @@ fun RegistrationScreen(
     userAuthViewModel: UserAuthViewModel,
     navController: NavController
 ) {
-    val userState by remember { userAuthViewModel.registrationState }
+    val registrationState by remember { userAuthViewModel.registrationState }
     val focusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
@@ -56,14 +59,16 @@ fun RegistrationScreen(
                         color = Accent,
                         style = TitleSmall,
                     )
-
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                        navController.navigate(NavigationRoutes.Greetings.route)
+                    }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(12.dp),
+                            modifier = Modifier.size(width = 6.dp, height = 12.dp),
                             tint = Color.White,
                         )
                     }
@@ -85,8 +90,8 @@ fun RegistrationScreen(
                 verticalArrangement = Arrangement.Top,
             ) {
 
-                FieldSection(
-                    userState = userState,
+                RegistrationSection(
+                    userState = registrationState,
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
                 )
@@ -112,18 +117,27 @@ fun RegistrationScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Gray900),
+                    .background(color = Gray900)
+                    .padding(bottom = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.continue_label),
+                    text = stringResource(id = R.string.already_registered),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(2.dp))
+                Spacer(modifier = Modifier.size(ShortSpace))
                 Text(
-                    text = stringResource(id = R.string.continue_label),
-                    modifier = Modifier.clickable(onClick = { navController.navigate("Registration") }),
+                    text = stringResource(id = R.string.enter_button),
+                    modifier = Modifier.clickable(
+                        onClick = {
+                            if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Login.route) {
+                                navController.popBackStack()
+                            } else {
+                                navController.navigate(NavigationRoutes.Login.route)
+                            }
+                        }),
+                    color = Accent,
                     style = TitleSmall
                 )
 
