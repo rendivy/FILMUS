@@ -25,6 +25,20 @@ val TitleSmall = TextStyle(
     color = Color.White
 )
 
+val SecondaryAccentStyle = TextStyle(
+    fontFamily = InternSemiBold,
+    fontWeight = FontWeight(600),
+    fontSize = 15.sp,
+    color = Color.White
+)
+
+val SemiBoldStyle = TextStyle(
+    fontFamily = InternSemiBold,
+    fontWeight = FontWeight(700),
+    fontSize = 20.sp,
+    color = Color.White
+)
+
 val SemiBold = TextStyle(
     fontFamily = InterFontMedium,
     fontWeight = FontWeight(600),
