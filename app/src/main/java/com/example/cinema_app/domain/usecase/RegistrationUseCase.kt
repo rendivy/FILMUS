@@ -1,5 +1,6 @@
 package com.example.cinema_app.domain.usecase
 
+import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -15,4 +16,14 @@ class RegistrationUseCase @Inject constructor(private val repository: AuthReposi
             )
         )
     }
+
+    suspend fun loginUser(loginBody: AuthenticationBody) {
+        repository.loginUser(
+            AuthenticationBody(
+                username = loginBody.username,
+                password = loginBody.password,
+            )
+        )
+    }
+
 }

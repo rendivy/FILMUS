@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.utils
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +24,10 @@ import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
 import com.example.cinema_app.ui.state.RegistrationContent
-import com.example.cinema_app.ui.theme.InterFontMedium
+import com.example.cinema_app.ui.theme.InterRegular
 
 @Composable
-fun FieldSection(
+fun RegistrationSection(
     userState: RegistrationContent,
     userAuthViewModel: UserAuthViewModel,
     focusManager: FocusManager
@@ -48,7 +48,7 @@ fun FieldSection(
             text = stringResource(id = R.string.main_registration),
             modifier = Modifier.fillMaxWidth(),
             style = TextStyle(
-                fontFamily = InterFontMedium,
+                fontFamily = InterRegular,
                 fontWeight = FontWeight(700),
                 fontSize = 20.sp,
                 lineHeight = 24.sp,
@@ -64,7 +64,7 @@ fun FieldSection(
                 .padding(2.dp),
             color = Color.White,
             fontSize = 15.sp,
-            fontFamily = InterFontMedium,
+            fontFamily = InterRegular,
             textAlign = TextAlign.Start
         )
         CustomTextField(
@@ -78,7 +78,7 @@ fun FieldSection(
                 .fillMaxWidth()
                 .padding(2.dp),
             color = Color.White,
-            fontFamily = InterFontMedium,
+            fontFamily = InterRegular,
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
@@ -93,7 +93,7 @@ fun FieldSection(
                 .fillMaxWidth()
                 .padding(2.dp),
             color = Color.White,
-            fontFamily = InterFontMedium,
+            fontFamily = InterRegular,
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
@@ -108,7 +108,7 @@ fun FieldSection(
                 .fillMaxWidth()
                 .padding(2.dp),
             color = Color.White,
-            fontFamily = InterFontMedium,
+            fontFamily = InterRegular,
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
