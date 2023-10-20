@@ -18,32 +18,35 @@ fun CinemaNavHost(
     userAuthViewModel: UserAuthViewModel,
 ) {
     val navController = rememberNavController()
-    CinemaappTheme() {
-        NavHost(
-            navController = navController,
-            startDestination = NavigationRoutes.LaunchScreen.route
-        ) {
-            composable(NavigationRoutes.Greetings.route) {
+    val currentRoute = navController.currentBackStackEntry?.destination?.route
+    val isStatusBarEnabled = currentRoute != NavigationRoutes.LaunchScreen.route
+    NavHost(
+        navController = navController,
+        startDestination = NavigationRoutes.LaunchScreen.route
+    ) {
+        composable(NavigationRoutes.Greetings.route) {
+            CinemaappTheme(isStatusBarEnabled) {
                 GreetingsScreen(navController = navController)
             }
-            composable(NavigationRoutes.LaunchScreen.route) {
-                LaunchScreen(navController = navController)
-            }
-            composable(NavigationRoutes.Registration.route) {
-                RegistrationScreen(
-                    userAuthViewModel = userAuthViewModel,
-                    navController = navController
-                )
-            }
-            composable(NavigationRoutes.Login.route) {
-                LoginScreen(
-                    userAuthViewModel = userAuthViewModel,
-                    navController = navController
-                )
-            }
-
         }
+        composable(NavigationRoutes.LaunchScreen.route) {
+            LaunchScreen(navController = navController)
+        }
+        composable(NavigationRoutes.Registration.route) {
+            RegistrationScreen(
+                userAuthViewModel = userAuthViewModel,
+                navController = navController
+            )
+        }
+        composable(NavigationRoutes.Login.route) {
+            LoginScreen(
+                userAuthViewModel = userAuthViewModel,
+                navController = navController
+            )
+        }
+
     }
-
-
 }
+
+
+
