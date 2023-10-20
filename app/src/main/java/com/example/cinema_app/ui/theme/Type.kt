@@ -20,7 +20,7 @@ val Typography = Typography(
 
 val TitleSmall = TextStyle(
     fontFamily = InterFontMedium,
-    fontWeight = FontWeight(400),
+    fontWeight = FontWeight(500),
     fontSize = 15.sp,
     color = Color.White
 )
