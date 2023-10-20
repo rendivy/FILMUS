@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -107,16 +106,25 @@ fun RegistrationSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
+        Spacer(modifier = Modifier.height(8.dp))
         CustomTextField(
             textFieldValue = userState.password,
             onValueChange = userAuthViewModel::setPassword
         )
-        Button(onClick = { checked.value = !checked.value }) {
-            Text(text = "Click me")
-        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Дата",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(2.dp),
+            color = Color.White,
+            fontFamily = InterRegular,
+            fontSize = 15.sp,
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        CustomClickableBox(checked = checked)
         DateAlert(checked = checked)
-
-
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -129,6 +137,7 @@ fun RegistrationSection(
             fontSize = 15.sp,
             textAlign = TextAlign.Start
         )
+        Spacer(modifier = Modifier.height(8.dp))
         CustomTextField(
             textFieldValue = userState.email,
             onValueChange = userAuthViewModel::setEmail
