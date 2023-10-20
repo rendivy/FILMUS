@@ -40,9 +40,8 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.login.utils.LoginSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.SemiBold
+import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
-import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.TitleSmall
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +56,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                     Text(
                         text = stringResource(id = R.string.app_logo),
                         color = Accent,
-                        style = TitleLarge,
+                        style = SecondarySemiBoldStyle,
                     )
                 },
                 navigationIcon = {
@@ -108,7 +107,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
-                        style = SemiBold
+                        style = SecondarySemiBoldStyle
                     )
                 }
             }

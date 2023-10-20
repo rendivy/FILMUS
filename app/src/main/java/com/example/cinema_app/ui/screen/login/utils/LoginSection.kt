@@ -17,14 +17,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
 import com.example.cinema_app.ui.common.PasswordTextField
 import com.example.cinema_app.ui.state.AuthenticationContent
-import com.example.cinema_app.ui.theme.InterFontMedium
 import com.example.cinema_app.ui.theme.TitleLarge
+import com.example.cinema_app.ui.theme.TitleMedium
 
 
 @Composable
@@ -56,11 +55,9 @@ fun LoginSection(
             text = stringResource(id = R.string.login_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp),
+                .padding(2.dp, bottom = 8.dp),
             color = Color.White,
-            fontFamily = InterFontMedium,
-            fontSize = 15.sp,
-            textAlign = TextAlign.Start
+            style = TitleMedium
         )
         CustomTextField(
             textFieldValue = loginState.username,
@@ -71,11 +68,9 @@ fun LoginSection(
             text = stringResource(id = R.string.password_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp),
+                .padding(2.dp, bottom = 8.dp),
             color = Color.White,
-            fontFamily = InterFontMedium,
-            fontSize = 15.sp,
-            textAlign = TextAlign.Start
+            style = TitleMedium
         )
         PasswordTextField(
             textFieldValue = loginState.password,

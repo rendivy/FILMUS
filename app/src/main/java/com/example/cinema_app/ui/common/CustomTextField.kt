@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.InterFontMedium
+import com.example.cinema_app.ui.theme.InterRegular
 
 
 @Composable
@@ -45,7 +45,7 @@ fun CustomTextField(
         onValueChange = onValueChange,
         textStyle = TextStyle(
             fontSize = 15.sp, color = Color.White,
-            fontFamily = InterFontMedium
+            fontFamily = InterRegular
         ),
         keyboardOptions = keyboardOptions,
         singleLine = true,
