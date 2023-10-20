@@ -61,6 +61,7 @@ dependencies {
     val lifecycleRuntimeVersion = "2.6.2"
     val kotlinSerialization = "1.0.0"
     val okHttpVersion = "4.11.0"
+    val material3Version = "1.1.1"
     val activityComposeVersion = "1.8.0"
     val securityCryptoVersion = "1.1.0-alpha06"
 
@@ -81,9 +82,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.0-alpha10")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.2.0-alpha10")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

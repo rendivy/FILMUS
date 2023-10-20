@@ -22,7 +22,7 @@ fun CinemaNavHost(
     val isStatusBarEnabled = currentRoute != NavigationRoutes.LaunchScreen.route
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.LaunchScreen.route
+        startDestination = NavigationRoutes.Registration.route
     ) {
         composable(NavigationRoutes.Greetings.route) {
             CinemaappTheme(isStatusBarEnabled) {

@@ -5,4 +5,5 @@ data class RegistrationContent(
     val login: String,
     val password: String,
     val email: String,
+    val birthDate: String = "",
 )

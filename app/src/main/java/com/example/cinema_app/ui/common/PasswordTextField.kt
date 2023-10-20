@@ -89,7 +89,7 @@ fun PasswordTextField(
                         .clickable(onClick = {
                             passwordVisibility = !passwordVisibility
                         })
-                        .size(24.dp),
+                        .size(20.dp),
                     tint = Color.White,
                     contentDescription = null,
                 )
