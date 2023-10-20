@@ -1,8 +1,8 @@
 package com.example.cinema_app.di
 
 import android.content.Context
-import com.example.cinema_app.common.Constants
-import com.example.cinema_app.common.Constants.BASE_URL
+import com.example.cinema_app.common.NetworkConstant
+import com.example.cinema_app.common.NetworkConstant.BASE_URL
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.repository.AuthRepositoryImpl
 import com.example.cinema_app.data.storage.TokenLocalStorage
@@ -28,9 +28,9 @@ object DataModule {
     private val gson: Gson = GsonBuilder().create()
 
     private val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
-        .connectTimeout(Constants.CONNECT_TIMEOUT, TimeUnit.SECONDS)
-        .writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)
-        .readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
+        .connectTimeout(NetworkConstant.CONNECT_TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(NetworkConstant.WRITE_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(NetworkConstant.READ_TIMEOUT, TimeUnit.SECONDS)
         .build()
 
     @Provides

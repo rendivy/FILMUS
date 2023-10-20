@@ -1,5 +1,6 @@
 package com.example.cinema_app.data.entity
 
+import com.example.cinema_app.common.Constants
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,4 +14,6 @@ data class RegistrationBody(
     val password: String,
     @SerialName("email")
     val email: String,
+    @SerialName("birthDate")
+    val birthDate: String = Constants.EMPTY_STRING,
 )

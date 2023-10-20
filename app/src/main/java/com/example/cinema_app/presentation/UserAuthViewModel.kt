@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegistrationUseCase
@@ -19,8 +20,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserAuthViewModel @Inject constructor(
-    private val registrationUseCase: RegistrationUseCase
-) : ViewModel() {
+    private val registrationUseCase: RegistrationUseCase,
+    private val dateConverter: DateConverter
+    ) :
+    ViewModel() {
+
     val registrationState: State<RegistrationContent>
         get() = _registrationState
 
@@ -67,6 +71,12 @@ class UserAuthViewModel @Inject constructor(
         _registrationState.value = _registrationState.value.copy(login = login)
     }
 
+    fun setUserBirthdate(birthDate: Long?) {
+        if (birthDate == null) return
+        _registrationState.value = _registrationState.value.copy(birthDate = dateConverter.convertMillisToDateString(birthDate))
+        Log.d("TAG", "setUserBirthdate: ${_registrationState.value.birthDate}")
+    }
+
     fun loginUser() {
         viewModelScope.launch {
             try {
@@ -76,8 +86,7 @@ class UserAuthViewModel @Inject constructor(
                         password = loginState.value.password,
                     )
                 )
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
 
@@ -93,15 +102,14 @@ class UserAuthViewModel @Inject constructor(
                         name = registrationState.value.name,
                         password = registrationState.value.password,
                         email = registrationState.value.email,
+                        birthDate = registrationState.value.birthDate,
                     )
                 )
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
 
         }
-
     }
 }
 

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.navigation.CinemaNavHost
+import com.example.cinema_app.ui.theme.CinemaappTheme
 import com.example.cinema_app.ui.theme.Gray900
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,9 +24,11 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             Surface(modifier = Modifier.fillMaxSize(), color = Gray900) {
-                CinemaNavHost(
-                    userAuthViewModel = authViewModel
-                )
+                CinemaappTheme {
+                    CinemaNavHost(
+                        userAuthViewModel = authViewModel
+                    )
+                }
             }
         }
     }
