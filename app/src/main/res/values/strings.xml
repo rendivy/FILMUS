@@ -6,7 +6,7 @@
     <string name="enter_label">Войти</string>
     <string name="login_screen_label">Вход</string>
     <string name="login_label">Логин</string>
-    <string name="dont_have_account">Нет аккаунта?</string>
+    <string name="dont_have_account">Еще нет аккаунта?</string>
     <string name="register_label">Зарегистрируйтесь</string>
     <string name="password_label">Пароль</string>
     <string name="main_registration">Регистрация</string>

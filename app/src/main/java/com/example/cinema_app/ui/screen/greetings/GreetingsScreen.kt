@@ -28,8 +28,8 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.SemiBold
-import com.example.cinema_app.ui.theme.TitleLarge
+import com.example.cinema_app.ui.theme.SecondaryAccentStyle
+import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
 
 
@@ -53,7 +53,7 @@ fun GreetingsScreen(navController: NavController) {
         Text(
             text = stringResource(id = R.string.greetings_screen_label),
             modifier = Modifier.fillMaxWidth(),
-            style = TitleLarge,
+            style = SemiBoldStyle,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -80,7 +80,7 @@ fun GreetingsScreen(navController: NavController) {
                 text = stringResource(id = R.string.main_registration),
                 modifier = Modifier
                     .fillMaxWidth(),
-                style = SemiBold,
+                style = SecondaryAccentStyle,
                 textAlign = TextAlign.Center
             )
         }
@@ -104,7 +104,7 @@ fun GreetingsScreen(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f),
                 color = Accent,
-                style = SemiBold,
+                style = SecondaryAccentStyle,
                 textAlign = TextAlign.Center
             )
         }
