@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration.component
+package com.example.cinema_app.ui.screen.registration
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.common.CustomTextField
+import com.example.cinema_app.ui.common.CustomClickableBox
+import com.example.cinema_app.ui.screen.registration.component.DateAlert
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.InterRegular
 
@@ -123,8 +125,8 @@ fun RegistrationSection(
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(8.dp))
-        CustomClickableBox(checked = checked)
-        DateAlert(checked = checked)
+        CustomClickableBox(checked = checked, userAuthViewModel = userAuthViewModel)
+        DateAlert(checked = checked, userAuthViewModel = userAuthViewModel)
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(

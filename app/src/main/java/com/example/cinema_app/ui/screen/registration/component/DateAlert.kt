@@ -11,9 +11,11 @@ import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import java.time.LocalDateTime
@@ -21,7 +23,8 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateAlert(checked: MutableState<Boolean>){
+fun DateAlert(checked: MutableState<Boolean>, userAuthViewModel: UserAuthViewModel) {
+    val registrationContent by remember { userAuthViewModel.registrationState }
     val datePickerState = remember {
         DatePickerState(
             yearRange = 1950..LocalDateTime.now().year,
@@ -31,7 +34,7 @@ fun DateAlert(checked: MutableState<Boolean>){
             locale = Locale.getDefault(),
         )
     }
-    if (checked.value){
+    if (checked.value) {
         DatePickerDialog(
             colors = DatePickerDefaults.colors(
                 currentYearContentColor = Gray900,
@@ -45,14 +48,14 @@ fun DateAlert(checked: MutableState<Boolean>){
                         modifier = Modifier.align(Alignment.Center),
                         onClick = {
                             checked.value = false
+                            userAuthViewModel.setUserBirthdate(datePickerState.selectedDateMillis)
 
                         }) {
                     }
-
                 }
-
             }
-        ) {
+        )
+        {
             DatePicker(
                 state = datePickerState,
                 colors = DatePickerDefaults.colors(
