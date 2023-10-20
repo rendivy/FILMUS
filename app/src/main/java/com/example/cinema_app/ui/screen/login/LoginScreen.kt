@@ -37,7 +37,7 @@ import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import com.example.cinema_app.ui.screen.login.utils.LoginSection
+import com.example.cinema_app.ui.screen.login.component.LoginSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle

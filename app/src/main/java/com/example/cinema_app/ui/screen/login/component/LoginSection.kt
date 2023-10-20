@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.login.utils
+package com.example.cinema_app.ui.screen.login.component
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
