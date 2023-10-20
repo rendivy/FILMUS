@@ -76,7 +76,8 @@ class UserAuthViewModel @Inject constructor(
                         password = loginState.value.password,
                     )
                 )
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
 
@@ -94,7 +95,8 @@ class UserAuthViewModel @Inject constructor(
                         email = registrationState.value.email,
                     )
                 )
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
 
