@@ -12,4 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val Gray900 = Color(29, 29, 29)
 val Accent = Color(252, 49, 94)
-val Gray400 = Color(41, 41, 41)
+val Gray400 = Color(144, 148, 153)
+val Black300 = Color(41, 41, 41)

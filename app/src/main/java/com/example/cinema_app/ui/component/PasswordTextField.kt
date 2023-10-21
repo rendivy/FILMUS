@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.common
+package com.example.cinema_app.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

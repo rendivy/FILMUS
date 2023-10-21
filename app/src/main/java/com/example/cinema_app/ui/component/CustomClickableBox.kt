@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.common
+package com.example.cinema_app.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,20 +15,17 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
 
 @Composable
 fun CustomClickableBox(checked: MutableState<Boolean>, userAuthViewModel: UserAuthViewModel) {
 
-    val visibilityIconState =
-        ImageVector.vectorResource(id = R.drawable.eye_close)
     Box(
         modifier = Modifier
             .clickable { checked.value = checked.value.not() }
@@ -51,10 +48,10 @@ fun CustomClickableBox(checked: MutableState<Boolean>, userAuthViewModel: UserAu
             style = TitleMedium,
         )
         Icon(
-            painter = painterResource(id = R.drawable.eye_close),
+            painter = painterResource(id = R.drawable.date_picker_icon),
             modifier = Modifier.align(Alignment.CenterEnd).padding(12.dp),
             contentDescription = null,
-            tint = Color.White,
+            tint = Gray400,
         )
     }
 

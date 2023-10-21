@@ -38,6 +38,7 @@ import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
+import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
@@ -107,7 +108,7 @@ fun RegistrationScreen(
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
-                        style = TitleSmall
+                        style = SecondarySemiBoldStyle
                     )
                 }
             }
