@@ -25,10 +25,10 @@ import com.example.cinema_app.ui.theme.InterRegular
 @Composable
 fun CustomTextField(
     textFieldValue: String = Constants.EMPTY_STRING,
+    color: Color = Color.Gray,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-
     BasicTextField(
         modifier = Modifier
             .background(
@@ -37,7 +37,7 @@ fun CustomTextField(
             )
             .border(
                 width = 1.dp,
-                color = Color.Gray,
+                color = color,
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth(),

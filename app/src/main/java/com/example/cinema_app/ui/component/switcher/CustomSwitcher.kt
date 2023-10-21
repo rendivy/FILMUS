@@ -36,7 +36,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray400
-import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.TitleSmall
 
 fun ContentDrawScope.drawWithLayer(block: ContentDrawScope.() -> Unit) {
     with(drawContext.canvas.nativeCanvas) {
@@ -128,7 +128,7 @@ fun TextSwitch(
                     ) {
                         Text(
                             text = text,
-                            style = TitleMedium,
+                            style = TitleSmall,
                             color = Gray400
                         )
                     }

@@ -10,23 +10,31 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
-import com.example.cinema_app.domain.usecase.RegistrationUseCase
+import com.example.cinema_app.domain.usecase.RegisterUserUseCase
+import com.example.cinema_app.presentation.validator.PasswordValidator
 import com.example.cinema_app.ui.state.AuthenticationContent
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class UserAuthViewModel @Inject constructor(
-    private val registrationUseCase: RegistrationUseCase,
-    private val dateConverter: DateConverter
-    ) :
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val dateConverter: DateConverter,
+    private val passwordValidator: PasswordValidator
+) :
     ViewModel() {
 
     val registrationState: State<RegistrationContent>
         get() = _registrationState
+
+    private val validationEventChannel = Channel<ValidationEvent>()
+    val validationEvent = validationEventChannel.receiveAsFlow()
+
 
     private val _registrationState: MutableState<RegistrationContent> = mutableStateOf(
         RegistrationContent(
@@ -34,6 +42,7 @@ class UserAuthViewModel @Inject constructor(
             name = Constants.EMPTY_STRING,
             password = Constants.EMPTY_STRING,
             email = Constants.EMPTY_STRING,
+            confirmPassword = Constants.EMPTY_STRING,
         )
     )
 
@@ -46,6 +55,7 @@ class UserAuthViewModel @Inject constructor(
             password = "310191",
         )
     )
+
 
     fun setAuthLogin(login: String) {
         _loginState.value = _loginState.value.copy(username = login)
@@ -71,16 +81,21 @@ class UserAuthViewModel @Inject constructor(
         _registrationState.value = _registrationState.value.copy(login = login)
     }
 
+    fun setUserGender(index: Int) {
+        _registrationState.value = _registrationState.value.copy(gender = index)
+    }
+
     fun setUserBirthdate(birthDate: Long?) {
         if (birthDate == null) return
-        _registrationState.value = _registrationState.value.copy(birthDate = dateConverter.convertMillisToDateString(birthDate))
-        Log.d("TAG", "setUserBirthdate: ${_registrationState.value.birthDate}")
+        _registrationState.value = _registrationState.value.copy(
+            birthDate = dateConverter.convertMillisToDateString(birthDate)
+        )
     }
 
     fun loginUser() {
         viewModelScope.launch {
             try {
-                registrationUseCase.loginUser(
+                registerUserUseCase.loginUser(
                     AuthenticationBody(
                         username = loginState.value.username,
                         password = loginState.value.password,
@@ -94,9 +109,16 @@ class UserAuthViewModel @Inject constructor(
     }
 
     fun registerUser() {
+        val passwordResult = passwordValidator.execute(registrationState.value.password)
         viewModelScope.launch {
             try {
-                registrationUseCase.registerUser(
+                if (!passwordResult.successful) {
+                    _registrationState.value = _registrationState.value.copy(
+                        passwordError = passwordResult.errorMessage
+                    )
+                    return@launch
+                }
+                registerUserUseCase.registerUser(
                     RegistrationBody(
                         userName = registrationState.value.login,
                         name = registrationState.value.name,

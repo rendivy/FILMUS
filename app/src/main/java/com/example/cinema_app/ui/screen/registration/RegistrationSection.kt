@@ -73,27 +73,26 @@ fun RegistrationSection(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(id = R.string.login_label),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(2.dp),
-            style = TitleSmall
-        )
-        CustomTextField(
-            textFieldValue = userState.login,
-            onValueChange = userAuthViewModel::setLogin,
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
             text = stringResource(id = R.string.user_sex_label),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        TextSwitchTest()
+        TextSwitchTest(userAuthViewModel = userAuthViewModel)
         Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(id = R.string.login_label),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(2.dp),
+            style = TitleSmall
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        CustomTextField(
+            textFieldValue = userState.login,
+            onValueChange = userAuthViewModel::setLogin,
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.email_label),
