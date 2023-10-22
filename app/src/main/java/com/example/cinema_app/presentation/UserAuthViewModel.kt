@@ -11,12 +11,12 @@ import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
+import com.example.cinema_app.presentation.validator.AllCredentialsValidator
+import com.example.cinema_app.presentation.validator.ConfirmPasswordValidator
 import com.example.cinema_app.presentation.validator.PasswordValidator
 import com.example.cinema_app.ui.state.AuthenticationContent
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,15 +25,14 @@ import javax.inject.Inject
 class UserAuthViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
-    private val passwordValidator: PasswordValidator
+    private val passwordValidator: PasswordValidator,
+    private val navigationValidator: AllCredentialsValidator,
+    private val confirmPasswordValidator: ConfirmPasswordValidator
 ) :
     ViewModel() {
 
     val registrationState: State<RegistrationContent>
         get() = _registrationState
-
-    private val validationEventChannel = Channel<ValidationEvent>()
-    val validationEvent = validationEventChannel.receiveAsFlow()
 
 
     private val _registrationState: MutableState<RegistrationContent> = mutableStateOf(
@@ -65,6 +64,10 @@ class UserAuthViewModel @Inject constructor(
         _loginState.value = _loginState.value.copy(password = password)
     }
 
+    fun setConfirmPassword(confirmPassword: String) {
+        _registrationState.value = _registrationState.value.copy(confirmPassword = confirmPassword)
+    }
+
     fun setName(name: String) {
         _registrationState.value = _registrationState.value.copy(name = name)
     }
@@ -92,6 +95,27 @@ class UserAuthViewModel @Inject constructor(
         )
     }
 
+    fun checkAllStates(): Boolean {
+        return navigationValidator.execute(_registrationState)
+    }
+
+    fun clearAllUserCredentials() {
+        _registrationState.value = _registrationState.value.copy(
+            login = Constants.EMPTY_STRING,
+            name = Constants.EMPTY_STRING,
+            password = Constants.EMPTY_STRING,
+            email = Constants.EMPTY_STRING,
+            confirmPassword = Constants.EMPTY_STRING,
+            emailError = null,
+            loginError = null,
+            passwordError = null,
+            confirmPasswordError = null,
+            birthDateError = null,
+            nameError = null,
+        )
+    }
+
+
     fun loginUser() {
         viewModelScope.launch {
             try {
@@ -104,17 +128,26 @@ class UserAuthViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
-
         }
     }
 
     fun registerUser() {
-        val passwordResult = passwordValidator.execute(registrationState.value.password)
+        val passwordResult = passwordValidator.execute(_registrationState.value.password)
+        val confirmPasswordResult = confirmPasswordValidator.execute(
+            confirmPassword = _registrationState.value.confirmPassword,
+            password = _registrationState.value.password
+        )
         viewModelScope.launch {
             try {
                 if (!passwordResult.successful) {
                     _registrationState.value = _registrationState.value.copy(
                         passwordError = passwordResult.errorMessage
+                    )
+                    return@launch
+                }
+                if (!confirmPasswordResult.successful) {
+                    _registrationState.value = _registrationState.value.copy(
+                        confirmPasswordError = confirmPasswordResult.errorMessage
                     )
                     return@launch
                 }

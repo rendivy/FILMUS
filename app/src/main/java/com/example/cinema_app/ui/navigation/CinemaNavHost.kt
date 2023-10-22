@@ -8,9 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.screen.greetings.GreetingsScreen
 import com.example.cinema_app.ui.screen.login.LoginScreen
-import com.example.cinema_app.ui.screen.registration.RegistrationPasswordScreen
-import com.example.cinema_app.ui.screen.registration.RegistrationScreen
-import com.example.cinema_app.ui.screen.splash.LaunchScreen
+import com.example.cinema_app.ui.screen.registration.credentials.RegistrationScreen
+import com.example.cinema_app.ui.screen.registration.password.RegistrationPasswordScreen
+import com.example.cinema_app.ui.splash.LaunchScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

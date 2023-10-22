@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.password
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -43,9 +43,10 @@ import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationScreen(
+fun RegistrationPasswordScreen(
     userAuthViewModel: UserAuthViewModel,
     navController: NavController
 ) {
@@ -64,7 +65,6 @@ fun RegistrationScreen(
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
-                        navController.navigate(NavigationRoutes.Greetings.route)
                     }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
@@ -90,8 +90,7 @@ fun RegistrationScreen(
                     .background(color = Gray900),
                 verticalArrangement = Arrangement.Top,
             ) {
-
-                RegistrationSection(
+                RegistrationPasswordSection(
                     userState = registrationState,
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
@@ -101,7 +100,7 @@ fun RegistrationScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route) },
+                    onClick = { userAuthViewModel.registerUser() },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
@@ -135,18 +134,15 @@ fun RegistrationScreen(
                         onClick = {
                             if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Login.route) {
                                 navController.popBackStack()
-                            } else {
+                            }
+                            else {
                                 navController.navigate(NavigationRoutes.Login.route)
                             }
                         }),
                     color = Accent,
                     style = TitleSmall
                 )
-
             }
-
-
         }
     )
 }
-

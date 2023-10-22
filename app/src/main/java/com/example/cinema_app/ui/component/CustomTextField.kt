@@ -25,19 +25,23 @@ import com.example.cinema_app.ui.theme.InterRegular
 @Composable
 fun CustomTextField(
     textFieldValue: String = Constants.EMPTY_STRING,
-    color: Color = Color.Gray,
+    outlined: Color = Color.Gray,
+    error: String? = null,
+    container: Color = Gray900,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
+    val outlinedColor = if (error != null) Color.Red else Color.Gray
+    val containerColor = if (error != null) Color.Red.copy(alpha = 0.1f) else Gray900
     BasicTextField(
         modifier = Modifier
             .background(
-                color = Gray900,
+                color = containerColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                color = color,
+                color = outlinedColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth(),

@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.credentials
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -43,10 +43,9 @@ import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
-
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
-fun RegistrationPasswordScreen(
+fun RegistrationScreen(
     userAuthViewModel: UserAuthViewModel,
     navController: NavController
 ) {
@@ -65,6 +64,7 @@ fun RegistrationPasswordScreen(
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
+                        userAuthViewModel.clearAllUserCredentials()
                         navController.navigate(NavigationRoutes.Greetings.route)
                     }) {
                         Icon(
@@ -91,7 +91,8 @@ fun RegistrationPasswordScreen(
                     .background(color = Gray900),
                 verticalArrangement = Arrangement.Top,
             ) {
-                RegistrationPasswordSection(
+
+                RegistrationSection(
                     userState = registrationState,
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
@@ -101,7 +102,11 @@ fun RegistrationPasswordScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { userAuthViewModel.registerUser() },
+                    onClick = {
+                        if (userAuthViewModel.checkAllStates()) {
+                            navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route)
+                        }
+                    },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
@@ -149,3 +154,4 @@ fun RegistrationPasswordScreen(
         }
     )
 }
+

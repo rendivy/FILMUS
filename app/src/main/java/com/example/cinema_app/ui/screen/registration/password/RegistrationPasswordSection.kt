@@ -1,6 +1,5 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.password
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,15 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.validator.ErrorType
 import com.example.cinema_app.ui.component.CustomTextField
+import com.example.cinema_app.ui.screen.registration.component.CredentialsErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent
-import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleSmall
 
 
@@ -31,11 +31,7 @@ fun RegistrationPasswordSection(
     userAuthViewModel: UserAuthViewModel,
     focusManager: FocusManager
 ) {
-    val passwordFieldColor = if (userState.passwordError != null) {
-        Color.Red
-    } else {
-        Color.Gray
-    }
+
 
     Column(
         modifier = Modifier
@@ -57,21 +53,36 @@ fun RegistrationPasswordSection(
         Spacer(modifier = Modifier.height(8.dp))
         CustomTextField(
             textFieldValue = userState.password,
-            color = passwordFieldColor,
+            error = userState.passwordError,
             onValueChange = userAuthViewModel::setPassword,
         )
         if (userState.passwordError != null) {
-            AnimatedVisibility(visible = true) {
-                Text(
-                    text = userState.passwordError,
-                    modifier = Modifier.fillMaxWidth().padding(2.dp),
-                    color = passwordFieldColor,
-                    style = TitleMedium,
-                )
-            }
-
+            CredentialsErrorAnimation(
+                userState = userState,
+                errorType = ErrorType.PASSWORD,
+                outlinedColor = Red
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Повторите пароль",
+            modifier = Modifier.fillMaxWidth(),
+            style = TitleSmall,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        CustomTextField(
+            textFieldValue = userState.confirmPassword,
+            error = userState.confirmPasswordError,
+            onValueChange = userAuthViewModel::setConfirmPassword,
+        )
+        if (userState.confirmPasswordError != null) {
+            CredentialsErrorAnimation(
+                userState = userState,
+                errorType = ErrorType.CONFIRM_PASSWORD,
+                outlinedColor = Red
+            )
+        }
+
     }
 
 }
