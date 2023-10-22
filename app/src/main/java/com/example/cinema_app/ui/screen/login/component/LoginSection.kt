@@ -19,8 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.UserAuthViewModel
-import com.example.cinema_app.ui.common.CustomTextField
-import com.example.cinema_app.ui.common.PasswordTextField
+import com.example.cinema_app.ui.component.CustomTextField
+import com.example.cinema_app.ui.component.PasswordTextField
 import com.example.cinema_app.ui.state.AuthenticationContent
 import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.TitleMedium

@@ -1,9 +1,10 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.password
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,12 +39,14 @@ import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
+import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationScreen(
+fun RegistrationPasswordScreen(
     userAuthViewModel: UserAuthViewModel,
     navController: NavController
 ) {
@@ -62,7 +65,6 @@ fun RegistrationScreen(
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
-                        navController.navigate(NavigationRoutes.Greetings.route)
                     }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
@@ -88,8 +90,7 @@ fun RegistrationScreen(
                     .background(color = Gray900),
                 verticalArrangement = Arrangement.Top,
             ) {
-
-                RegistrationSection(
+                RegistrationPasswordSection(
                     userState = registrationState,
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
@@ -103,11 +104,12 @@ fun RegistrationScreen(
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
-                    )
+                    ),
+                    contentPadding = PaddingValues(12.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
-                        style = TitleSmall
+                        style = SecondarySemiBoldStyle
                     )
                 }
             }
@@ -132,18 +134,15 @@ fun RegistrationScreen(
                         onClick = {
                             if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Login.route) {
                                 navController.popBackStack()
-                            } else {
+                            }
+                            else {
                                 navController.navigate(NavigationRoutes.Login.route)
                             }
                         }),
                     color = Accent,
                     style = TitleSmall
                 )
-
             }
-
-
         }
     )
 }
-

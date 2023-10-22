@@ -47,7 +47,7 @@ val SemiBoldStyle = TextStyle(
 )
 
 val SecondarySemiBoldStyle = TextStyle(
-    fontFamily = InterRegular,
+    fontFamily = InternSemiBold,
     fontWeight = FontWeight(600),
     fontSize = 15.sp,
     color = Color.White

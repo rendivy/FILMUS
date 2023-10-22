@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
-import com.example.cinema_app.ui.theme.Gray400
+import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
@@ -95,7 +95,7 @@ fun GreetingsScreen(navController: NavController) {
             shape = RoundedCornerShape(size = 10.dp),
             contentPadding = PaddingValues(12.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Gray400
+                containerColor = Black300
             )
         ) {
             Text(

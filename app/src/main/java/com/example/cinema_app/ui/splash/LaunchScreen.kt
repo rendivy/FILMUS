@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.splash
+package com.example.cinema_app.ui.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
