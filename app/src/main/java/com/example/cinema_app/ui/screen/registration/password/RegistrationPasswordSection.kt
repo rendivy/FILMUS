@@ -16,10 +16,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.presentation.validator.ErrorType
-import com.example.cinema_app.ui.component.CustomTextField
-import com.example.cinema_app.ui.screen.registration.component.CredentialsErrorAnimation
+import com.example.cinema_app.ui.component.PasswordTextField
+import com.example.cinema_app.ui.screen.registration.component.RegistrationErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleSmall
@@ -28,7 +28,7 @@ import com.example.cinema_app.ui.theme.TitleSmall
 @Composable
 fun RegistrationPasswordSection(
     userState: RegistrationContent,
-    userAuthViewModel: UserAuthViewModel,
+    userAuthViewModel: RegistrationViewModel,
     focusManager: FocusManager
 ) {
 
@@ -51,13 +51,13 @@ fun RegistrationPasswordSection(
             style = TitleSmall,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        CustomTextField(
+        PasswordTextField(
             textFieldValue = userState.password,
             error = userState.passwordError,
             onValueChange = userAuthViewModel::setPassword,
         )
         if (userState.passwordError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.PASSWORD,
                 outlinedColor = Red
@@ -70,13 +70,13 @@ fun RegistrationPasswordSection(
             style = TitleSmall,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        CustomTextField(
+        PasswordTextField(
             textFieldValue = userState.confirmPassword,
             error = userState.confirmPasswordError,
             onValueChange = userAuthViewModel::setConfirmPassword,
         )
         if (userState.confirmPasswordError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.CONFIRM_PASSWORD,
                 outlinedColor = Red

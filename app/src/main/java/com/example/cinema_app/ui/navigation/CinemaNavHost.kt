@@ -5,7 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.screen.greetings.GreetingsScreen
 import com.example.cinema_app.ui.screen.login.LoginScreen
 import com.example.cinema_app.ui.screen.registration.credentials.RegistrationScreen
@@ -15,7 +16,8 @@ import com.example.cinema_app.ui.splash.LaunchScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CinemaNavHost(
-    userAuthViewModel: UserAuthViewModel,
+    userAuthViewModel: RegistrationViewModel,
+    loginViewModel: LoginViewModel
 ) {
     val navController = rememberNavController()
     NavHost(
@@ -42,7 +44,7 @@ fun CinemaNavHost(
         }
         composable(NavigationRoutes.Login.route) {
             LoginScreen(
-                userAuthViewModel = userAuthViewModel,
+                loginViewModel = loginViewModel,
                 navController = navController
             )
         }

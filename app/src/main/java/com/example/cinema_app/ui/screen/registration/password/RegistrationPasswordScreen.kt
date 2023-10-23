@@ -35,7 +35,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
@@ -47,7 +47,7 @@ import com.example.cinema_app.ui.theme.TitleSmall
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationPasswordScreen(
-    userAuthViewModel: UserAuthViewModel,
+    userAuthViewModel: RegistrationViewModel,
     navController: NavController
 ) {
     val registrationState by remember { userAuthViewModel.registrationState }

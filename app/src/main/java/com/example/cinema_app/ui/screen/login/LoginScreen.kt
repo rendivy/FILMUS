@@ -35,7 +35,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.LoginViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.login.component.LoginSection
 import com.example.cinema_app.ui.theme.Accent
@@ -46,8 +46,8 @@ import com.example.cinema_app.ui.theme.TitleSmall
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavController) {
-    val loginState by remember { userAuthViewModel.loginState }
+fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
+    val loginState by remember { loginViewModel.loginState }
     val focusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
@@ -90,7 +90,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
             ) {
                 LoginSection(
                     loginState = loginState,
-                    userAuthViewModel = userAuthViewModel,
+                    userAuthViewModel = loginViewModel,
                     focusManager = focusManager
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -98,7 +98,7 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { userAuthViewModel.loginUser() },
+                    onClick = { loginViewModel.loginUser() },
                     contentPadding = PaddingValues(12.dp),
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -111,12 +111,14 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                     )
                 }
             }
+
         },
         bottomBar = {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Gray900).padding(bottom = 16.dp),
+                    .background(color = Gray900)
+                    .padding(bottom = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -137,7 +139,6 @@ fun LoginScreen(userAuthViewModel: UserAuthViewModel, navController: NavControll
                     color = Accent,
                     style = TitleSmall
                 )
-
             }
 
         }

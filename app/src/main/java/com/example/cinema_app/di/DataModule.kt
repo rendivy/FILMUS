@@ -39,7 +39,6 @@ object DataModule {
 
 
     @Provides
-    @Singleton
     fun provideTokenLocalStorage(@ApplicationContext context: Context) =
         TokenLocalStorage(context)
 

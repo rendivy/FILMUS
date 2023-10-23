@@ -14,7 +14,7 @@ import com.example.cinema_app.ui.theme.TitleMedium
 
 
 @Composable
-fun CredentialsErrorAnimation(
+fun RegistrationErrorAnimation(
     userState: RegistrationContent,
     errorType: ErrorType,
     outlinedColor: Color

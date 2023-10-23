@@ -19,13 +19,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.presentation.validator.ErrorType
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.switcher.TextSwitchTest
-import com.example.cinema_app.ui.screen.registration.component.CredentialsErrorAnimation
 import com.example.cinema_app.ui.screen.registration.component.DateAlert
+import com.example.cinema_app.ui.screen.registration.component.RegistrationErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.SemiBoldStyle
@@ -34,7 +34,7 @@ import com.example.cinema_app.ui.theme.TitleSmall
 @Composable
 fun RegistrationSection(
     userState: RegistrationContent,
-    userAuthViewModel: UserAuthViewModel,
+    userAuthViewModel: RegistrationViewModel,
     focusManager: FocusManager
 ) {
     val checked = remember { mutableStateOf(false) }
@@ -73,7 +73,7 @@ fun RegistrationSection(
 
         )
         if (userState.nameError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.NAME,
                 outlinedColor = Red
@@ -103,7 +103,7 @@ fun RegistrationSection(
             error = userState.loginError,
         )
         if (userState.loginError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.LOGIN,
                 outlinedColor = Red
@@ -125,7 +125,7 @@ fun RegistrationSection(
         )
 
         if (userState.emailError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.EMAIL,
                 outlinedColor = Red
@@ -146,7 +146,7 @@ fun RegistrationSection(
             error = userState.birthDateError
         )
         if (userState.birthDateError != null) {
-            CredentialsErrorAnimation(
+            RegistrationErrorAnimation(
                 userState = userState,
                 errorType = ErrorType.DATE,
                 outlinedColor = Red

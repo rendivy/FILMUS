@@ -8,13 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.converter.DateConverter
-import com.example.cinema_app.data.entity.AuthenticationBody
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
-import com.example.cinema_app.presentation.validator.AllCredentialsValidator
 import com.example.cinema_app.presentation.validator.ConfirmPasswordValidator
 import com.example.cinema_app.presentation.validator.PasswordValidator
-import com.example.cinema_app.ui.state.AuthenticationContent
+import com.example.cinema_app.presentation.validator.RegistrationCredentialsValidator
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,11 +20,11 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class UserAuthViewModel @Inject constructor(
+class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
     private val passwordValidator: PasswordValidator,
-    private val navigationValidator: AllCredentialsValidator,
+    private val navigationValidator: RegistrationCredentialsValidator,
     private val confirmPasswordValidator: ConfirmPasswordValidator
 ) :
     ViewModel() {
@@ -45,24 +43,6 @@ class UserAuthViewModel @Inject constructor(
         )
     )
 
-    val loginState: State<AuthenticationContent>
-        get() = _loginState
-
-    private val _loginState: MutableState<AuthenticationContent> = mutableStateOf(
-        AuthenticationContent(
-            username = "rendivy",
-            password = "310191",
-        )
-    )
-
-
-    fun setAuthLogin(login: String) {
-        _loginState.value = _loginState.value.copy(username = login)
-    }
-
-    fun setAuthPassword(password: String) {
-        _loginState.value = _loginState.value.copy(password = password)
-    }
 
     fun setConfirmPassword(confirmPassword: String) {
         _registrationState.value = _registrationState.value.copy(confirmPassword = confirmPassword)
@@ -115,56 +95,71 @@ class UserAuthViewModel @Inject constructor(
         )
     }
 
-
-    fun loginUser() {
-        viewModelScope.launch {
-            try {
-                registerUserUseCase.loginUser(
-                    AuthenticationBody(
-                        username = loginState.value.username,
-                        password = loginState.value.password,
-                    )
-                )
-            } catch (e: Exception) {
-                Log.d("TAG", "registerUser: ${e.message}")
-            }
-        }
-    }
-
     fun registerUser() {
         val passwordResult = passwordValidator.execute(_registrationState.value.password)
         val confirmPasswordResult = confirmPasswordValidator.execute(
             confirmPassword = _registrationState.value.confirmPassword,
             password = _registrationState.value.password
         )
+
         viewModelScope.launch {
             try {
-                if (!passwordResult.successful) {
-                    _registrationState.value = _registrationState.value.copy(
-                        passwordError = passwordResult.errorMessage
-                    )
-                    return@launch
+                when {
+                    !passwordResult.successful -> passwordResult.errorMessage?.let {
+                        handlePasswordError(
+                            it
+                        )
+                    }
+
+                    else -> clearPasswordError()
                 }
-                if (!confirmPasswordResult.successful) {
-                    _registrationState.value = _registrationState.value.copy(
-                        confirmPasswordError = confirmPasswordResult.errorMessage
-                    )
-                    return@launch
+
+                when {
+                    !confirmPasswordResult.successful -> confirmPasswordResult.errorMessage?.let {
+                        handleConfirmPasswordError(
+                            it
+                        )
+                    }
+
+                    else -> clearConfirmPasswordError()
                 }
-                registerUserUseCase.registerUser(
-                    RegistrationBody(
-                        userName = registrationState.value.login,
-                        name = registrationState.value.name,
-                        password = registrationState.value.password,
-                        email = registrationState.value.email,
-                        birthDate = registrationState.value.birthDate,
-                    )
-                )
+
+                if (passwordResult.successful && confirmPasswordResult.successful) {
+                    val registrationBody = createRegistrationBody()
+                    registerUserUseCase.invoke(registrationBody)
+                }
             } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
-
         }
+    }
+
+    private fun handlePasswordError(errorMessage: String) {
+        _registrationState.value = _registrationState.value.copy(passwordError = errorMessage)
+    }
+
+    private fun clearPasswordError() {
+        _registrationState.value = _registrationState.value.copy(passwordError = null)
+    }
+
+    private fun handleConfirmPasswordError(errorMessage: String) {
+        _registrationState.value =
+            _registrationState.value.copy(confirmPasswordError = errorMessage)
+    }
+
+    private fun clearConfirmPasswordError() {
+        _registrationState.value = _registrationState.value.copy(confirmPasswordError = null)
+    }
+
+    private fun createRegistrationBody(): RegistrationBody {
+        val registrationState = _registrationState.value
+        return RegistrationBody(
+            userName = registrationState.login,
+            name = registrationState.name,
+            password = registrationState.password,
+            email = registrationState.email,
+            birthDate = registrationState.birthDate
+        )
     }
 }
 
