@@ -23,10 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.LoginViewModel
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.PasswordTextField
+import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.login.state.LoginState
 import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimation
 import com.example.cinema_app.ui.state.LoginContent
@@ -40,7 +42,8 @@ import com.example.cinema_app.ui.theme.TitleMedium
 fun LoginSection(
     loginState: LoginContent,
     userAuthViewModel: LoginViewModel,
-    focusManager: FocusManager
+    focusManager: FocusManager,
+    navController: NavController
 ) {
     val errorState by userAuthViewModel.errorState.collectAsStateWithLifecycle()
 
@@ -106,6 +109,7 @@ fun LoginSection(
             }
 
             is LoginState.Success -> {
+                navController.navigate(NavigationRoutes.Main.route)
 
             }
 

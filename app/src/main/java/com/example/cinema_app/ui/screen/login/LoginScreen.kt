@@ -91,7 +91,8 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                 LoginSection(
                     loginState = loginState,
                     userAuthViewModel = loginViewModel,
-                    focusManager = focusManager
+                    focusManager = focusManager,
+                    navController = navController
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(

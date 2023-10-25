@@ -7,8 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.data.entity.AuthenticationBody
-import com.example.cinema_app.domain.repository.AuthRepository
+import com.example.cinema_app.domain.usecase.LoginUserUseCase
 import com.example.cinema_app.presentation.validator.LoginValidator
 import com.example.cinema_app.presentation.validator.PasswordValidator
 import com.example.cinema_app.ui.screen.login.state.LoginState
@@ -23,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository,
+    private val loginUserUseCase: LoginUserUseCase,
     private val loginValidator: LoginValidator,
     private val passwordValidator: PasswordValidator
 ) : ViewModel() {
@@ -77,14 +76,13 @@ class LoginViewModel @Inject constructor(
                 400 -> {
                     _errorState.value = LoginState.Error(ErrorConstant.AUTHORIZATION_ERROR)
                 }
+
                 else -> {
                     _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
                 }
             }
         }
     }
-
-
 
     fun loginUser() {
         viewModelScope.launch(loginExceptionHandler) {
@@ -94,13 +92,7 @@ class LoginViewModel @Inject constructor(
                 _errorState.value = LoginState.Initial
                 return@launch
             }
-
-            repository.loginUser(
-                AuthenticationBody(
-                    username = _loginState.value.username,
-                    password = _loginState.value.password
-                )
-            )
+            loginUserUseCase.invoke(_loginState.value)
             _errorState.value = LoginState.Success
         }
     }

@@ -128,7 +128,8 @@ class RegistrationViewModel @Inject constructor(
                     val registrationBody = createRegistrationBody()
                     registerUserUseCase.invoke(registrationBody)
                 }
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
         }

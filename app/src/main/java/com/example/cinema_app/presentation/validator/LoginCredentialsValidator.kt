@@ -19,7 +19,7 @@ class LoginCredentialsValidator @Inject constructor(
         val isPasswordCorrect = passwordResult.successful
 
 
-        loginContent.value.copy(
+        loginContent.value = loginContent.value.copy(
             usernameError = if (!isLoginCorrect) loginResult.errorMessage else null,
             passwordError = if (!isPasswordCorrect) passwordResult.errorMessage else null,
         )

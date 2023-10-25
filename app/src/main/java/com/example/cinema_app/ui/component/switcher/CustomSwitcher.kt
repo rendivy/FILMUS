@@ -4,7 +4,6 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -60,10 +59,6 @@ fun TextSwitch(
             .clip(RoundedCornerShape(8.dp))
             .background(
                 color = Black300
-            ).border(
-                width = 1.dp,
-                color = Color.Gray,
-                shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth().padding(2.dp)
     ) {

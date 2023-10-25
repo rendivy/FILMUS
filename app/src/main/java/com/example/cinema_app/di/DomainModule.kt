@@ -43,7 +43,7 @@ object DomainModule {
         return LoginValidator()
     }
 
-    @Provides
+     @Provides
     fun providePasswordValidator(): PasswordValidator {
         return PasswordValidator()
     }
