@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.LoginViewModel
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.navigation.CinemaNavHost
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val authViewModel: RegistrationViewModel by viewModels()
+    private val favouritesMovieViewModel: FavouritesMovieViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,8 @@ class MainActivity : ComponentActivity() {
                 CinemaappTheme {
                     CinemaNavHost(
                         userAuthViewModel = authViewModel,
-                        loginViewModel = loginViewModel
+                        loginViewModel = loginViewModel,
+                        favouritesMovieViewModel = favouritesMovieViewModel
                     )
                 }
             }

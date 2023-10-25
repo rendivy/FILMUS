@@ -1,4 +1,4 @@
-package com.example.cinema_app.presentation.validator
+package com.example.cinema_app.domain.usecase
 
 import androidx.compose.runtime.MutableState
 import com.example.cinema_app.ui.state.LoginContent
@@ -8,11 +8,11 @@ import javax.inject.Singleton
 
 @Singleton
 class LoginCredentialsValidator @Inject constructor(
-    private val loginValidator: LoginValidator,
-    private val passwordValidator: PasswordValidator,
+    private val validateLoginUseCase: ValidateLoginUseCase,
+    private val passwordValidator: ValidatePasswordUseCase,
 ) {
     fun execute(loginContent: MutableState<LoginContent>): Boolean {
-        val loginResult = loginValidator.execute(loginContent.value.username)
+        val loginResult = validateLoginUseCase.execute(loginContent.value.username)
         val passwordResult = passwordValidator.execute(loginContent.value.password)
 
         val isLoginCorrect = loginResult.successful

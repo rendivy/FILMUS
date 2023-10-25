@@ -5,8 +5,10 @@ import com.example.cinema_app.common.NetworkConstant
 import com.example.cinema_app.common.NetworkConstant.BASE_URL
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.repository.AuthRepositoryImpl
+import com.example.cinema_app.data.repository.FavouriteMovieRepositoryImpl
 import com.example.cinema_app.data.storage.TokenLocalStorage
 import com.example.cinema_app.domain.repository.AuthRepository
+import com.example.cinema_app.domain.repository.FavouriteMovieRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -50,6 +52,16 @@ object DataModule {
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build().create(MovieApiService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideFavoriteRepository(
+        apiService: MovieApiService,
+        localStorage: TokenLocalStorage
+    ): FavouriteMovieRepository {
+        return FavouriteMovieRepositoryImpl(localStorage, apiService)
+    }
 
 
     @Provides

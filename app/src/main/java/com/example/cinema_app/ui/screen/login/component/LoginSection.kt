@@ -26,10 +26,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.PasswordTextField
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import com.example.cinema_app.ui.screen.login.state.LoginState
 import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimation
 import com.example.cinema_app.ui.state.LoginContent
 import com.example.cinema_app.ui.theme.Accent

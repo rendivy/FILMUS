@@ -1,8 +1,9 @@
-package com.example.cinema_app.presentation.validator
+package com.example.cinema_app.domain.usecase
 
 import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.presentation.validator.ValidationResult
 
-class DateValidator {
+class ValidateDateUseCase {
     fun execute(date: String): ValidationResult {
         return if (date.isEmpty()) {
             ValidationResult(
