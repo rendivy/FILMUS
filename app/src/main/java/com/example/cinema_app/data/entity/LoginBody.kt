@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class AuthenticationBody(
+data class LoginBody(
     @SerialName("username")
     val username: String,
     @SerialName("password")

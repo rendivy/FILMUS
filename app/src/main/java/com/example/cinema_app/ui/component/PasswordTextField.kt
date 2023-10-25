@@ -37,8 +37,11 @@ import com.example.cinema_app.ui.theme.InterRegular
 fun PasswordTextField(
     textFieldValue: String = Constants.EMPTY_STRING,
     onValueChange: (String) -> Unit,
+    error: String? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
+    val outlinedColor = if (error != null) Color.Red else Color.Gray
+    val containerColor = if (error != null) Color.Red.copy(alpha = 0.1f) else Gray900
     var passwordVisibility by rememberSaveable { mutableStateOf(false) }
     val visibilityIconState = if (passwordVisibility) {
         ImageVector.vectorResource(id = R.drawable.eye_close)
@@ -50,12 +53,12 @@ fun PasswordTextField(
     BasicTextField(
         modifier = Modifier
             .background(
-                color = Gray900,
+                color = containerColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                color = Color.Gray,
+                color = outlinedColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth(),

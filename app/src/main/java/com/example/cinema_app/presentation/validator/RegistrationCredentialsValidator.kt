@@ -4,8 +4,10 @@ import androidx.compose.runtime.MutableState
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.ui.state.RegistrationContent
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class AllCredentialsValidator @Inject constructor(
+@Singleton
+class RegistrationCredentialsValidator @Inject constructor(
     private val emailValidator: EmailValidator,
     private val loginValidator: LoginValidator,
     private val dateValidator: DateValidator,
