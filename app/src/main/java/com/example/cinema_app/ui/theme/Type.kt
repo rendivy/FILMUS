@@ -18,6 +18,13 @@ val Typography = Typography(
     )
 )
 
+val InternBoldLarge = TextStyle(
+    fontSize = 24.sp,
+    fontFamily = InterBold,
+    fontWeight = FontWeight(700),
+    color = Color.White
+)
+
 val TitleMedium = TextStyle(
     fontFamily = InterMedium,
     fontWeight = FontWeight(500),

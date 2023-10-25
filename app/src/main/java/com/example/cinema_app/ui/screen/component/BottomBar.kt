@@ -1,5 +1,6 @@
 package com.example.cinema_app.ui.screen.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -7,11 +8,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cinema_app.ui.navigation.BottomBarRoute
+import com.example.cinema_app.ui.theme.Gray900
 
 @Composable
 fun BottomBar(navController: NavHostController) {
@@ -22,7 +25,7 @@ fun BottomBar(navController: NavHostController) {
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    NavigationBar {
+    NavigationBar(modifier = Modifier.background(color = Gray900)) {
         screens.forEach { screen ->
             AddItem(
                 screen = screen,

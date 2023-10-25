@@ -7,6 +7,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.LoginViewModel
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.screen.MainScreen
@@ -23,15 +24,16 @@ import com.example.cinema_app.ui.splash.LaunchScreen
 @Composable
 fun CinemaNavHost(
     userAuthViewModel: RegistrationViewModel,
+    favouritesMovieViewModel: FavouritesMovieViewModel,
     loginViewModel: LoginViewModel
 ) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.LaunchScreen.route
+        startDestination = NavigationRoutes.Favourite.route
     ) {
         composable(NavigationRoutes.Main.route) {
-            MainScreen()
+            MainScreen(favouritesMovieViewModel)
         }
         composable(NavigationRoutes.Greetings.route) {
             GreetingsScreen(navController = navController)
@@ -52,7 +54,7 @@ fun CinemaNavHost(
             HomeScreen()
         }
         composable(NavigationRoutes.Favourite.route) {
-            FavouriteScreen()
+            FavouriteScreen(favouritesMovieViewModel)
         }
         composable(NavigationRoutes.Registration.route) {
             RegistrationScreen(
@@ -71,10 +73,9 @@ fun CinemaNavHost(
 }
 
 
-
 fun NavOptionsBuilder.popUpToTop(navController: NavController) {
     popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
-        inclusive =  true
+        inclusive = true
     }
 }
 

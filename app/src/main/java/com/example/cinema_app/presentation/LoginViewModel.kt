@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.domain.usecase.LoginUserUseCase
+import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.presentation.validator.LoginValidator
 import com.example.cinema_app.presentation.validator.PasswordValidator
-import com.example.cinema_app.ui.screen.login.state.LoginState
 import com.example.cinema_app.ui.state.LoginContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
