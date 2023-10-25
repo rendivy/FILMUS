@@ -32,6 +32,12 @@ val TitleMedium = TextStyle(
     color = Color.White
 )
 
+val BottomBarTitle = TextStyle(
+    fontFamily = InterRegular,
+    fontWeight = FontWeight(400),
+    fontSize = 11.sp,
+)
+
 val TitleSmall = TextStyle(
     fontFamily = InterRegular,
     fontWeight = FontWeight(400),

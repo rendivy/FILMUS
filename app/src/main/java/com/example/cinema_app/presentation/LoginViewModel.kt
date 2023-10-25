@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.domain.usecase.LoginUserUseCase
+import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
+import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
 import com.example.cinema_app.presentation.state.LoginState
-import com.example.cinema_app.presentation.validator.LoginValidator
-import com.example.cinema_app.presentation.validator.PasswordValidator
 import com.example.cinema_app.ui.state.LoginContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -23,8 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUserUseCase: LoginUserUseCase,
-    private val loginValidator: LoginValidator,
-    private val passwordValidator: PasswordValidator
+    private val validateLoginUseCase: ValidateLoginUseCase,
+    private val passwordValidator: ValidatePasswordUseCase
 ) : ViewModel() {
 
     private val _errorState = MutableStateFlow<LoginState>(LoginState.Initial)
@@ -56,7 +56,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun checkLoginCorrect(): Boolean {
-        val loginResult = loginValidator.execute(_loginState.value.username)
+        val loginResult = validateLoginUseCase.execute(_loginState.value.username)
         if (!loginResult.successful) {
             _loginState.value = _loginState.value.copy(
                 usernameError = loginResult.errorMessage

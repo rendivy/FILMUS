@@ -1,6 +1,7 @@
 package com.example.cinema_app.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -57,20 +58,24 @@ fun LargeFilmCard(path: String, movieName: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AsyncImage(
-            model = path,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth().height(240.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentDescription = "Film Card"
-        )
+        Box() {
+            AsyncImage(
+                model = path,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(240.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentDescription = "Film Card"
+            )
+        }
         Text(
             text = movieName,
             style = TitleMedium,
             textAlign = TextAlign.Start,
             modifier = Modifier
-                .padding(top = 5.dp).fillMaxWidth()
+                .padding(top = 5.dp)
+                .fillMaxWidth()
         )
     }
 

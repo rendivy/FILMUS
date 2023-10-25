@@ -2,8 +2,6 @@ package com.example.cinema_app.ui.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -30,7 +28,7 @@ fun CinemaNavHost(
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.Favourite.route
+        startDestination = NavigationRoutes.Login.route
     ) {
         composable(NavigationRoutes.Main.route) {
             MainScreen(favouritesMovieViewModel)
@@ -73,9 +71,4 @@ fun CinemaNavHost(
 }
 
 
-fun NavOptionsBuilder.popUpToTop(navController: NavController) {
-    popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
-        inclusive = true
-    }
-}
 
