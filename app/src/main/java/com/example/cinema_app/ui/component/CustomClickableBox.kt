@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.common
+package com.example.cinema_app.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,30 +15,32 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
+import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
 
 @Composable
-fun CustomClickableBox(checked: MutableState<Boolean>, userAuthViewModel: UserAuthViewModel) {
-
-    val visibilityIconState =
-        ImageVector.vectorResource(id = R.drawable.eye_close)
+fun CustomClickableBox(
+    checked: MutableState<Boolean>,
+    userAuthViewModel: RegistrationViewModel,
+    error: String? = null
+) {
+    val outlinedColor = if (error != null) Color.Red else Color.Gray
+    val containerColor = if (error != null) Color.Red.copy(alpha = 0.1f) else Gray900
     Box(
         modifier = Modifier
             .clickable { checked.value = checked.value.not() }
             .background(
-                color = Gray900,
+                color = containerColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                color = Color.Gray,
+                color = outlinedColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .height(42.dp)
@@ -47,14 +49,19 @@ fun CustomClickableBox(checked: MutableState<Boolean>, userAuthViewModel: UserAu
 
         Text(
             text = userAuthViewModel.registrationState.value.birthDate,
-            modifier = Modifier.align(Alignment.CenterStart).fillMaxWidth().padding(12.dp),
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .fillMaxWidth()
+                .padding(12.dp),
             style = TitleMedium,
         )
         Icon(
-            painter = painterResource(id = R.drawable.eye_close),
-            modifier = Modifier.align(Alignment.CenterEnd).padding(12.dp),
+            painter = painterResource(id = R.drawable.date_picker_icon),
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(12.dp),
             contentDescription = null,
-            tint = Color.White,
+            tint = Gray400,
         )
     }
 

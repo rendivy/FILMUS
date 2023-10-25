@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.login
+package com.example.cinema_app.ui.screen.registration.password
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,19 +35,22 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import com.example.cinema_app.ui.screen.login.component.LoginSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
-    val loginState by remember { loginViewModel.loginState }
+fun RegistrationPasswordScreen(
+    userAuthViewModel: RegistrationViewModel,
+    navController: NavController
+) {
+    val registrationState by remember { userAuthViewModel.registrationState }
     val focusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
@@ -56,18 +59,17 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     Text(
                         text = stringResource(id = R.string.app_logo),
                         color = Accent,
-                        style = SecondarySemiBoldStyle,
+                        style = TitleSmall,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
-                        navController.navigate(NavigationRoutes.Greetings.route)
                     }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(12.dp),
+                            modifier = Modifier.size(width = 6.dp, height = 12.dp),
                             tint = Color.White,
                         )
                     }
@@ -88,23 +90,22 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     .background(color = Gray900),
                 verticalArrangement = Arrangement.Top,
             ) {
-                LoginSection(
-                    loginState = loginState,
-                    userAuthViewModel = loginViewModel,
-                    focusManager = focusManager,
-                    navController = navController
+                RegistrationPasswordSection(
+                    userState = registrationState,
+                    userAuthViewModel = userAuthViewModel,
+                    focusManager = focusManager
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { loginViewModel.loginUser() },
-                    contentPadding = PaddingValues(12.dp),
+                    onClick = { userAuthViewModel.registerUser() },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
-                    )
+                    ),
+                    contentPadding = PaddingValues(12.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
@@ -112,7 +113,6 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     )
                 }
             }
-
         },
         bottomBar = {
             Row(
@@ -124,24 +124,25 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.dont_have_account),
+                    text = stringResource(id = R.string.already_registered),
                     style = TitleSmall
                 )
                 Spacer(modifier = Modifier.size(ShortSpace))
                 Text(
-                    text = stringResource(id = R.string.register_label),
-                    modifier = Modifier.clickable(onClick = {
-                        if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Registration.route) {
-                            navController.popBackStack()
-                        } else {
-                            navController.navigate(NavigationRoutes.Registration.route)
-                        }
-                    }),
+                    text = stringResource(id = R.string.enter_button),
+                    modifier = Modifier.clickable(
+                        onClick = {
+                            if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Login.route) {
+                                navController.popBackStack()
+                            }
+                            else {
+                                navController.navigate(NavigationRoutes.Login.route)
+                            }
+                        }),
                     color = Accent,
                     style = TitleSmall
                 )
             }
-
         }
     )
 }

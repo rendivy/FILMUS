@@ -1,9 +1,10 @@
-package com.example.cinema_app.ui.screen.registration
+package com.example.cinema_app.ui.screen.registration.credentials
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,17 +35,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
+import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
 
 @ExperimentalMaterial3Api
 @Composable
 fun RegistrationScreen(
-    userAuthViewModel: UserAuthViewModel,
+    userAuthViewModel: RegistrationViewModel,
     navController: NavController
 ) {
     val registrationState by remember { userAuthViewModel.registrationState }
@@ -62,6 +64,7 @@ fun RegistrationScreen(
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
+                        userAuthViewModel.clearAllUserCredentials()
                         navController.navigate(NavigationRoutes.Greetings.route)
                     }) {
                         Icon(
@@ -99,15 +102,20 @@ fun RegistrationScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { userAuthViewModel.registerUser() },
+                    onClick = {
+                        if (userAuthViewModel.checkAllStates()) {
+                            navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route)
+                        }
+                    },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
-                    )
+                    ),
+                    contentPadding = PaddingValues(12.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
-                        style = TitleSmall
+                        style = SecondarySemiBoldStyle
                     )
                 }
             }

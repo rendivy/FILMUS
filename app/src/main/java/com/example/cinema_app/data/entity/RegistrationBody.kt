@@ -16,4 +16,6 @@ data class RegistrationBody(
     val email: String,
     @SerialName("birthDate")
     val birthDate: String = Constants.EMPTY_STRING,
+    @SerialName("gender")
+    val gender: Int = 0
 )
