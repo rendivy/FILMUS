@@ -1,6 +1,5 @@
 package com.example.cinema_app.data.repository
 
-import android.util.Log
 import com.example.cinema_app.data.entity.Movie
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
@@ -16,7 +15,6 @@ class FavouriteMovieRepositoryImpl @Inject constructor(
 
     override suspend fun getFavouriteMovie(): Movie {
         val token = tokenLocalStorage.getToken()
-        Log.d("TAG", "token: $token")
         return movieApiService.getFavoriteMovies(token = "Bearer $token")
     }
 }

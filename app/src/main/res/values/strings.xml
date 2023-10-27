@@ -4,7 +4,7 @@
     <string name="greetings_screen_source">Мы предлагаем удобный и легкий способ насладиться любимыми фильмами прямо с Вашего мобильного устройства.</string>
     <string name="name_label">Имя</string>
     <string name="enter_label">Войти</string>
-    <string name="date_label">Дата роджения</string>
+    <string name="date_label">Дата рождения</string>
     <string name="login_screen_label">Вход</string>
     <string name="user_sex_label">Пол</string>
     <string name="login_label">Логин</string>

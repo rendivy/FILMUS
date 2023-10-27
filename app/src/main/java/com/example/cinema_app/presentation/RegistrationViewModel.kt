@@ -24,7 +24,7 @@ class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
     private val passwordValidator: ValidatePasswordUseCase,
-    private val navigationValidator: ValidateRegistrationCredentialsUseCase,
+    private val ValidateRegister: ValidateRegistrationCredentialsUseCase,
     private val validateCofirmPasswordUseCase: ValidateCofirmPasswordUseCase
 ) :
     ViewModel() {
@@ -76,7 +76,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun checkAllStates(): Boolean {
-        return navigationValidator.execute(_registrationState)
+        return ValidateRegister.execute(_registrationState)
     }
 
     fun clearAllUserCredentials() {

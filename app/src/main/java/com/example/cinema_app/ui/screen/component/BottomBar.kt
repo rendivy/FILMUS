@@ -10,12 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.cinema_app.ui.component.NoRippleInteractionSource
 import com.example.cinema_app.ui.navigation.BottomBarRoute
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black22
@@ -53,6 +55,7 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     NavigationBarItem(
+        interactionSource = NoRippleInteractionSource(),
         label = {
             Text(text = screen.title, style = BottomBarTitle)
         },
@@ -67,7 +70,8 @@ fun RowScope.AddItem(
             unselectedIconColor = Gray400,
             selectedIconColor = Accent,
             unselectedTextColor = Gray400,
-            selectedTextColor = Accent
+            selectedTextColor = Accent,
+            indicatorColor = Color.Transparent
         ),
         onClick = {
             if (navController.currentDestination?.route != screen.route) {

@@ -33,6 +33,7 @@ import com.example.cinema_app.ui.theme.InternBoldLarge
 @Composable
 fun FavouriteScreen(favouritesMovieViewModel: FavouritesMovieViewModel) {
     val movieState by favouritesMovieViewModel.favouriteMovieState.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
         favouritesMovieViewModel.getFavouriteMovie()
     }
