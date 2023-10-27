@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.UserAuthViewModel
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
@@ -26,7 +25,7 @@ import com.example.cinema_app.ui.theme.TitleMedium
 @Composable
 fun CustomClickableBox(
     checked: MutableState<Boolean>,
-    userAuthViewModel: UserAuthViewModel,
+    birth: String,
     error: String? = null
 ) {
     val outlinedColor = if (error != null) Color.Red else Color.Gray
@@ -48,7 +47,7 @@ fun CustomClickableBox(
     ) {
 
         Text(
-            text = userAuthViewModel.registrationState.value.birthDate,
+            text = birth,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .fillMaxWidth()

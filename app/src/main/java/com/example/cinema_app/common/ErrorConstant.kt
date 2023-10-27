@@ -4,6 +4,8 @@ object ErrorConstant {
     const val PASSWORD_LENGTH_ERROR = "Пароль должен содержать не менее 6 символов."
     const val EMAIL_ERROR = "Email должен соотвествовать стандарту."
     const val LOGIN_ERROR = "Логин не должен быть пустым."
+    const val AUTHORIZATION_ERROR = "Неверный логин или пароль."
+    const val UNKNOWN_ERROR = "Неизвестная ошибка."
     const val NAME_ERROR = "Имя не должно быть пустым."
     const val DATE_ERROR = "Дата не должна быть пустой."
     const val CONFIRMATION_ERROR = "Пароли должны совпадать."

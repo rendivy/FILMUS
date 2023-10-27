@@ -10,11 +10,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.common.Constants.DEFAULT_SEX_INDEX
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 
 
 @Composable
-fun TextSwitchTest(userAuthViewModel: UserAuthViewModel) {
+fun TextSwitchTest(userAuthViewModel: RegistrationViewModel) {
     val items = remember {
         listOf("Мужчина", "Женщина")
     }
@@ -22,7 +22,6 @@ fun TextSwitchTest(userAuthViewModel: UserAuthViewModel) {
     var selectedIndex by remember {
         mutableIntStateOf(DEFAULT_SEX_INDEX)
     }
-
 
     Column(modifier = Modifier.padding(top = 8.dp)) {
         TextSwitch(

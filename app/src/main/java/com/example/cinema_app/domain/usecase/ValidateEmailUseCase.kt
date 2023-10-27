@@ -1,8 +1,9 @@
-package com.example.cinema_app.presentation.validator
+package com.example.cinema_app.domain.usecase
 
 import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.presentation.validator.ValidationResult
 
-class EmailValidator {
+class ValidateEmailUseCase {
 
     private val emailPattern = ErrorConstant.EMAIL_PATTERN
 

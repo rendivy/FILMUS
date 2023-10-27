@@ -1,12 +1,13 @@
 package com.example.cinema_app.di
 
 import com.example.cinema_app.data.converter.DateConverter
-import com.example.cinema_app.presentation.validator.AllCredentialsValidator
-import com.example.cinema_app.presentation.validator.ConfirmPasswordValidator
-import com.example.cinema_app.presentation.validator.DateValidator
-import com.example.cinema_app.presentation.validator.EmailValidator
-import com.example.cinema_app.presentation.validator.LoginValidator
-import com.example.cinema_app.presentation.validator.PasswordValidator
+import com.example.cinema_app.domain.usecase.ValidateCofirmPasswordUseCase
+import com.example.cinema_app.domain.usecase.ValidateDateUseCase
+import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
+import com.example.cinema_app.domain.usecase.ValidateLoginCredentialsUseCase
+import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
+import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
+import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,42 +24,45 @@ object DomainModule {
     }
 
     @Provides
-    fun provideEmailValidator(): EmailValidator {
-        return EmailValidator()
+    fun provideEmailValidator(): ValidateEmailUseCase {
+        return ValidateEmailUseCase()
     }
 
     @Provides
-    fun provideDateValidator(): DateValidator {
-        return DateValidator()
+    fun provideDateValidator(): ValidateDateUseCase {
+        return ValidateDateUseCase()
     }
 
     @Provides
-    fun provideConfirmPasswordValidator(): ConfirmPasswordValidator {
-        return ConfirmPasswordValidator()
+    fun provideConfirmPasswordValidator(): ValidateCofirmPasswordUseCase {
+        return ValidateCofirmPasswordUseCase()
     }
 
     @Provides
-    fun provideLoginValidator(): LoginValidator {
-        return LoginValidator()
+    fun provideLoginValidator(): ValidateLoginUseCase {
+        return ValidateLoginUseCase()
     }
 
-
-    @Provides
-    fun provideNavigationValidator(
-        emailValidator: EmailValidator,
-        dateValidator: DateValidator,
-        loginValidator: LoginValidator
-    ): AllCredentialsValidator {
-        return AllCredentialsValidator(
-            emailValidator = emailValidator,
-            dateValidator = dateValidator,
-            loginValidator = loginValidator
-        )
+     @Provides
+    fun providePasswordValidator(): ValidatePasswordUseCase {
+        return ValidatePasswordUseCase()
     }
 
     @Provides
-    fun providePasswordValidator(): PasswordValidator {
-        return PasswordValidator()
+    fun provideRegistrationCredentialsValidator(
+        emailValidator: ValidateEmailUseCase,
+        validateLoginUseCase: ValidateLoginUseCase,
+        dateValidator: ValidateDateUseCase,
+    ): ValidateRegistrationCredentialsUseCase {
+        return ValidateRegistrationCredentialsUseCase(emailValidator, validateLoginUseCase, dateValidator)
+    }
+
+    @Provides
+    fun provideLoginCredentialsValidator(
+        validateLoginUseCase: ValidateLoginUseCase,
+        passwordValidator: ValidatePasswordUseCase,
+    ): ValidateLoginCredentialsUseCase {
+        return ValidateLoginCredentialsUseCase(validateLoginUseCase, passwordValidator)
     }
 
 }

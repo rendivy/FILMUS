@@ -1,20 +1,22 @@
-package com.example.cinema_app.presentation.validator
+package com.example.cinema_app.domain.usecase
 
 import androidx.compose.runtime.MutableState
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.ui.state.RegistrationContent
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class AllCredentialsValidator @Inject constructor(
-    private val emailValidator: EmailValidator,
-    private val loginValidator: LoginValidator,
-    private val dateValidator: DateValidator,
+@Singleton
+class ValidateRegistrationCredentialsUseCase @Inject constructor(
+    private val emailValidatorUseCase: ValidateEmailUseCase,
+    private val validateLoginUseCase: ValidateLoginUseCase,
+    private val dateValidatorUseCase: ValidateDateUseCase,
 ) {
     fun execute(registrationContent: MutableState<RegistrationContent>): Boolean {
-        val emailResult = emailValidator.execute(registrationContent.value.email)
-        val loginResult = loginValidator.execute(registrationContent.value.login)
-        val nameResult = loginValidator.execute(registrationContent.value.name)
-        val dateResult = dateValidator.execute(registrationContent.value.birthDate)
+        val emailResult = emailValidatorUseCase.execute(registrationContent.value.email)
+        val loginResult = validateLoginUseCase.execute(registrationContent.value.login)
+        val nameResult = validateLoginUseCase.execute(registrationContent.value.name)
+        val dateResult = dateValidatorUseCase.execute(registrationContent.value.birthDate)
 
         val isEmailCorrect = emailResult.successful
         val isLoginCorrect = loginResult.successful

@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.presentation.UserAuthViewModel
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray900
@@ -29,7 +29,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateAlert(checked: MutableState<Boolean>, userAuthViewModel: UserAuthViewModel) {
+fun DateAlert(checked: MutableState<Boolean>, userAuthViewModel: RegistrationViewModel) {
     val datePickerState = remember {
         DatePickerState(
             yearRange = 1950..LocalDateTime.now().year,
