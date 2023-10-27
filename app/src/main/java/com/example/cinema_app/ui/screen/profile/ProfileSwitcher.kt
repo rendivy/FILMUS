@@ -9,18 +9,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.common.Constants
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.switcher.TextSwitch
 
 @Composable
-fun ProfileSwitcher(profileViewModel: ProfileViewModel) {
+fun ProfileSwitcher(profileViewModel: ProfileViewModel, index: Int) {
     val items = remember {
         listOf("Мужчина", "Женщина")
     }
 
     var selectedIndex by remember {
-        mutableIntStateOf(Constants.DEFAULT_SEX_INDEX)
+        mutableIntStateOf(index)
     }
 
     Column(modifier = Modifier.padding(top = 8.dp)) {
