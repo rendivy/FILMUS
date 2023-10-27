@@ -1,5 +1,6 @@
 package com.example.cinema_app.presentation
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,7 @@ class ProfileViewModel @Inject constructor(
         )
     )
 
+
     fun setUserGender(index: Int) {
         _profileState.value = _profileState.value.copy(gender = index)
     }
@@ -78,7 +80,7 @@ class ProfileViewModel @Inject constructor(
                 updateUserProfileUseCase.execute(
                     ProfileCredentials(
                         avatarLink = _profileState.value.userAvatar,
-                        birthDate = dateUseCase.convertDateToString(_profileState.value.birthDate),
+                        birthDate = _profileState.value.birthDate,
                         email = _profileState.value.email,
                         gender = _profileState.value.gender,
                         name = _profileState.value.name,
@@ -86,32 +88,34 @@ class ProfileViewModel @Inject constructor(
                         nickName = _profileState.value.login
                     )
                 )
-                _credentialsState.value = ProfileState.Content(_profileState.value)
+                _credentialsState.value = ProfileState.isSuccessful
             } catch (e: Exception) {
-                _credentialsState.value = ProfileState.Error
+               Log.d("TAG", "updateUserProfile: ${e.message}")
+
             }
         }
+    }
+
+    fun setProfileContent(credentials: ProfileCredentials) {
+        _profileState.value = _profileState.value.copy(
+            name = credentials.name,
+            email = credentials.email,
+            birthDate = credentials.birthDate,
+            login = credentials.nickName,
+            id = credentials.id,
+            userAvatar = credentials.avatarLink
+        )
+        Log.d("TAG", "setProfileContent: ${credentials.birthDate}")
     }
 
     fun getUserProfile() {
-        _credentialsState.value = ProfileState.Loading
         viewModelScope.launch {
-            try {
-                val profileCredentials = getUserProfileUseCase.execute()
-                _profileState.value = _profileState.value.copy(
-                    id = profileCredentials.id,
-                    name = profileCredentials.name,
-                    email = profileCredentials.email,
-                    birthDate = dateUseCase.convertDateToString(profileCredentials.birthDate),
-                    login = profileCredentials.nickName,
-                    gender = profileCredentials.gender
-                )
-                _credentialsState.value = ProfileState.Content(_profileState.value)
-            } catch (e: Exception) {
-                _credentialsState.value = ProfileState.Error
-            }
+
+            val profileCredentials = getUserProfileUseCase.execute()
+            setProfileContent(profileCredentials)
+
         }
     }
-
-
 }
+
+

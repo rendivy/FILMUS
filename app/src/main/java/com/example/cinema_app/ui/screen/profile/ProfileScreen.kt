@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.cinema_app.presentation.ProfileViewModel
+import com.example.cinema_app.ui.state.ProfileContent
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray900
@@ -46,14 +47,13 @@ import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 @Composable
 fun ProfileScreen(profileViewModel: ProfileViewModel) {
     val focusManager = LocalFocusManager.current
-    val userState = profileViewModel.profileState.value
+    val userState: ProfileContent = profileViewModel.profileState.value
     val credentialsState by profileViewModel.credentialsState.collectAsStateWithLifecycle()
+    var reloadImage by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         profileViewModel.getUserProfile()
     }
-
-    var reloadImage by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -80,8 +80,6 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-
-
         }
         Text(
             text = userState.login,
