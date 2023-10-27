@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -23,7 +24,7 @@ import com.example.cinema_app.ui.theme.TitleMedium
 
 
 @Composable
-fun FilmCard(path: String, movieName: String) {
+fun FilmCard(path: String, movieName: String, width: Dp) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -32,8 +33,8 @@ fun FilmCard(path: String, movieName: String) {
             model = path,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
-                .width(160.dp)
                 .height(240.dp)
+                .width(width = width)
                 .clip(RoundedCornerShape(8.dp)),
             contentDescription = "Film Card"
         )
