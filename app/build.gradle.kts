@@ -58,13 +58,18 @@ dependencies {
     val navVersion = "2.7.4"
     val kotlinSerializationVersion = "1.6.0"
     val retrofitVersion = "2.9.0"
-    val lifecycleRuntimeVersion = "2.6.2"
     val kotlinSerialization = "1.0.0"
     val okHttpVersion = "4.11.0"
+    val material3Version = "1.1.1"
     val activityComposeVersion = "1.8.0"
     val securityCryptoVersion = "1.1.0-alpha06"
+    val lifecycleVersion = "2.6.2"
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:$navVersion")
@@ -72,7 +77,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeVersion")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
@@ -81,9 +85,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.0-alpha10")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.2.0-alpha10")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

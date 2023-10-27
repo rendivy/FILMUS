@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.common
+package com.example.cinema_app.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,19 +25,23 @@ import com.example.cinema_app.ui.theme.InterRegular
 @Composable
 fun CustomTextField(
     textFieldValue: String = Constants.EMPTY_STRING,
+    outlined: Color = Color.Gray,
+    error: String? = null,
+    container: Color = Gray900,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-
+    val outlinedColor = if (error != null) Color.Red else Color.Gray
+    val containerColor = if (error != null) Color.Red.copy(alpha = 0.1f) else Gray900
     BasicTextField(
         modifier = Modifier
             .background(
-                color = Gray900,
+                color = containerColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                color = Color.Gray,
+                color = outlinedColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth(),
@@ -62,7 +66,5 @@ fun CustomTextField(
                 innerTextField()
             }
         }
-
-
     )
 }
