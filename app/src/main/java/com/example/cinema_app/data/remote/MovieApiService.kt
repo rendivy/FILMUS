@@ -4,12 +4,14 @@ package com.example.cinema_app.data.remote
 import com.example.cinema_app.common.NetworkConstant
 import com.example.cinema_app.data.entity.LoginBody
 import com.example.cinema_app.data.entity.Movie
+import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.data.entity.Token
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 
 interface MovieApiService {
@@ -21,6 +23,16 @@ interface MovieApiService {
 
     @POST(NetworkConstant.LOGIN_URL)
     suspend fun login(@Body loginBody: LoginBody): Token
+
+    @GET(NetworkConstant.PROFILE_URL)
+    suspend fun getUserData(@Header("Authorization") token: String): ProfileCredentials
+
+    @PUT(NetworkConstant.PROFILE_URL)
+    suspend fun updateUserData(
+        @Header("Authorization") token: String,
+        @Body newCredentials: ProfileCredentials
+    )
+
 }
 
 

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.navigation.CinemaNavHost
 import com.example.cinema_app.ui.theme.CinemaappTheme
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     private val authViewModel: RegistrationViewModel by viewModels()
     private val favouritesMovieViewModel: FavouritesMovieViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
                 CinemaappTheme {
                     CinemaNavHost(
                         userAuthViewModel = authViewModel,
+                        profileViewModel = profileViewModel,
                         loginViewModel = loginViewModel,
                         favouritesMovieViewModel = favouritesMovieViewModel
                     )

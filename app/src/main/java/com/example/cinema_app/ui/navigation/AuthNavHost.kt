@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.screen.MainScreen
 import com.example.cinema_app.ui.screen.favorite.FavouriteScreen
@@ -23,15 +24,16 @@ import com.example.cinema_app.ui.splash.LaunchScreen
 fun CinemaNavHost(
     userAuthViewModel: RegistrationViewModel,
     favouritesMovieViewModel: FavouritesMovieViewModel,
-    loginViewModel: LoginViewModel
+    loginViewModel: LoginViewModel,
+    profileViewModel: ProfileViewModel
 ) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.Login.route
+        startDestination = NavigationRoutes.LaunchScreen.route
     ) {
         composable(NavigationRoutes.Main.route) {
-            MainScreen(favouritesMovieViewModel)
+            MainScreen(favouritesMovieViewModel, profileViewModel)
         }
         composable(NavigationRoutes.Greetings.route) {
             GreetingsScreen(navController = navController)
@@ -46,7 +48,7 @@ fun CinemaNavHost(
             )
         }
         composable(NavigationRoutes.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(profileViewModel = profileViewModel)
         }
         composable(NavigationRoutes.Home.route) {
             HomeScreen()
@@ -66,7 +68,6 @@ fun CinemaNavHost(
                 navController = navController
             )
         }
-
     }
 }
 

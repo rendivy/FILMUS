@@ -4,7 +4,7 @@ import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.domain.usecase.ValidateCofirmPasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateDateUseCase
 import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
-import com.example.cinema_app.domain.usecase.LoginCredentialsValidator
+import com.example.cinema_app.domain.usecase.ValidateLoginCredentialsUseCase
 import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
 import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
@@ -61,8 +61,8 @@ object DomainModule {
     fun provideLoginCredentialsValidator(
         validateLoginUseCase: ValidateLoginUseCase,
         passwordValidator: ValidatePasswordUseCase,
-    ): LoginCredentialsValidator {
-        return LoginCredentialsValidator(validateLoginUseCase, passwordValidator)
+    ): ValidateLoginCredentialsUseCase {
+        return ValidateLoginCredentialsUseCase(validateLoginUseCase, passwordValidator)
     }
 
 }

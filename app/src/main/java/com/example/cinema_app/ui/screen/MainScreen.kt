@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
+import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.component.BottomBar
 import com.example.cinema_app.ui.screen.favorite.FavouriteScreen
@@ -17,7 +18,10 @@ import com.example.cinema_app.ui.screen.profile.ProfileScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(favouritesMovieViewModel: FavouritesMovieViewModel) {
+fun MainScreen(
+    favouritesMovieViewModel: FavouritesMovieViewModel,
+    profileViewModel: ProfileViewModel
+) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -30,7 +34,7 @@ fun MainScreen(favouritesMovieViewModel: FavouritesMovieViewModel) {
                 startDestination = NavigationRoutes.Home.route
             ) {
                 composable(NavigationRoutes.Profile.route) {
-                    ProfileScreen()
+                    ProfileScreen(profileViewModel = profileViewModel)
                 }
                 composable(NavigationRoutes.Home.route) {
                     HomeScreen()

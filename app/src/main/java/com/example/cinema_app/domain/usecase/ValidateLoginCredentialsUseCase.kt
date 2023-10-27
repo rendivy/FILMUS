@@ -7,7 +7,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class LoginCredentialsValidator @Inject constructor(
+class ValidateLoginCredentialsUseCase @Inject constructor(
     private val validateLoginUseCase: ValidateLoginUseCase,
     private val passwordValidator: ValidatePasswordUseCase,
 ) {
