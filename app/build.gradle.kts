@@ -74,6 +74,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.security:security-crypto:$securityCryptoVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
