@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
+import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.component.BottomBar
@@ -20,7 +21,8 @@ import com.example.cinema_app.ui.screen.profile.ProfileScreen
 @Composable
 fun MainScreen(
     favouritesMovieViewModel: FavouritesMovieViewModel,
-    profileViewModel: ProfileViewModel
+    profileViewModel: ProfileViewModel,
+    homeViewModel: HomeViewModel
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -37,7 +39,7 @@ fun MainScreen(
                     ProfileScreen(profileViewModel = profileViewModel)
                 }
                 composable(NavigationRoutes.Home.route) {
-                    HomeScreen()
+                    HomeScreen(homeViewModel)
                 }
                 composable(NavigationRoutes.Favourite.route) {
                     FavouriteScreen(favouritesMovieViewModel)

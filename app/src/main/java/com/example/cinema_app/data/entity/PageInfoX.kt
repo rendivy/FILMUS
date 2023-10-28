@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class Movie(
-    val movies: List<Film>,
-    val pageInfo: PageInfo
+data class PageInfoX(
+    val currentPage: Int,
+    val pageCount: Int,
+    val pageSize: Int
 )
