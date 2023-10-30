@@ -88,7 +88,7 @@ class ProfileViewModel @Inject constructor(
                         nickName = _profileState.value.login
                     )
                 )
-                _credentialsState.value = ProfileState.isSuccessful
+                _credentialsState.value = ProfileState.Successful
             } catch (e: Exception) {
                Log.d("TAG", "updateUserProfile: ${e.message}")
 

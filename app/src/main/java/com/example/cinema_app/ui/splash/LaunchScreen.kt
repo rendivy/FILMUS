@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -17,18 +19,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import com.example.cinema_app.R
+import com.example.cinema_app.presentation.AuthViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import kotlinx.coroutines.delay
 
 
 @Composable
-fun LaunchScreen(navController: NavController) {
-    LaunchedEffect(key1 = true, block = {
-        delay(2000)
+fun LaunchScreen(navController: NavController, authViewModel: AuthViewModel) {
+    val token by remember { authViewModel.tokenState }
+
+    LaunchedEffect(Unit){
+        authViewModel.isUserLogged()
+        val startDestination: String =
+            if (token) NavigationRoutes.Main.route else NavigationRoutes.Greetings.route
         navController.popBackStack()
-        navController.navigate(NavigationRoutes.Greetings.route)
+        navController.navigate(startDestination)
     }
-    )
     Column(
         modifier = Modifier
             .fillMaxSize()

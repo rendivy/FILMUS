@@ -6,6 +6,6 @@ sealed interface ProfileState {
     data object Initial : ProfileState
     data class Content(val profileCredentials: ProfileCredentials) : ProfileState
     data object Loading : ProfileState
-    data object isSuccessful : ProfileState
+    data object Successful : ProfileState
     data object Error : ProfileState
 }

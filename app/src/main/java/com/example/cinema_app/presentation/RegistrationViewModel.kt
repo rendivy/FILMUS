@@ -10,7 +10,7 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
-import com.example.cinema_app.domain.usecase.ValidateCofirmPasswordUseCase
+import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
 import com.example.cinema_app.ui.state.RegistrationContent
@@ -24,8 +24,8 @@ class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
     private val passwordValidator: ValidatePasswordUseCase,
-    private val ValidateRegister: ValidateRegistrationCredentialsUseCase,
-    private val validateCofirmPasswordUseCase: ValidateCofirmPasswordUseCase
+    private val validateRegCredentialsUseCase: ValidateRegistrationCredentialsUseCase,
+    private val validateConfirmPasswordUseCase: ValidateConfirmPasswordUseCase
 ) :
     ViewModel() {
 
@@ -76,7 +76,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun checkAllStates(): Boolean {
-        return ValidateRegister.execute(_registrationState)
+        return validateRegCredentialsUseCase.execute(_registrationState)
     }
 
     fun clearAllUserCredentials() {
@@ -97,7 +97,7 @@ class RegistrationViewModel @Inject constructor(
 
     fun registerUser() {
         val passwordResult = passwordValidator.execute(_registrationState.value.password)
-        val confirmPasswordResult = validateCofirmPasswordUseCase.execute(
+        val confirmPasswordResult = validateConfirmPasswordUseCase.execute(
             confirmPassword = _registrationState.value.confirmPassword,
             password = _registrationState.value.password
         )

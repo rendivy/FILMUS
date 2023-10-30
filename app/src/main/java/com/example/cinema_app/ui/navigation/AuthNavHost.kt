@@ -22,13 +22,16 @@ fun CinemaNavHost() {
         startDestination = NavigationRoutes.LaunchScreen.route
     ) {
         composable(NavigationRoutes.Main.route) {
-            MainScreen()
+            MainScreen(navHostController = navController)
         }
         composable(NavigationRoutes.Greetings.route) {
             GreetingsScreen(navController = navController)
         }
         composable(NavigationRoutes.LaunchScreen.route) {
-            LaunchScreen(navController = navController)
+            LaunchScreen(
+                navController = navController,
+                authViewModel = hiltViewModel()
+            )
         }
         composable(NavigationRoutes.RegistrationPasswordScreen.route) {
             RegistrationPasswordScreen(

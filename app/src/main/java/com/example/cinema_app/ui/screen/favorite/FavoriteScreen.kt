@@ -22,7 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import com.example.cinema_app.R
+import com.example.cinema_app.common.NavigationConstant
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.state.FavouriteState
 import com.example.cinema_app.ui.screen.favorite.section.MovieSection
@@ -38,7 +40,10 @@ import com.example.cinema_app.ui.theme.padding5
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavouriteScreen(favouritesMovieViewModel: FavouritesMovieViewModel) {
+fun FavouriteScreen(
+    favouritesMovieViewModel: FavouritesMovieViewModel,
+    navHostController: NavHostController
+) {
     val movieState by favouritesMovieViewModel.favouriteMovieState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -109,6 +114,11 @@ fun FavouriteScreen(favouritesMovieViewModel: FavouritesMovieViewModel) {
 
             is FavouriteState.Content -> {
                 MovieSection(movieState = movieState, padding = it)
+            }
+
+            is FavouriteState.Error -> {
+                navHostController.popBackStack()
+                navHostController.navigate(NavigationConstant.LOGIN_ROUTE)
             }
 
             else -> {}
