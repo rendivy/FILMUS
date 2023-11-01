@@ -28,8 +28,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.presentation.state.HomeState
@@ -37,6 +40,8 @@ import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
+import com.example.cinema_app.ui.theme.SemiBoldStyle
+import com.example.cinema_app.ui.theme.TransparentWhite
 import com.example.cinema_app.ui.theme.padding128
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -44,7 +49,8 @@ import com.example.cinema_app.ui.theme.padding128
 fun HomeScreen(homeViewModel: HomeViewModel) {
     val sliderList by homeViewModel.movieState.collectAsStateWithLifecycle()
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-    val cardHeight = (screenHeight * 0.9f).coerceAtMost(600.dp)
+    val moviesPaging = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
+    val cardHeight = (screenHeight * 0.9f).coerceAtMost(497.dp)
 
     when (sliderList) {
         is HomeState.Initial -> {
@@ -70,33 +76,35 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
         }
 
         is HomeState.Content -> {
-            val movies = (sliderList as HomeState.Content).movie.movies
             val pagerState = rememberPagerState(pageCount = { 4 })
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Gray),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+                    .background(Gray900),
             ) {
                 HorizontalPager(
                     state = pagerState,
                 ) { page ->
-                    Box {
+                    Box(contentAlignment = Alignment.BottomCenter) {
                         AsyncImage(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(cardHeight),
-                            model = movies[page].poster,
+                            model = moviesPaging[page]?.poster ?: "",
                             contentDescription = null,
                             contentScale = ContentScale.Crop
                         )
                         Row(
                             modifier = Modifier
-                                .height(24.dp).padding(bottom = 10.dp)
-                                .align(Alignment.BottomCenter)
-                                .background(color = Gray900, shape = RoundedCornerShape(24.dp)),
+                                .padding(bottom = 10.dp)
+                                .height(24.dp)
+                                .width(72.dp)
+                                .background(
+                                    color = TransparentWhite,
+                                    shape = RoundedCornerShape(28.dp)
+                                )
+                                .align(Alignment.BottomCenter),
                             horizontalArrangement = Arrangement.SpaceEvenly,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -106,21 +114,32 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                                 Box(
                                     modifier = Modifier
                                         .clip(CircleShape)
-                                        .width(8.dp)
-                                        .height(8.dp)
+                                        .width(10.dp)
+                                        .height(10.dp)
                                         .background(color = color)
                                         .border(width = 2.dp, color = Color.White)
 
                                 ) {
-
                                 }
                             }
                         }
                     }
                 }
+                Text(
+                    modifier = Modifier.padding(top = 16.dp, start = 16.dp),
+                    text = "Каталог",
+                    textAlign = TextAlign.Start,
+                    style = SemiBoldStyle,
+                    fontSize = 24.sp,
+                )
+                if (moviesPaging.itemCount > 0){
+                    FilmColumn(moviesPaging = moviesPaging)
+                }
+
 
             }
         }
+
 
         is HomeState.Error -> {
             val exception = (sliderList as HomeState.Error).exception

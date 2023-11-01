@@ -1,6 +1,5 @@
 package com.example.cinema_app.data.repository
 
-import android.util.Log
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.entity.LoginBody
 import com.example.cinema_app.data.entity.RegistrationBody
@@ -21,8 +20,8 @@ class AuthRepositoryImpl @Inject constructor(
         tokenLocalStorage.saveToken(movieApiService.register(registrationBody = registrationBody).token)
     }
 
+
     override suspend fun isUserLoggedIn(): Boolean {
-        Log.d("TAG", "isUserLoggedIn: ${tokenLocalStorage.getToken()}")
         return tokenLocalStorage.getToken() != Constants.EMPTY_STRING
     }
 

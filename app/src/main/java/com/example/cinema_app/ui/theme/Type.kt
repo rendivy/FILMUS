@@ -25,6 +25,13 @@ val InternBoldLarge = TextStyle(
     color = Color.White
 )
 
+val CardTitle = TextStyle(
+    fontSize = 16.sp,
+    fontFamily = InterBold,
+    fontWeight = FontWeight(700),
+    color = Color.White
+)
+
 val TitleMedium = TextStyle(
     fontFamily = InterMedium,
     fontWeight = FontWeight(500),
