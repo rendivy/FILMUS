@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class Movie(
-    val movies: List<Film>,
-    val pageInfo: PageInfo
+data class GenreX(
+    val id: String,
+    val name: String
 )

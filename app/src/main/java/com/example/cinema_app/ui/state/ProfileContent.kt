@@ -8,7 +8,7 @@ data class ProfileContent(
     val name: String,
     val nameError: String? = null,
     val email: String,
-    val gender: Int = Constants.DEFAULT_SEX_INDEX,
+    val gender: Int ,
     val emailError: String? = null,
     val birthDate: String = Constants.EMPTY_STRING,
     val userAvatar: String = Constants.EMPTY_STRING,

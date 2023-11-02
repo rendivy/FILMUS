@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -115,11 +115,17 @@ fun LoginSection(
 
             is LoginState.Loading -> {
                 AnimatedVisibility(visible = true) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.width(24.dp),
-                        color = Accent,
-                        trackColor = Gray400
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            color = Accent,
+                            trackColor = Gray400
+                        )
+                    }
+
                 }
             }
 
