@@ -18,11 +18,31 @@ val Typography = Typography(
     )
 )
 
+val InternBoldLarge = TextStyle(
+    fontSize = 24.sp,
+    fontFamily = InterBold,
+    fontWeight = FontWeight(700),
+    color = Color.White
+)
+
+val CardTitle = TextStyle(
+    fontSize = 16.sp,
+    fontFamily = InterBold,
+    fontWeight = FontWeight(700),
+    color = Color.White
+)
+
 val TitleMedium = TextStyle(
     fontFamily = InterMedium,
     fontWeight = FontWeight(500),
     fontSize = 15.sp,
     color = Color.White
+)
+
+val BottomBarTitle = TextStyle(
+    fontFamily = InterRegular,
+    fontWeight = FontWeight(400),
+    fontSize = 11.sp,
 )
 
 val TitleSmall = TextStyle(

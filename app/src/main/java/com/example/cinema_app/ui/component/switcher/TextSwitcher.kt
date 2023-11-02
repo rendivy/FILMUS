@@ -23,7 +23,6 @@ fun TextSwitchTest(userAuthViewModel: RegistrationViewModel) {
         mutableIntStateOf(DEFAULT_SEX_INDEX)
     }
 
-
     Column(modifier = Modifier.padding(top = 8.dp)) {
         TextSwitch(
             selectedIndex = selectedIndex,

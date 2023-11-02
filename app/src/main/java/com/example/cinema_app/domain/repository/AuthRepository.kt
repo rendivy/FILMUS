@@ -8,5 +8,7 @@ interface AuthRepository {
 
     suspend fun registerUser(registrationBody: RegistrationBody)
 
+    suspend fun isUserLoggedIn(): Boolean
+
     suspend fun loginUser(loginBody: LoginBody)
 }

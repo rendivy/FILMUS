@@ -5,4 +5,5 @@ data class LoginContent(
     val usernameError: String? = null,
     val password: String,
     val passwordError: String? = null,
+    val networkError: String? = null
 )

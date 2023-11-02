@@ -3,7 +3,10 @@
     <string name="greetings_screen_label">Погрузиcь в мир кино</string>
     <string name="greetings_screen_source">Мы предлагаем удобный и легкий способ насладиться любимыми фильмами прямо с Вашего мобильного устройства.</string>
     <string name="name_label">Имя</string>
+    <string name="favourite_main">Любимое</string>
     <string name="enter_label">Войти</string>
+    <string name="no_favourite_label">У вас пока нет любимых фильмов</string>
+    <string name="no_favourite_text">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
     <string name="date_label">Дата роджения</string>
     <string name="login_screen_label">Вход</string>
     <string name="user_sex_label">Пол</string>

@@ -71,7 +71,7 @@ fun RegistrationSection(
             onValueChange = userAuthViewModel::setName,
             error = userState.nameError,
 
-        )
+            )
         if (userState.nameError != null) {
             RegistrationErrorAnimation(
                 userState = userState,
@@ -87,7 +87,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        TextSwitchTest(userAuthViewModel = userAuthViewModel)
+        TextSwitchTest(userAuthViewModel)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.login_label),
@@ -142,7 +142,7 @@ fun RegistrationSection(
         Spacer(modifier = Modifier.height(8.dp))
         CustomClickableBox(
             checked = checked,
-            userAuthViewModel = userAuthViewModel,
+            birth = userAuthViewModel.registrationState.value.birthDate,
             error = userState.birthDateError
         )
         if (userState.birthDateError != null) {
