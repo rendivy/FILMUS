@@ -6,10 +6,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.cinema_app.data.entity.Film
 import com.example.cinema_app.data.mediator.MoviePagingSource
-import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.repository.MoviesRepositoryImpl
+import com.example.cinema_app.domain.entity.FilmDto
 import com.example.cinema_app.presentation.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -21,27 +20,25 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val moviesRepository: MoviesRepositoryImpl,
-    private val movieApiService: MovieApiService
+    private val moviePagingSource: MoviePagingSource
 ) : ViewModel() {
 
 
     private val _movieState = MutableStateFlow<HomeState>(HomeState.Initial)
     val movieState: StateFlow<HomeState> = _movieState
 
-    val moviePagingFlow: Flow<PagingData<Film>> = Pager(PagingConfig(pageSize = 6)) {
-        MoviePagingSource(
-            movieApiService = movieApiService
-        )
+    val moviePagingFlow: Flow<PagingData<FilmDto>> = Pager(PagingConfig(pageSize = 6)) {
+        moviePagingSource
     }.flow.cachedIn(viewModelScope)
 
 
     fun getMovies() {
-        viewModelScope.launch{
+        viewModelScope.launch {
             _movieState.value = HomeState.Loading
             try {
                 _movieState.value = HomeState.Content(moviesRepository.getMovies())
             } catch (e: Exception) {
-                _movieState.value = HomeState.Error(e.message ?: "An unexpected error occured")
+                _movieState.value = HomeState.Error(e.message ?: "An unexpected error occurred")
             }
 
         }

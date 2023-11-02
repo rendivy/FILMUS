@@ -2,6 +2,7 @@ package com.example.cinema_app.data.remote
 
 
 import com.example.cinema_app.common.NetworkConstant
+import com.example.cinema_app.data.entity.FilmDetails
 import com.example.cinema_app.data.entity.LoginBody
 import com.example.cinema_app.data.entity.Movie
 import com.example.cinema_app.data.entity.ProfileCredentials
@@ -30,6 +31,11 @@ interface MovieApiService {
 
     @GET(NetworkConstant.PROFILE_URL)
     suspend fun getUserData(@Header("Authorization") token: String): ProfileCredentials
+
+
+    @GET(NetworkConstant.MOVIE_DETAILS_URL)
+    suspend fun getMovieDetails(@Path("id") id: String): FilmDetails
+
 
     @PUT(NetworkConstant.PROFILE_URL)
     suspend fun updateUserData(

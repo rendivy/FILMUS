@@ -33,6 +33,7 @@ fun CinemaNavHost() {
                 authViewModel = hiltViewModel()
             )
         }
+        
         composable(NavigationRoutes.RegistrationPasswordScreen.route) {
             RegistrationPasswordScreen(
                 userAuthViewModel = hiltViewModel(),

@@ -75,7 +75,6 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUserProfile() {
-        _credentialsState.value = ProfileState.Loading
         viewModelScope.launch {
             try {
                 updateUserProfileUseCase.execute(
@@ -89,7 +88,6 @@ class ProfileViewModel @Inject constructor(
                         nickName = _profileState.value.login
                     )
                 )
-                _credentialsState.value = ProfileState.Successful
             } catch (e: Exception) {
                 Log.d("TAG", "updateUserProfile: ${e.message}")
 

@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -77,66 +79,67 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
 
         is HomeState.Content -> {
             val pagerState = rememberPagerState(pageCount = { 4 })
+            if (moviesPaging.itemCount > 0) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Gray900)
+                        .verticalScroll(rememberScrollState()),
+                ) {
+                    val startIndex = 4
+                    HorizontalPager(
+                        state = pagerState,
+                    ) { page ->
+                        Box(contentAlignment = Alignment.BottomCenter) {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(cardHeight),
+                                model = moviesPaging[page]?.poster ?: "",
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop
+                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 10.dp)
+                                    .height(24.dp)
+                                    .width(72.dp)
+                                    .background(
+                                        color = TransparentWhite,
+                                        shape = RoundedCornerShape(28.dp)
+                                    )
+                                    .align(Alignment.BottomCenter),
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                repeat(4) { page ->
+                                    val color =
+                                        if (page == pagerState.currentPage) Color.White else Color.Transparent
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(CircleShape)
+                                            .width(10.dp)
+                                            .height(10.dp)
+                                            .background(color = color)
+                                            .border(width = 2.dp, color = Color.White)
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Gray900),
-            ) {
-                HorizontalPager(
-                    state = pagerState,
-                ) { page ->
-                    Box(contentAlignment = Alignment.BottomCenter) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(cardHeight),
-                            model = moviesPaging[page]?.poster ?: "",
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop
-                        )
-                        Row(
-                            modifier = Modifier
-                                .padding(bottom = 10.dp)
-                                .height(24.dp)
-                                .width(72.dp)
-                                .background(
-                                    color = TransparentWhite,
-                                    shape = RoundedCornerShape(28.dp)
-                                )
-                                .align(Alignment.BottomCenter),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            repeat(4) { page ->
-                                val color =
-                                    if (page == pagerState.currentPage) Color.White else Color.Transparent
-                                Box(
-                                    modifier = Modifier
-                                        .clip(CircleShape)
-                                        .width(10.dp)
-                                        .height(10.dp)
-                                        .background(color = color)
-                                        .border(width = 2.dp, color = Color.White)
-
-                                ) {
+                                    ) {
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                Text(
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp),
-                    text = "Каталог",
-                    textAlign = TextAlign.Start,
-                    style = SemiBoldStyle,
-                    fontSize = 24.sp,
-                )
-                if (moviesPaging.itemCount > 0){
-                    FilmColumn(moviesPaging = moviesPaging)
-                }
+                    Text(
+                        modifier = Modifier.padding(top = 16.dp, start = 16.dp),
+                        text = "Каталог",
+                        textAlign = TextAlign.Start,
+                        style = SemiBoldStyle,
+                        fontSize = 24.sp,
+                    )
+                    FilmColumn(moviesPaging = moviesPaging, startIndex = startIndex)
 
 
+                }
             }
         }
 
@@ -151,5 +154,7 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                 Text(text = exception, style = InternBoldLarge, color = Color.White)
             }
         }
+
+        else -> {}
     }
 }

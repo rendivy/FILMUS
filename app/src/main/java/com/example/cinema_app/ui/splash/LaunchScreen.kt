@@ -27,7 +27,7 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 fun LaunchScreen(navController: NavController, authViewModel: AuthViewModel) {
     val token by remember { authViewModel.tokenState }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         authViewModel.isUserLogged()
         val startDestination: String =
             if (token) NavigationRoutes.Main.route else NavigationRoutes.Greetings.route

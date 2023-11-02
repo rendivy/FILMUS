@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -73,7 +74,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
             }
         }
         is ProfileState.Content -> {
-            val userState = (credentialsState as ProfileState.Content).profileCredentials
+            val profileState = remember { profileViewModel.profileState }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -95,19 +96,19 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
                         .background(Color.Red)
                 ) {
                     AsyncImage(
-                        model = userState.userAvatar,
+                        model = profileState.value.userAvatar,
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
                 }
                 Text(
-                    text = userState.login,
+                    text = profileState.value.login,
                     style = InternBoldLarge,
                     modifier = Modifier.padding(top = 6.dp, bottom = 20.dp),
                 )
                 ProfileSection(
                     focusManager = focusManager,
-                    userState = userState,
+                    userState = profileState.value,
                     profileViewModel = profileViewModel
                 )
                 Spacer(modifier = Modifier.height(16.dp))
