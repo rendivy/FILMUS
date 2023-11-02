@@ -3,7 +3,10 @@ package com.example.cinema_app.common
 object NetworkConstant {
     const val BASE_URL = "https://react-midterm.kreosoft.space"
     const val REGISTRATION_URL = "/api/account/register"
-    const val FAVORITE_MOVIES_URL = "/api/movies/favorite"
+    const val MOVIES_URL = "/api/movies/{page}"
+    const val MOVIE_DETAILS_URL = "/api/movies/details/{id}"
+    const val PROFILE_URL = "/api/account/profile"
+    const val FAVORITE_MOVIES_URL = "/api/favorites"
     const val LOGIN_URL = "/api/account/login"
     const val CONNECT_TIMEOUT = 10L
     const val READ_TIMEOUT = 10L

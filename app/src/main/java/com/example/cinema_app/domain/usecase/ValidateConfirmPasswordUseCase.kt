@@ -1,8 +1,9 @@
-package com.example.cinema_app.presentation.validator
+package com.example.cinema_app.domain.usecase
 
 import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.presentation.validator.ValidationResult
 
-class ConfirmPasswordValidator {
+class ValidateConfirmPasswordUseCase {
     fun execute(password: String, confirmPassword: String): ValidationResult {
         return if (password != confirmPassword) {
             ValidationResult(

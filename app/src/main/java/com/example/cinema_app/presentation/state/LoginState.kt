@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.login.state
+package com.example.cinema_app.presentation.state
 
 sealed interface LoginState {
     data object Initial: LoginState

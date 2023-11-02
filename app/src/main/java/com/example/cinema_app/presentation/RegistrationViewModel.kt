@@ -10,9 +10,9 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
-import com.example.cinema_app.presentation.validator.ConfirmPasswordValidator
-import com.example.cinema_app.presentation.validator.PasswordValidator
-import com.example.cinema_app.presentation.validator.RegistrationCredentialsValidator
+import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
+import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
+import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,9 +23,9 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
-    private val passwordValidator: PasswordValidator,
-    private val navigationValidator: RegistrationCredentialsValidator,
-    private val confirmPasswordValidator: ConfirmPasswordValidator
+    private val passwordValidator: ValidatePasswordUseCase,
+    private val validateRegCredentialsUseCase: ValidateRegistrationCredentialsUseCase,
+    private val validateConfirmPasswordUseCase: ValidateConfirmPasswordUseCase
 ) :
     ViewModel() {
 
@@ -76,7 +76,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun checkAllStates(): Boolean {
-        return navigationValidator.execute(_registrationState)
+        return validateRegCredentialsUseCase.execute(_registrationState)
     }
 
     fun clearAllUserCredentials() {
@@ -97,7 +97,7 @@ class RegistrationViewModel @Inject constructor(
 
     fun registerUser() {
         val passwordResult = passwordValidator.execute(_registrationState.value.password)
-        val confirmPasswordResult = confirmPasswordValidator.execute(
+        val confirmPasswordResult = validateConfirmPasswordUseCase.execute(
             confirmPassword = _registrationState.value.confirmPassword,
             password = _registrationState.value.password
         )

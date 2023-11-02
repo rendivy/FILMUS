@@ -1,31 +1,28 @@
 package com.example.cinema_app.ui.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.cinema_app.R
+import com.example.cinema_app.common.Constants
 
 sealed class BottomBarRoute(
     val route: String,
-    val icon: ImageVector,
+    val icon: Int,
     val title: String
 ) {
     data object Home : BottomBarRoute(
         route = NavigationRoutes.Home.route,
-        icon = Icons.Default.Home,
-        title = "Home"
+        icon = R.drawable.home_icon,
+        title = Constants.BOTTOM_BAR_HOME_TITLE
     )
 
     data object Profile : BottomBarRoute(
         route = NavigationRoutes.Profile.route,
-        icon = Icons.Default.AccountCircle,
-        title = "Profile"
+        icon = R.drawable.profile_icon,
+        title = Constants.BOTTOM_BAR_PROFILE_TITLE
     )
 
     data object Favourite : BottomBarRoute(
         route = NavigationRoutes.Favourite.route,
-        icon = Icons.Default.Favorite,
-        title = "Profile"
+        icon = R.drawable.favourite_icon,
+        title = Constants.BOTTOM_BAR_FAVOURITE_TITLE
     )
 }
