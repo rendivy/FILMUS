@@ -1,10 +1,9 @@
-package com.example.cinema_app.data.entity
+package com.example.cinema_app.domain.entity
 
-import kotlinx.serialization.Serializable
+import com.example.cinema_app.data.entity.GenreX
+import com.example.cinema_app.data.entity.ReviewX
 
-
-@Serializable
-data class FilmDetails(
+data class DetailsDTO(
     val ageLimit: Int,
     val budget: Int?,
     val country: String,
@@ -18,5 +17,7 @@ data class FilmDetails(
     val reviews: List<ReviewX>,
     val tagline: String,
     val time: Int,
-    val year: Int
+    val year: Int,
+    val filmRating: Double,
+    val userRating: Int? = null
 )

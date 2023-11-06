@@ -23,13 +23,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
 import com.example.cinema_app.data.entity.Genre
+import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.CardTitle
 import com.example.cinema_app.ui.theme.GoodRatingColor
@@ -45,6 +49,7 @@ import com.example.cinema_app.ui.theme.TitleMedium
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeFilmCard(
+    modifier: Modifier = Modifier,
     filmTitle: String,
     filmYear: String,
     filmCountry: String,
@@ -56,7 +61,7 @@ fun HomeFilmCard(
 
     Log.d("HomeFilmCard", "userRating: $userRating")
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Gray900)
             .padding(16.dp)
@@ -74,14 +79,27 @@ fun HomeFilmCard(
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Box(contentAlignment = Alignment.BottomCenter) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     modifier = Modifier
                         .height(130.dp)
                         .width(95.dp),
                     model = filmPoster,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
-                )
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shimmerEffect()
+                                .height(130.dp)
+                                .clip(RoundedCornerShape(5.dp))
+                        )
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
                 if (filmRating >= 0.0) {
                     Box(
                         modifier = Modifier
@@ -115,7 +133,9 @@ fun HomeFilmCard(
                         text = filmTitle,
                         style = CardTitle,
                         color = Color.White,
-                        modifier = Modifier.padding(start = 4.dp).fillMaxWidth(0.8f)
+                        modifier = Modifier
+                            .padding(start = 4.dp)
+                            .fillMaxWidth(0.8f)
                     )
                     if (userRating != null) {
                         val color = when (userRating) {
@@ -131,7 +151,7 @@ fun HomeFilmCard(
                                 .clip(RoundedCornerShape(35.dp))
                                 .background(color),
                         ) {
-                            Row{
+                            Row {
                                 Image(
                                     painter = painterResource(id = R.drawable.star_3),
                                     contentDescription = "star rating",
@@ -190,47 +210,80 @@ fun HomeFilmCard(
                     filmGenres.forEach { genreName ->
                         GenreTag(genreName.name)
                     }
-
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+
 @Composable
-fun RatingBox() {
+fun RatingBox(ratingValue: String) {
+    val containerColor =
+        when (ratingValue.toDouble()) {
+            in 0.1..2.0 -> BadRatingColor
+            in 2.0..3.0 -> BadRatingColor
+            in 3.0..4.0 -> SemiBadRatingColor
+            in 4.0..5.0 -> SemiMediumRatingColor
+            in 5.0..6.0 -> SemiMediumRatingColor
+            in 6.0..8.0 -> MediumRatingColor
+            in 8.0..8.9 -> SemiGoodRatingColor
+            in 9.0..10.0 -> GoodRatingColor
+            else -> Color.White
+        }
+    val textColor =
+        when (ratingValue.toDouble()) {
+            in 0.1..2.0 -> Color.White
+            in 2.0..3.0 -> Color.White
+            in 3.0..4.0 -> Color.White
+            in 4.0..5.0 -> Color.White
+            in 5.0..6.0 -> Color.White
+            in 6.0..8.0 -> Color.Black
+            in 8.0..8.9 -> Color.White
+            in 9.0..10.0 -> Color.White
+            else -> Color.White
+        }
     Box(
         modifier = Modifier
-            .width(37.dp)
-            .height(20.dp)
+            .width(51.dp)
+            .height(26.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(Color.Green),
+            .background(containerColor),
         contentAlignment = Alignment.Center
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = "9.0",
+            text = ratingValue,
             style = SemiBoldStyle,
-            color = Color.Black,
-            fontSize = 13.sp,
+            color = textColor,
+            fontSize = 15.sp,
         )
     }
 }
 
 
-@Preview(showBackground = true)
 @Composable
-fun GenreTag(values: String = "драма") {
+fun GenreTag(
+    values: String = "драма",
+    backgroundColor: Color = Gray750,
+    style: TextStyle = TitleMedium,
+    tinyPadding: Dp = 2.dp,
+    mediumPadding: Dp = 8.dp
+) {
     Box(
         modifier = Modifier
             .padding(start = 4.dp, end = 4.dp, bottom = 4.dp, top = 4.dp)
-            .background(color = Gray750, shape = RoundedCornerShape(5.dp))
+            .background(color = backgroundColor, shape = RoundedCornerShape(5.dp))
 
     ) {
         Text(
-            modifier = Modifier.padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 8.dp),
-            text = values, style = TitleMedium, color = Color.White, textAlign = TextAlign.Center
+            modifier = Modifier.padding(
+                top = tinyPadding,
+                bottom = tinyPadding,
+                start = mediumPadding,
+                end = mediumPadding
+            ),
+            text = values, style = style, color = Color.White, textAlign = TextAlign.Center
         )
     }
 }

@@ -2,6 +2,7 @@ package com.example.cinema_app.di
 
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.repository.AuthRepositoryImpl
+import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.IsUserLoggedUseCase
 import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateDateUseCase
@@ -43,6 +44,12 @@ object DomainModule {
     @Provides
     fun provideLoginValidator(): ValidateLoginUseCase {
         return ValidateLoginUseCase()
+    }
+
+
+    @Provides
+    fun convertDateUseCase(dateConverter: DateConverter): ConvertDateUseCase {
+        return ConvertDateUseCase(dateConverter)
     }
 
     @Provides

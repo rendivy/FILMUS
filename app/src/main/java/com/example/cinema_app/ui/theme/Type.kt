@@ -32,6 +32,13 @@ val CardTitle = TextStyle(
     color = Color.White
 )
 
+val GenreTitle = TextStyle(
+    fontFamily = InterMedium,
+    fontWeight = FontWeight(500),
+    fontSize = 14.sp,
+    color = Color.Gray
+)
+
 val TitleMedium = TextStyle(
     fontFamily = InterMedium,
     fontWeight = FontWeight(500),
@@ -80,13 +87,4 @@ val TitleLarge = TextStyle(
     color = Color.White
 )
 
-/* Other default text styles to override
-titleLarge = TextStyle(
-    fontFamily = FontFamily.Default,
-    fontWeight = FontWeight.Normal,
-    fontSize = 22.sp,
-    lineHeight = 28.sp,
-    letterSpacing = 0.sp
-),
 
-*/
