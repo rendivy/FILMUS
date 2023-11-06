@@ -1,9 +1,7 @@
 package com.example.cinema_app.ui.screen.profile
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePicker
@@ -18,7 +16,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
@@ -44,6 +41,7 @@ fun ProfileAlert(checked: MutableState<Boolean>, profileViewModel: ProfileViewMo
         DatePickerDialog(
             colors = DatePickerDefaults.colors(
                 currentYearContentColor = Gray900,
+                containerColor = Gray900
             ),
             onDismissRequest = {
                 checked.value = false
@@ -52,12 +50,7 @@ fun ProfileAlert(checked: MutableState<Boolean>, profileViewModel: ProfileViewMo
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         modifier = Modifier
-                            .align(Alignment.Center)
-                            .border(
-                                width = 1.dp,
-                                color = Accent,
-                                shape = RoundedCornerShape(8.dp)
-                            ),
+                            .align(Alignment.Center),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Black300
                         ),

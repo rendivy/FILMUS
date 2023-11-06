@@ -39,7 +39,8 @@ class ProfileViewModel @Inject constructor(
             birthDate = Constants.EMPTY_STRING,
             login = Constants.EMPTY_STRING,
             id = Constants.EMPTY_STRING,
-            userAvatar = Constants.EMPTY_STRING
+            userAvatar = Constants.EMPTY_STRING,
+            gender = 1
         )
     )
 
@@ -74,7 +75,6 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUserProfile() {
-        _credentialsState.value = ProfileState.Loading
         viewModelScope.launch {
             try {
                 updateUserProfileUseCase.execute(
@@ -88,31 +88,36 @@ class ProfileViewModel @Inject constructor(
                         nickName = _profileState.value.login
                     )
                 )
-                _credentialsState.value = ProfileState.isSuccessful
             } catch (e: Exception) {
-               Log.d("TAG", "updateUserProfile: ${e.message}")
+                Log.d("TAG", "updateUserProfile: ${e.message}")
 
             }
         }
     }
 
-    fun setProfileContent(credentials: ProfileCredentials) {
+    private fun setProfileContent(credentials: ProfileCredentials) {
         _profileState.value = _profileState.value.copy(
             name = credentials.name,
+            gender = credentials.gender,
             email = credentials.email,
             birthDate = credentials.birthDate,
             login = credentials.nickName,
             id = credentials.id,
             userAvatar = credentials.avatarLink
         )
-        Log.d("TAG", "setProfileContent: ${credentials.birthDate}")
     }
 
     fun getUserProfile() {
         viewModelScope.launch {
+            _credentialsState.value = ProfileState.Loading
+            try {
+                val credentials = getUserProfileUseCase.execute()
+                setProfileContent(credentials)
+                _credentialsState.value = ProfileState.Content(_profileState.value)
+            } catch (e: Exception) {
+                Log.d("TAG", "getUserProfile: ${e.message}")
+            }
 
-            val profileCredentials = getUserProfileUseCase.execute()
-            setProfileContent(profileCredentials)
 
         }
     }

@@ -1,7 +1,10 @@
 package com.example.cinema_app.di
 
 import com.example.cinema_app.data.converter.DateConverter
-import com.example.cinema_app.domain.usecase.ValidateCofirmPasswordUseCase
+import com.example.cinema_app.data.repository.AuthRepositoryImpl
+import com.example.cinema_app.domain.usecase.ConvertDateUseCase
+import com.example.cinema_app.domain.usecase.IsUserLoggedUseCase
+import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateDateUseCase
 import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
 import com.example.cinema_app.domain.usecase.ValidateLoginCredentialsUseCase
@@ -34,8 +37,8 @@ object DomainModule {
     }
 
     @Provides
-    fun provideConfirmPasswordValidator(): ValidateCofirmPasswordUseCase {
-        return ValidateCofirmPasswordUseCase()
+    fun provideConfirmPasswordValidator(): ValidateConfirmPasswordUseCase {
+        return ValidateConfirmPasswordUseCase()
     }
 
     @Provides
@@ -43,7 +46,18 @@ object DomainModule {
         return ValidateLoginUseCase()
     }
 
-     @Provides
+
+    @Provides
+    fun convertDateUseCase(dateConverter: DateConverter): ConvertDateUseCase {
+        return ConvertDateUseCase(dateConverter)
+    }
+
+    @Provides
+    fun provideIsUserLoggedUseCase(authRepositoryImpl: AuthRepositoryImpl): IsUserLoggedUseCase {
+        return IsUserLoggedUseCase(authRepositoryImpl)
+    }
+
+    @Provides
     fun providePasswordValidator(): ValidatePasswordUseCase {
         return ValidatePasswordUseCase()
     }
@@ -54,7 +68,11 @@ object DomainModule {
         validateLoginUseCase: ValidateLoginUseCase,
         dateValidator: ValidateDateUseCase,
     ): ValidateRegistrationCredentialsUseCase {
-        return ValidateRegistrationCredentialsUseCase(emailValidator, validateLoginUseCase, dateValidator)
+        return ValidateRegistrationCredentialsUseCase(
+            emailValidator,
+            validateLoginUseCase,
+            dateValidator
+        )
     }
 
     @Provides

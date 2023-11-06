@@ -55,7 +55,7 @@ android {
 dependencies {
     val coreKtxVersion = "1.12.0"
     val hiltVersion = "2.48"
-    val navVersion = "2.7.4"
+    val navVersion = "2.7.5"
     val kotlinSerializationVersion = "1.6.0"
     val retrofitVersion = "2.9.0"
     val kotlinSerialization = "1.0.0"
@@ -71,9 +71,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("io.github.dokar3:expandabletext:0.3.8")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.security:security-crypto:$securityCryptoVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
@@ -86,6 +88,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-compose:3.2.1")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.0-alpha10")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")

@@ -92,7 +92,7 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        ProfileSwitcher(profileViewModel = profileViewModel)
+        ProfileSwitcher(profileViewModel = profileViewModel, index = userState.gender)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.date_label),
