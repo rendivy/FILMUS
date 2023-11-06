@@ -8,7 +8,6 @@ import javax.inject.Inject
 class FilmMapper @Inject constructor(
     private val getAverageFilmRatingsUseCase: GetAverageFilmRatingsUseCase
 ) {
-
     fun map(data: Film, userRating: Int?): FilmDto {
         return FilmDto(
             country = data.country,
@@ -18,12 +17,10 @@ class FilmMapper @Inject constructor(
             poster = data.poster,
             reviews = data.reviews,
             year = data.year,
-            filmRating = getAverageFilmRatingsUseCase.execute(data, 1),
+            filmRating = getAverageFilmRatingsUseCase.execute(data.reviews, 1),
             userRating = userRating
         )
     }
-
-
 }
 
 
