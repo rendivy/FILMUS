@@ -1,5 +1,7 @@
 package com.example.cinema_app.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -13,6 +15,7 @@ import com.example.cinema_app.ui.screen.registration.credentials.RegistrationScr
 import com.example.cinema_app.ui.screen.registration.password.RegistrationPasswordScreen
 import com.example.cinema_app.ui.splash.LaunchScreen
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CinemaNavHost() {
@@ -33,7 +36,6 @@ fun CinemaNavHost() {
                 authViewModel = hiltViewModel()
             )
         }
-
         composable(NavigationRoutes.RegistrationPasswordScreen.route) {
             RegistrationPasswordScreen(
                 userAuthViewModel = hiltViewModel(),

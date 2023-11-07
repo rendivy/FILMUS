@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
+import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
@@ -14,9 +15,11 @@ import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
 import com.example.cinema_app.presentation.state.ProfileState
 import com.example.cinema_app.ui.state.ProfileContent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,6 +46,21 @@ class ProfileViewModel @Inject constructor(
             gender = 1
         )
     )
+
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        when (exception) {
+            is HttpException -> when (exception.code()) {
+                401 ->
+                    _credentialsState.value = ProfileState.Error(ErrorConstant.UNAUTHORIZED)
+                }
+
+                else -> {
+                    _credentialsState.value = ProfileState.Error(ErrorConstant.UNKNOWN_ERROR)
+                }
+            }
+        }
+
 
 
     fun setUserGender(index: Int) {
