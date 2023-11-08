@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FilmDetails(
     val ageLimit: Int,
-    val budget: Int,
+    val budget: Int?,
     val country: String,
     val description: String,
     val director: String,
-    val fees: Int,
+    val fees: Int?,
     val genres: List<GenreX>,
     val id: String,
     val name: String,

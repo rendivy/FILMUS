@@ -1,7 +1,7 @@
 package com.example.cinema_app.di
 
 import com.example.cinema_app.data.mappers.FilmMapper
-import com.example.cinema_app.data.mediator.MoviePagingSource
+import com.example.cinema_app.pagination.MoviePagingSource
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.repository.ProfileRepositoryImpl
 import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase

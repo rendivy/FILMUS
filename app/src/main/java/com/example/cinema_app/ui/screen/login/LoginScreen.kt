@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -85,7 +87,8 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it)
-                    .background(color = Gray900),
+                    .background(color = Gray900)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Top,
             ) {
                 LoginSection(

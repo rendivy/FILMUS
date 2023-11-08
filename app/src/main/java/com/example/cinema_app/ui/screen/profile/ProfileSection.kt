@@ -81,7 +81,7 @@ fun ProfileSection(
         )
         Spacer(modifier = Modifier.height(8.dp))
         CustomTextField(
-            textFieldValue = userState.userAvatar,
+            textFieldValue = userState.userAvatar ?: "",
             onValueChange = { profileViewModel.setUserAvatar(it) },
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -104,7 +104,7 @@ fun ProfileSection(
         Spacer(modifier = Modifier.height(8.dp))
         CustomClickableBox(
             checked = checked,
-            birth = userState.birthDate,
+            birth = profileViewModel.convertDate(userState.birthDate),
         )
         ProfileAlert(checked = checked, profileViewModel = profileViewModel)
     }
