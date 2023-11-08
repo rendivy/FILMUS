@@ -1,4 +1,4 @@
-package com.example.cinema_app.data.mediator
+package com.example.cinema_app.pagination
 
 
 import androidx.paging.PagingSource
@@ -35,8 +35,11 @@ class MoviePagingSource @Inject constructor(
             val response = movieApiService.getMovies(page)
             response.movies.forEach {
                 val filmDetails = movieApiService.getMovieDetails(it.id)
-                val userRatings = getUserProfileUseCase.getUserRating(filmDetails.reviews)
+                val userRatings = getUserProfileUseCase.getUserReview(filmDetails.reviews)
                 movies += filmMapper.map(it, userRatings)
+
+
+
             }
 
             val prevKey = if (page > 0) page - 1 else null

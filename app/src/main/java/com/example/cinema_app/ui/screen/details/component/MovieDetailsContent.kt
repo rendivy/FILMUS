@@ -27,7 +27,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -35,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -45,10 +49,13 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
 import com.example.cinema_app.data.converter.BudgetConverter
-import com.example.cinema_app.data.entity.FilmDetails
 import com.example.cinema_app.data.entity.GenreX
 import com.example.cinema_app.data.entity.ReviewX
+import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
+import com.example.cinema_app.ui.component.UserRatingBox
+import com.example.cinema_app.ui.screen.details.dialog.MyUI
+import com.example.cinema_app.ui.screen.details.dialog.ReviewDialog
 import com.example.cinema_app.ui.screen.home.GenreTag
 import com.example.cinema_app.ui.screen.home.RatingBox
 import com.example.cinema_app.ui.shimmer.shimmerEffect
@@ -58,18 +65,20 @@ import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.SemiBoldStyle
+import com.example.cinema_app.ui.theme.padding16
 
 @ExperimentalLayoutApi
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
 fun MovieDetailsContent(
-    content: FilmDetails,
+    content: DetailsDTO,
     filmRating: String,
     movieDetailsViewModel: MovieDetailsViewModel
 ) {
-    val items = (1..100).map { "Item $it" }
     val lazyListState = rememberLazyListState()
+    val reviewDialogOpen = remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
     var scrolledY = 0f
     var previousOffset = 0
     Scaffold(
@@ -141,7 +150,12 @@ fun MovieDetailsContent(
                     Row(
                         modifier = Modifier
                             .background(color = Gray900)
-                            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 20.dp)
+                            .padding(
+                                start = padding16,
+                                end = padding16,
+                                top = padding16,
+                                bottom = 20.dp
+                            )
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -182,10 +196,10 @@ fun MovieDetailsContent(
                             text = content.description,
                             color = Color.White,
                             modifier = Modifier.padding(
-                                start = 16.dp,
-                                end = 16.dp,
+                                start = padding16,
+                                end = padding16,
                                 bottom = 10.dp,
-                                top = 16.dp
+                                top = padding16
                             )
                         )
                     }
@@ -202,7 +216,7 @@ fun MovieDetailsContent(
                             text = "Жанры",
                             modifier = Modifier
                                 .background(color = Gray900)
-                                .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
+                                .padding(start = padding16, end = padding16, bottom = 10.dp),
                             style = SemiBoldStyle
                         )
                         GenreSection(content.genres)
@@ -216,6 +230,41 @@ fun MovieDetailsContent(
                     }
                 }
                 item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = padding16),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Отзывы",
+                            modifier = Modifier
+                                .background(color = Gray900)
+                                .padding(start = padding16, end = padding16, bottom = padding16),
+                            style = SemiBoldStyle
+                        )
+                        if (content.userReviewX == null) {
+                            Box(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .background(color = Accent, shape = RoundedCornerShape(50.dp))
+                                    .clip(RoundedCornerShape(50.dp))
+                            ) {
+                                IconButton(onClick = {
+                                    reviewDialogOpen.value = true
+                                }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.add_film_icon),
+                                        contentDescription = null
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    if (reviewDialogOpen.value) {
+                        ReviewDialog(reviewDialogOpen, movieDetailsViewModel, movieId = content.id)
+                    }
+
                     ReviewSection(content = content, viewModel = movieDetailsViewModel)
                 }
             }
@@ -242,18 +291,18 @@ fun GenreSection(data: List<GenreX>) {
 
 
 @Composable
-fun AboutFilmSection(content: FilmDetails) {
+fun AboutFilmSection(content: DetailsDTO) {
     Text(
         text = "О фильме",
         modifier = Modifier
             .background(color = Gray900)
-            .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
+            .padding(start = padding16, end = padding16, bottom = 10.dp),
         style = SemiBoldStyle
     )
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+            .padding(start = padding16, end = padding16, bottom = 20.dp),
         horizontalAlignment = Alignment.Start
     ) {
         AboutItem(title = "Год", value = content.year.toString())
@@ -280,10 +329,13 @@ fun AboutFilmSection(content: FilmDetails) {
 
 
 @Composable
-fun ReviewSection(content: FilmDetails, viewModel: MovieDetailsViewModel) {
+fun ReviewSection(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
+    if (content.userReviewX != null) {
+        UserReview(content, viewModel)
+    }
     content.reviews.forEach {
         if (it.isAnonymous) {
-            AnonymousCard(it)
+            AnonymousCard(it, viewModel = viewModel)
         } else {
             if (it.author != null) {
                 ReviewItem(it, viewModel = viewModel)
@@ -300,7 +352,7 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
+            .padding(start = padding16, end = padding16, bottom = 20.dp)
             .background(Gray900)
     ) {
         Row(
@@ -327,11 +379,18 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
                     .fillMaxWidth()
                     .padding(start = 10.dp)
             ) {
-                Text(
-                    text = review.author?.nickName ?: "Анонимный пользователь",
-                    style = GenreTitle,
-                    color = Color.White
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = CenterVertically
+                ) {
+                    Text(
+                        text = review.author?.nickName ?: "Анонимный пользователь",
+                        style = GenreTitle,
+                        color = Color.White
+                    )
+                    UserRatingBox(userRating = review.rating)
+                }
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -353,11 +412,11 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
 }
 
 @Composable
-fun AnonymousCard(review: ReviewX) {
+fun AnonymousCard(review: ReviewX, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
+            .padding(start = padding16, end = padding16, bottom = 20.dp)
             .background(Gray900)
     ) {
         Row(
@@ -376,18 +435,24 @@ fun AnonymousCard(review: ReviewX) {
             ) {
                 Image(painterResource(id = R.drawable.profile_icon), contentDescription = null)
             }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp)
             ) {
-                Text(
-                    text = "Анонимный пользователь",
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    style = GenreTitle,
-                    color = Color.White
-                )
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Анонимный пользователь",
+                        style = GenreTitle,
+                        color = Color.White
+                    )
+                    UserRatingBox(userRating = review.rating)
+                }
+
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -399,9 +464,9 @@ fun AnonymousCard(review: ReviewX) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = review.createDateTime,
+            text = viewModel.convertDate(review.createDateTime),
             style = GenreTitle,
-            color = Color.White,
+            color = Color.Gray,
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -453,6 +518,94 @@ fun UserAvatar(model: String) {
 
 
 @Composable
+fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = padding16, end = padding16, bottom = 20.dp)
+            .background(Gray900)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            if (content.userReviewX?.author?.avatar != null) {
+                UserAvatar(model = content.userReviewX.author.avatar)
+            } else {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(
+                            RoundedCornerShape(100.dp)
+                        )
+                        .background(Gray900)
+                        .shimmerEffect()
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            text = content.userReviewX?.author?.nickName
+                                ?: "Анонимный пользователь",
+                            style = GenreTitle,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "мой отзыв",
+                            style = GenreTitle,
+                            color = Color.Gray,
+                        )
+                    }
+                    Row() {
+                        UserRatingBox(userRating = content.userReviewX!!.rating)
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Box(
+                            modifier = Modifier
+                                .size(26.dp)
+                                .background(
+                                    color = Gray750,
+                                    shape = RoundedCornerShape(50.dp)
+                                )
+                        ) {
+                            MyUI()
+                        }
+
+                    }
+
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = content.userReviewX!!.reviewText,
+            style = GenreTitle,
+            color = Color.White,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = viewModel.convertDate(content.userReviewX.createDateTime),
+            style = GenreTitle,
+            color = Color.Gray,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+    }
+}
+
+
+@Composable
 fun AboutItem(title: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -471,3 +624,5 @@ fun AboutItem(title: String, value: String) {
         )
     }
 }
+
+

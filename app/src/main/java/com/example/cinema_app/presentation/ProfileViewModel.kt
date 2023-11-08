@@ -10,6 +10,7 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
+import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
 import com.example.cinema_app.presentation.state.ProfileState
@@ -26,7 +27,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
-    private val dateUseCase: DateConverter
+    private val dateUseCase: DateConverter,
+    private val convertDateUseCase: ConvertDateUseCase
 ) : ViewModel() {
 
     private val _credentialsState = MutableStateFlow<ProfileState>(ProfileState.Initial)
@@ -62,6 +64,12 @@ class ProfileViewModel @Inject constructor(
         }
 
 
+    fun convertDate(date: String): String {
+        return convertDateUseCase.execute(date)
+    }
+
+
+
 
     fun setUserGender(index: Int) {
         _profileState.value = _profileState.value.copy(gender = index)
@@ -69,8 +77,9 @@ class ProfileViewModel @Inject constructor(
 
     fun setBirthDate(birthDate: Long?) {
         if (birthDate == null) return
+        val convertDate = dateUseCase.convertMillisToDateString(birthDate)
         _profileState.value = _profileState.value.copy(
-            birthDate = dateUseCase.convertMillisToDateString(birthDate)
+            birthDate = convertDate
         )
     }
 

@@ -26,8 +26,7 @@ class RegistrationViewModel @Inject constructor(
     private val passwordValidator: ValidatePasswordUseCase,
     private val validateRegCredentialsUseCase: ValidateRegistrationCredentialsUseCase,
     private val validateConfirmPasswordUseCase: ValidateConfirmPasswordUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     val registrationState: State<RegistrationContent>
         get() = _registrationState
@@ -96,40 +95,12 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun registerUser() {
-        val passwordResult = passwordValidator.execute(_registrationState.value.password)
-        val confirmPasswordResult = validateConfirmPasswordUseCase.execute(
-            confirmPassword = _registrationState.value.confirmPassword,
-            password = _registrationState.value.password
-        )
-
         viewModelScope.launch {
             try {
-                when {
-                    !passwordResult.successful -> passwordResult.errorMessage?.let {
-                        handlePasswordError(
-                            it
-                        )
-                    }
+                val registrationBody = createRegistrationBody()
+                registerUserUseCase.invoke(registrationBody)
 
-                    else -> clearPasswordError()
-                }
-
-                when {
-                    !confirmPasswordResult.successful -> confirmPasswordResult.errorMessage?.let {
-                        handleConfirmPasswordError(
-                            it
-                        )
-                    }
-
-                    else -> clearConfirmPasswordError()
-                }
-
-                if (passwordResult.successful && confirmPasswordResult.successful) {
-                    val registrationBody = createRegistrationBody()
-                    registerUserUseCase.invoke(registrationBody)
-                }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("TAG", "registerUser: ${e.message}")
             }
         }

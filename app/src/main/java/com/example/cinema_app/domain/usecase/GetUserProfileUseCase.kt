@@ -12,12 +12,12 @@ class GetUserProfileUseCase @Inject constructor(private val profileRepository: P
     }
 
 
-    suspend fun getUserRating(filmReviews: List<ReviewX>): Int? {
+    suspend fun getUserReview(filmReviews: List<ReviewX>): ReviewX? {
         val profile = execute()
         filmReviews.forEach {
-            if (it.author != null){
+            if (it.author != null) {
                 if (it.author.userId == profile.id) {
-                    return it.rating
+                    return it
                 }
             }
 

@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,10 @@ fun HomeScreen(
     val context = LocalContext.current
     val moviesPaging = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
     val cardHeight = (screenHeight * 0.9f).coerceAtMost(497.dp)
+
+    LaunchedEffect(Unit){
+        moviesPaging.retry()
+    }
 
     when (moviesPaging.loadState.refresh) {
         is LoadState.Error -> {

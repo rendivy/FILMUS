@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.screen.MainScreen
 import com.example.cinema_app.ui.screen.greetings.GreetingsScreen
 import com.example.cinema_app.ui.screen.login.LoginScreen
@@ -18,7 +19,7 @@ import com.example.cinema_app.ui.splash.LaunchScreen
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CinemaNavHost() {
+fun CinemaNavHost(registrationViewModel: RegistrationViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -38,13 +39,13 @@ fun CinemaNavHost() {
         }
         composable(NavigationRoutes.RegistrationPasswordScreen.route) {
             RegistrationPasswordScreen(
-                userAuthViewModel = hiltViewModel(),
+                userAuthViewModel = registrationViewModel,
                 navController = navController
             )
         }
         composable(NavigationRoutes.Registration.route) {
             RegistrationScreen(
-                userAuthViewModel = hiltViewModel(),
+                userAuthViewModel = registrationViewModel,
                 navController = navController
             )
         }

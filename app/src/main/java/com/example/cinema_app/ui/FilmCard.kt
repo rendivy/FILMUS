@@ -19,17 +19,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
+import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.TitleMedium
 
 
 @Composable
-fun FilmCard(path: String, movieName: String, width: Dp) {
+fun FilmCard(path: String, movieName: String, width: Dp, ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AsyncImage(
+        SubcomposeAsyncImage(
             model = path,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -37,7 +40,23 @@ fun FilmCard(path: String, movieName: String, width: Dp) {
                 .width(width = width)
                 .clip(RoundedCornerShape(8.dp)),
             contentDescription = "Film Card"
-        )
+        ) {
+            when (painter.state) {
+                is AsyncImagePainter.State.Loading -> {
+                    Box(
+                        modifier = Modifier
+                            .height(240.dp)
+                            .width(width = width)
+                            .clip(RoundedCornerShape(8.dp))
+                            .shimmerEffect()
+                    )
+                }
+
+                else -> {
+                    SubcomposeAsyncImageContent()
+                }
+            }
+        }
         Text(
             text = movieName,
             fontSize = 14.sp,
@@ -59,8 +78,8 @@ fun LargeFilmCard(path: String, movieName: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box() {
-            AsyncImage(
+        Box{
+            SubcomposeAsyncImage(
                 model = path,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -68,7 +87,23 @@ fun LargeFilmCard(path: String, movieName: String) {
                     .height(240.dp)
                     .clip(RoundedCornerShape(8.dp)),
                 contentDescription = "Film Card"
-            )
+            ) {
+                when (painter.state) {
+                    is AsyncImagePainter.State.Loading -> {
+                        Box(
+                            modifier = Modifier
+                                .height(240.dp)
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .shimmerEffect()
+                        )
+                    }
+
+                    else -> {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
+            }
         }
         Text(
             text = movieName,

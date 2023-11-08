@@ -44,7 +44,7 @@ fun FilmColumn(
                     filmPoster = it.poster,
                     filmGenres = it.genres,
                     filmRating = it.filmRating,
-                    userRating = it.userRating
+                    userRating = it.userReview
                 )
             }
         }

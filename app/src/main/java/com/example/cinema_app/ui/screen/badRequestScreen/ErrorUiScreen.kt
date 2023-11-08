@@ -28,6 +28,7 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.maxFavouriteCardSize
+import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding16
 
 @Composable
@@ -66,6 +67,6 @@ fun ErrorUiScreen(
                 style = SecondarySemiBoldStyle
             )
         }
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(padding15))
     }
 }

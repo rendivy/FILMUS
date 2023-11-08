@@ -35,7 +35,8 @@ fun HandleErrorState(
                 ErrorUiScreen(onClick)
             }
         }
-    } else {
+    }
+    else {
         ErrorUiScreen(onClick)
     }
 }

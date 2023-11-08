@@ -6,6 +6,11 @@ plugins {
     id("kotlin-kapt")
 }
 
+
+
+
+
+
 android {
     namespace = "com.example.cinema_app"
     compileSdk = 34
@@ -22,6 +27,8 @@ android {
             useSupportLibrary = true
         }
     }
+
+
 
     buildTypes {
         release {
@@ -74,8 +81,9 @@ dependencies {
     implementation("io.github.dokar3:expandabletext:0.3.8")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.github.a914-gowtham:compose-ratingbar:1.3.4")
     implementation("androidx.navigation:navigation-compose:$navVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("androidx.security:security-crypto:$securityCryptoVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")

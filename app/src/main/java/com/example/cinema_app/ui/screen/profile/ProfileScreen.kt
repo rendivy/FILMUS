@@ -25,7 +25,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -62,12 +61,6 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
     val credentialsState by profileViewModel.credentialsState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        profileViewModel.getUserProfile()
-
-    }
-
 
     when (credentialsState) {
         is ProfileState.Initial -> profileViewModel.getUserProfile()
