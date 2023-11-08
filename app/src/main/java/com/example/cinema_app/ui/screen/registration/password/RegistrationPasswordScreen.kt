@@ -100,7 +100,10 @@ fun RegistrationPasswordScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
-                    onClick = { userAuthViewModel.registerUser() },
+                    onClick = {
+                        userAuthViewModel.registerUser()
+                        navController.navigate(NavigationRoutes.Main.route)
+                    },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
@@ -134,8 +137,7 @@ fun RegistrationPasswordScreen(
                         onClick = {
                             if (navController.previousBackStackEntry?.destination?.route == NavigationRoutes.Login.route) {
                                 navController.popBackStack()
-                            }
-                            else {
+                            } else {
                                 navController.navigate(NavigationRoutes.Login.route)
                             }
                         }),

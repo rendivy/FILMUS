@@ -32,6 +32,8 @@ import com.example.cinema_app.R
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.padding8
 
 @Composable
 fun PasswordTextField(
@@ -46,7 +48,8 @@ fun PasswordTextField(
     val visibilityIconState = if (passwordVisibility) {
         ImageVector.vectorResource(id = R.drawable.eye_close)
 
-    } else {
+    }
+    else {
         ImageVector.vectorResource(id = R.drawable.eye_open)
     }
 
@@ -54,12 +57,12 @@ fun PasswordTextField(
         modifier = Modifier
             .background(
                 color = containerColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(padding8)
             )
             .border(
                 width = 1.dp,
                 color = outlinedColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(padding8)
             )
             .fillMaxWidth(),
         value = textFieldValue,
@@ -92,7 +95,7 @@ fun PasswordTextField(
                         .clickable(onClick = {
                             passwordVisibility = !passwordVisibility
                         })
-                        .size(20.dp),
+                        .size(padding20),
                     tint = Color.White,
                     contentDescription = null,
                 )

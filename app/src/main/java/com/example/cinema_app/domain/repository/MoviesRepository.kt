@@ -6,6 +6,8 @@ import com.example.cinema_app.data.entity.Movie
 interface MoviesRepository {
     suspend fun getMovies(): Movie
 
-    suspend fun getMovieDetails(movieId: String) : FilmDetails
+    suspend fun addReview(movieId: String, reviewText: String, rating: Int, isAnonymous: Boolean)
+
+    suspend fun getMovieDetails(movieId: String): FilmDetails
 
 }

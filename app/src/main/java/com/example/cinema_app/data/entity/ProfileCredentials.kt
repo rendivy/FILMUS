@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ProfileCredentials(
-    val avatarLink: String,
+    val avatarLink: String?,
     val birthDate: String,
     val email: String,
     val gender: Int,
