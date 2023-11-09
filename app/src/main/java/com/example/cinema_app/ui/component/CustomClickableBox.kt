@@ -33,7 +33,7 @@ fun CustomClickableBox(
     val containerColor = if (error != null) Color.Red.copy(alpha = 0.1f) else Gray900
     Box(
         modifier = Modifier
-            .clickable { checked.value = checked.value.not() }
+            .clickable { checked.value = !checked.value }
             .background(
                 color = containerColor,
                 shape = RoundedCornerShape(padding8)

@@ -104,7 +104,8 @@ fun ProfileSection(
         Spacer(modifier = Modifier.height(8.dp))
         CustomClickableBox(
             checked = checked,
-            birth = profileViewModel.convertDate(userState.birthDate),
+            birth = userState.birthDate,
+
         )
         ProfileAlert(checked = checked, profileViewModel = profileViewModel)
     }

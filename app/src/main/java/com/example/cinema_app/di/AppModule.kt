@@ -1,12 +1,13 @@
 package com.example.cinema_app.di
 
 import com.example.cinema_app.data.mappers.FilmMapper
-import com.example.cinema_app.pagination.MoviePagingSource
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.repository.ProfileRepositoryImpl
 import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase
 import com.example.cinema_app.domain.usecase.GetUserIdUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
+import com.example.cinema_app.pagination.MoviePagingSource
+import com.example.cinema_app.presentation.mappers.UserReviewMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +33,11 @@ object AppModule {
     @Provides
     fun provideUserIdUseCase(profileRepositoryImpl: ProfileRepositoryImpl): GetUserIdUseCase {
         return GetUserIdUseCase(profileRepositoryImpl = profileRepositoryImpl)
+    }
+
+    @Provides
+    fun provideReviewMapper(): UserReviewMapper {
+        return UserReviewMapper()
     }
 
 

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class DetailsMapper @Inject constructor() {
 
-    fun map(data: FilmDetails, userRating: ReviewX?): DetailsDTO {
+    fun map(data: FilmDetails, userRating: ReviewX?, averageFilmRating: Double): DetailsDTO {
         return DetailsDTO(
             country = data.country,
             genres = data.genres,
@@ -23,7 +23,9 @@ class DetailsMapper @Inject constructor() {
             fees = data.fees,
             tagline = data.tagline,
             time = data.time,
-            userReviewX = userRating
+            userReviewX = userRating,
+            averageFilmRating = averageFilmRating
         )
     }
+
 }
