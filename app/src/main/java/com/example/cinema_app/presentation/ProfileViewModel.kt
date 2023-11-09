@@ -12,6 +12,7 @@ import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
+import com.example.cinema_app.domain.usecase.LogoutUserUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
 import com.example.cinema_app.presentation.state.ProfileState
 import com.example.cinema_app.ui.state.ProfileContent
@@ -28,7 +29,8 @@ class ProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
     private val dateUseCase: DateConverter,
-    private val convertDateUseCase: ConvertDateUseCase
+    private val convertDateUseCase: ConvertDateUseCase,
+    private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
     private val _credentialsState = MutableStateFlow<ProfileState>(ProfileState.Initial)
@@ -55,20 +57,13 @@ class ProfileViewModel @Inject constructor(
             is HttpException -> when (exception.code()) {
                 401 ->
                     _credentialsState.value = ProfileState.Error(ErrorConstant.UNAUTHORIZED)
-                }
+            }
 
-                else -> {
-                    _credentialsState.value = ProfileState.Error(ErrorConstant.UNKNOWN_ERROR)
-                }
+            else -> {
+                _credentialsState.value = ProfileState.Error(ErrorConstant.UNKNOWN_ERROR)
             }
         }
-
-
-    fun convertDate(date: String): String {
-        return convertDateUseCase.execute(date)
     }
-
-
 
 
     fun setUserGender(index: Int) {
@@ -102,12 +97,12 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUserProfile() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             try {
                 updateUserProfileUseCase.execute(
                     ProfileCredentials(
                         avatarLink = _profileState.value.userAvatar,
-                        birthDate = _profileState.value.birthDate,
+                        birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
                         email = _profileState.value.email,
                         gender = _profileState.value.gender,
                         name = _profileState.value.name,
@@ -122,26 +117,38 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+
     private fun setProfileContent(credentials: ProfileCredentials) {
         _profileState.value = _profileState.value.copy(
             name = credentials.name,
             gender = credentials.gender,
             email = credentials.email,
-            birthDate = credentials.birthDate,
+            birthDate = dateUseCase.convertDateToUi(credentials.birthDate),
             login = credentials.nickName,
             id = credentials.id,
             userAvatar = credentials.avatarLink
         )
     }
 
+    fun logoutUser() {
+        viewModelScope.launch(exceptionHandler) {
+            logoutUserUseCase.execute()
+        }
+    }
+
+    fun retry() {
+        _credentialsState.value = ProfileState.Initial
+    }
+
     fun getUserProfile() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _credentialsState.value = ProfileState.Loading
             try {
                 val credentials = getUserProfileUseCase.execute()
                 setProfileContent(credentials)
                 _credentialsState.value = ProfileState.Content(_profileState.value)
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 Log.d("TAG", "getUserProfile: ${e.message}")
             }
 

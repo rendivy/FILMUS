@@ -8,7 +8,7 @@ import java.util.TimeZone
 
 class DateConverter {
     fun convertMillisToDateString(millis: Long, locale: Locale = Locale.getDefault()): String {
-        val sdf = SimpleDateFormat("yyyy.MM.dd", locale)
+        val sdf = SimpleDateFormat("dd.MM.yyyy", locale)
         sdf.timeZone =
             TimeZone.getTimeZone("UTC")
         val date = Date(millis)

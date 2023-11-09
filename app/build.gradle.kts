@@ -66,7 +66,7 @@ dependencies {
     val kotlinSerializationVersion = "1.6.0"
     val retrofitVersion = "2.9.0"
     val kotlinSerialization = "1.0.0"
-    val okHttpVersion = "4.11.0"
+    val okHttpVersion = "4.12.0"
     val material3Version = "1.1.1"
     val activityComposeVersion = "1.8.0"
     val securityCryptoVersion = "1.1.0-alpha06"
@@ -80,6 +80,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("io.github.dokar3:expandabletext:0.3.8")
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.coil-kt:coil-gif:2.5.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.github.a914-gowtham:compose-ratingbar:1.3.4")
     implementation("androidx.navigation:navigation-compose:$navVersion")

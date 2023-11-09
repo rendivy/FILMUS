@@ -38,8 +38,6 @@ class MoviePagingSource @Inject constructor(
                 val userRatings = getUserProfileUseCase.getUserReview(filmDetails.reviews)
                 movies += filmMapper.map(it, userRatings)
 
-
-
             }
 
             val prevKey = if (page > 0) page - 1 else null

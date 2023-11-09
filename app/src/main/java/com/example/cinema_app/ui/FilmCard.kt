@@ -3,6 +3,7 @@ package com.example.cinema_app.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImagePainter
@@ -27,18 +27,15 @@ import com.example.cinema_app.ui.theme.TitleMedium
 
 
 @Composable
-fun FilmCard(path: String, movieName: String, width: Dp, ) {
+fun FilmCard(path: String, movieName: String, modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SubcomposeAsyncImage(
+            modifier = modifier.fillMaxSize(),
             model = path,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .height(240.dp)
-                .width(width = width)
-                .clip(RoundedCornerShape(8.dp)),
+            contentScale = ContentScale.Crop,
             contentDescription = "Film Card"
         ) {
             when (painter.state) {
@@ -46,7 +43,7 @@ fun FilmCard(path: String, movieName: String, width: Dp, ) {
                     Box(
                         modifier = Modifier
                             .height(240.dp)
-                            .width(width = width)
+                            .width(width = 200.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .shimmerEffect()
                     )
@@ -64,7 +61,7 @@ fun FilmCard(path: String, movieName: String, width: Dp, ) {
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(top = 5.dp)
-                .width(160.dp)
+
         )
     }
 
@@ -78,7 +75,7 @@ fun LargeFilmCard(path: String, movieName: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box{
+        Box {
             SubcomposeAsyncImage(
                 model = path,
                 contentScale = ContentScale.Crop,

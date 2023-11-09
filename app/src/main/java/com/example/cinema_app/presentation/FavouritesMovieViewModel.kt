@@ -22,7 +22,7 @@ class FavouritesMovieViewModel @Inject constructor(
     private val _favouriteMovieState = MutableStateFlow<FavouriteState>(FavouriteState.Initial)
     val favouriteMovieState: StateFlow<FavouriteState> = _favouriteMovieState
 
-    private val tokenInterceptor = CoroutineExceptionHandler { _, exception ->
+    private val errorHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
                 401 -> {
@@ -35,7 +35,7 @@ class FavouritesMovieViewModel @Inject constructor(
 
 
     fun getFavouriteMovie() {
-        viewModelScope.launch(tokenInterceptor) {
+        viewModelScope.launch(errorHandler) {
             _favouriteMovieState.value = FavouriteState.Loading
             val favouriteMovie = getFavouriteMovieUseCase.execute()
 

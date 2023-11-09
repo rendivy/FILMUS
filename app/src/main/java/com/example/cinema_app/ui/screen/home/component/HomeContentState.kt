@@ -86,6 +86,7 @@ fun HomeContentState(
                                         .clip(RoundedCornerShape(5.dp))
                                 )
                             }
+
                             else -> {
                                 SubcomposeAsyncImageContent()
                             }
@@ -117,6 +118,8 @@ fun HomeContentState(
                                 .border(width = 2.dp, color = Color.White)
 
                         ) {
+
+
                         }
                     }
                 }

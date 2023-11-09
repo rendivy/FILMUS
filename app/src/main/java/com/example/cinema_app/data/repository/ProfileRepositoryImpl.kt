@@ -18,6 +18,12 @@ class ProfileRepositoryImpl @Inject constructor(
         return movieApiService.getUserData(token = "Bearer $token")
     }
 
+    override suspend fun logout() {
+        val token = tokenManager.getToken()
+        movieApiService.logout(
+            token = "Bearer $token"
+        )
+    }
 
 
     override suspend fun updateProfileData(profileCredentials: ProfileCredentials) {
