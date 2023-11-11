@@ -14,7 +14,7 @@ class GetMovieDetailsUseCase @Inject constructor(
     private val moviesRepository: MoviesRepositoryImpl,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val detailsMapper: DetailsMapper,
-    private val reviewMapper: UserReviewMapper
+    private val reviewMapper: UserReviewMapper,
 ) {
 
     private fun averageFilmRating(data: List<ReviewX>, precision: Int): Double {

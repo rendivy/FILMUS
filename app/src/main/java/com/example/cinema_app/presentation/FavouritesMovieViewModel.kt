@@ -1,5 +1,6 @@
 package com.example.cinema_app.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.ErrorConstant
@@ -7,6 +8,7 @@ import com.example.cinema_app.domain.usecase.GetFavouriteMovieWithRatingUseCase
 import com.example.cinema_app.presentation.state.FavouriteState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -31,6 +33,7 @@ class FavouritesMovieViewModel @Inject constructor(
             }
 
             else -> {
+                Log.d("TAG", "errorHandler: ${exception.message}")
                 _favouriteMovieState.value = FavouriteState.Error(ErrorConstant.BAD_REQUEST)
             }
         }
@@ -42,7 +45,7 @@ class FavouritesMovieViewModel @Inject constructor(
 
 
     fun getFavouriteMovie() {
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
             _favouriteMovieState.value = FavouriteState.Loading
             val favouriteMovie = getFavouriteMovieWithRatingUseCase.execute()
             if (favouriteMovie.isEmpty()) {

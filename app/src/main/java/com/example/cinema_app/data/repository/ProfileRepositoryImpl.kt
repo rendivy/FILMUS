@@ -1,5 +1,6 @@
 package com.example.cinema_app.data.repository
 
+import com.example.cinema_app.data.database.MovieDataBase
 import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
@@ -10,7 +11,8 @@ import javax.inject.Singleton
 @Singleton
 class ProfileRepositoryImpl @Inject constructor(
     private val tokenManager: TokenLocalStorage,
-    private val movieApiService: MovieApiService
+    private val movieApiService: MovieApiService,
+    private val dataBase: MovieDataBase
 ) : ProfileRepository {
 
     override suspend fun getProfileData(): ProfileCredentials {
@@ -19,7 +21,9 @@ class ProfileRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout() {
+        val dao = dataBase.userDao()
         val token = tokenManager.getToken()
+        dao.deleteAllUserRatings()
         movieApiService.logout(
             token = "Bearer $token"
         )

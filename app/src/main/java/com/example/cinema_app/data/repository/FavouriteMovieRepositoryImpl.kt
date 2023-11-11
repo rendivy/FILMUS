@@ -1,5 +1,6 @@
 package com.example.cinema_app.data.repository
 
+import com.example.cinema_app.data.database.MovieDataBase
 import com.example.cinema_app.data.entity.Movie
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
@@ -11,7 +12,8 @@ import javax.inject.Singleton
 @Singleton
 class FavouriteMovieRepositoryImpl @Inject constructor(
     private val tokenLocalStorage: TokenLocalStorage,
-    private val movieApiService: MovieApiService
+    private val movieApiService: MovieApiService,
+    private val movieDataBase: MovieDataBase
 ) : FavouriteMovieRepository {
 
     override suspend fun getFavouriteMovie(): Movie {

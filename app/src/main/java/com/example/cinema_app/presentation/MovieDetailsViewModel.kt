@@ -17,6 +17,7 @@ import com.example.cinema_app.presentation.state.DetailsState
 import com.example.cinema_app.ui.state.ReviewContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -57,8 +58,10 @@ class MovieDetailsViewModel @Inject constructor(
                     _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
                 }
             }
+
             else -> {
-                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)}
+                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+            }
         }
     }
 
@@ -96,15 +99,15 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
 
-    fun addFavouriteMovie(movieId: String){
-        viewModelScope.launch(errorHandler) {
+    fun addFavouriteMovie(movieId: String) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
     }
 
 
     fun addReview(movieId: String) {
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 addUserReviewUseCase.execute(
                     movieId,
@@ -122,7 +125,7 @@ class MovieDetailsViewModel @Inject constructor(
 
 
     fun editReview(movieId: String, reviewId: String) {
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 editUserReviewUseCase.execute(
                     _reviewState.value,
@@ -137,7 +140,7 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    fun retry(){
+    fun retry() {
         _detailsState.value = DetailsState.Initial
     }
 

@@ -80,6 +80,7 @@ dependencies {
     val room_version = "2.6.0"
 
     implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
@@ -104,7 +105,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("androidx.paging:paging-runtime-ktx:$paging3Version")
     implementation("androidx.paging:paging-compose:$paging3Version")
-    implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-paging:$room_version")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.0-alpha10")
@@ -124,5 +124,5 @@ dependencies {
 
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
     implementation("androidx.room:room-paging:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 }
