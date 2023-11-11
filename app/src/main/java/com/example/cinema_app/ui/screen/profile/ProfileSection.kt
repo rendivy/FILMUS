@@ -1,5 +1,6 @@
 package com.example.cinema_app.ui.screen.profile
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.state.ProfileContent
+import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.TitleSmall
 
@@ -57,6 +59,14 @@ fun ProfileSection(
             onValueChange = profileViewModel::setEmail,
             error = userState.emailError,
         )
+        AnimatedVisibility(visible = userState.emailError != null){
+            Text(
+                text = "Такой email уже используется другим аккаунтом",
+                modifier = Modifier.fillMaxWidth().padding(2.dp),
+                color = Red,
+                style = TitleMedium
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.name_label),
@@ -106,7 +116,7 @@ fun ProfileSection(
             checked = checked,
             birth = userState.birthDate,
 
-        )
+            )
         ProfileAlert(checked = checked, profileViewModel = profileViewModel)
     }
 }

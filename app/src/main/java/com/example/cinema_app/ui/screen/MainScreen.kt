@@ -71,7 +71,8 @@ fun MainScreen(navHostController: NavHostController) {
                 composable(NavigationRoutes.Favourite.route) {
                     FavouriteScreen(
                         favouritesMovieViewModel = hiltViewModel(),
-                        navHostController = navHostController
+                        navHostController = navHostController,
+                        navController = navController
                     )
                 }
             }

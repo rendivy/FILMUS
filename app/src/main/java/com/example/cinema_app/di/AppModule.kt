@@ -7,6 +7,7 @@ import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase
 import com.example.cinema_app.domain.usecase.GetUserIdUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.pagination.MoviePagingSource
+import com.example.cinema_app.presentation.mappers.PresentationFilmMapper
 import com.example.cinema_app.presentation.mappers.UserReviewMapper
 import dagger.Module
 import dagger.Provides
@@ -22,6 +23,12 @@ object AppModule {
     @Provides
     fun provideGetAverageFilmRatingsUseCase(): GetAverageFilmRatingsUseCase {
         return GetAverageFilmRatingsUseCase()
+    }
+
+
+    @Provides
+    fun providePresentationFilmMapper(): PresentationFilmMapper {
+        return PresentationFilmMapper()
     }
 
     @Provides
@@ -49,6 +56,6 @@ object AppModule {
         getUserProfileUseCase: GetUserProfileUseCase,
         userIdUseCase: GetUserIdUseCase
     ): MoviePagingSource {
-        return MoviePagingSource(movieApiService, filmMapper, userIdUseCase, getUserProfileUseCase )
+        return MoviePagingSource(movieApiService, filmMapper, userIdUseCase, getUserProfileUseCase)
     }
 }

@@ -30,7 +30,7 @@ import com.example.cinema_app.ui.theme.TitleLarge
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsTopBar(
-    navController: androidx.navigation.NavController
+    navController: NavController
 ) {
     TopAppBar(
         modifier = Modifier.height(44.dp),
@@ -44,7 +44,6 @@ fun DetailsTopBar(
         navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
-                navController.navigate(NavigationRoutes.Home.route)
             }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),

@@ -18,4 +18,9 @@ class FavouriteMovieRepositoryImpl @Inject constructor(
         val token = tokenLocalStorage.getToken()
         return movieApiService.getFavoriteMovies(token = "Bearer $token")
     }
+
+    override suspend fun addFavouriteMovie(movieId: String) {
+        val token = tokenLocalStorage.getToken()
+        movieApiService.addFavouriteMovie(token = "Bearer $token", movieId = movieId)
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.cinema_app.presentation
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +13,9 @@ import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.LogoutUserUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
+import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
 import com.example.cinema_app.presentation.state.ProfileState
+import com.example.cinema_app.presentation.validator.ValidationResult
 import com.example.cinema_app.ui.state.ProfileContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -28,6 +29,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
+    private val validateEmailUseCase: ValidateEmailUseCase,
     private val dateUseCase: DateConverter,
     private val convertDateUseCase: ConvertDateUseCase,
     private val logoutUserUseCase: LogoutUserUseCase
@@ -57,10 +59,17 @@ class ProfileViewModel @Inject constructor(
             is HttpException -> when (exception.code()) {
                 401 ->
                     _credentialsState.value = ProfileState.Error(ErrorConstant.UNAUTHORIZED)
+
+                400 -> {
+                    _profileState.value =
+                        _profileState.value.copy(emailError = ErrorConstant.UNKNOWN_ERROR)
+                }
             }
 
             else -> {
                 _credentialsState.value = ProfileState.Error(ErrorConstant.UNKNOWN_ERROR)
+                _profileState.value =
+                    _profileState.value.copy(unexpectedError = ErrorConstant.UNKNOWN_ERROR)
             }
         }
     }
@@ -98,23 +107,24 @@ class ProfileViewModel @Inject constructor(
 
     fun updateUserProfile() {
         viewModelScope.launch(exceptionHandler) {
-            try {
-                updateUserProfileUseCase.execute(
-                    ProfileCredentials(
-                        avatarLink = _profileState.value.userAvatar,
-                        birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
-                        email = _profileState.value.email,
-                        gender = _profileState.value.gender,
-                        name = _profileState.value.name,
-                        id = _profileState.value.id,
-                        nickName = _profileState.value.login
-                    )
+            updateUserProfileUseCase.execute(
+                ProfileCredentials(
+                    avatarLink = _profileState.value.userAvatar,
+                    birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
+                    email = _profileState.value.email,
+                    gender = _profileState.value.gender,
+                    name = _profileState.value.name,
+                    id = _profileState.value.id,
+                    nickName = _profileState.value.login
                 )
-            } catch (e: Exception) {
-                Log.d("TAG", "updateUserProfile: ${e.message}")
-
-            }
+            )
+            _profileState.value = _profileState.value.copy(emailError = null)
         }
+    }
+
+
+    fun validateEmail(email: String): ValidationResult {
+        return validateEmailUseCase.execute(email)
     }
 
 
@@ -143,16 +153,9 @@ class ProfileViewModel @Inject constructor(
     fun getUserProfile() {
         viewModelScope.launch(exceptionHandler) {
             _credentialsState.value = ProfileState.Loading
-            try {
-                val credentials = getUserProfileUseCase.execute()
-                setProfileContent(credentials)
-                _credentialsState.value = ProfileState.Content(_profileState.value)
-            }
-            catch (e: Exception) {
-                Log.d("TAG", "getUserProfile: ${e.message}")
-            }
-
-
+            val credentials = getUserProfileUseCase.execute()
+            setProfileContent(credentials)
+            _credentialsState.value = ProfileState.Content(_profileState.value)
         }
     }
 }

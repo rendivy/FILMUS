@@ -38,6 +38,11 @@ interface MovieApiService {
         @Body addReviewBody: AddReviewBody
     )
 
+    @POST("${NetworkConstant.FAVORITE_MOVIES_URL}/{id}/add")
+    suspend fun addFavouriteMovie(
+        @Header("Authorization") token: String,
+        @Path("id") movieId: String
+    )
 
     @POST(NetworkConstant.LOGOUT_URL)
     suspend fun logout(@Header("Authorization") token: String)

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.domain.usecase.AddFavouriteMovieUseCase
 import com.example.cinema_app.domain.usecase.AddUserReviewUseCase
 import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.DeleteUserReviewUseCase
@@ -28,6 +29,7 @@ class MovieDetailsViewModel @Inject constructor(
     private val convertDateUseCase: ConvertDateUseCase,
     private val addUserReviewUseCase: AddUserReviewUseCase,
     private val deleteUserReviewUseCase: DeleteUserReviewUseCase,
+    private val addUserFavouriteMovieUseCase: AddFavouriteMovieUseCase,
     private val editUserReviewUseCase: EditUserReviewUseCase
 ) : ViewModel() {
 
@@ -90,6 +92,13 @@ class MovieDetailsViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+        }
+    }
+
+
+    fun addFavouriteMovie(movieId: String){
+        viewModelScope.launch(errorHandler) {
+            addUserFavouriteMovieUseCase.execute(movieId)
         }
     }
 

@@ -64,7 +64,9 @@ fun MovieDetailsContent(
                     DetailsPoster(content = content, lazyListState = lazyListState)
                 }
                 item {
-                    MovieHeadline(content = content)
+                    MovieHeadline(
+                        content = content,
+                        onClick = { movieDetailsViewModel.addFavouriteMovie(content.id) })
                 }
                 if (content.description != "-") {
                     item {

@@ -60,7 +60,8 @@ import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 
 @Composable
 fun ProfileScreen(
-    profileViewModel: ProfileViewModel, navHostController: NavController,
+    profileViewModel: ProfileViewModel,
+    navHostController: NavController,
     navController: NavController
 ) {
     val focusManager = LocalFocusManager.current
@@ -74,16 +75,19 @@ fun ProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .shimmerEffect())
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .shimmerEffect()
+                )
             }
         }
 
         is ProfileState.Content -> {
             val profileState = remember { profileViewModel.profileState }
             val content = (credentialsState as ProfileState.Content).profileCredentials
-            val enabled = profileState.value == content
+            val enabled =
+                profileState.value == content || profileState.value.login.isEmpty() || profileState.value.email.isEmpty()
             val buttonAlpha = if (enabled) {
                 0.45f
             } else {
@@ -197,10 +201,11 @@ fun ProfileScreen(
                     enabled = !enabled,
                     onClick = {
                         profileViewModel.updateUserProfile()
-                        Toast.makeText(
-                            context, "Профиль успешно обновлен!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if (profileState.value.unexpectedError == null && profileState.value.emailError == null) {
+                            Toast.makeText(
+                                context, "Ваш профиль успешно обновлен!", Toast.LENGTH_LONG
+                            ).show()
+                        }
                     },
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -238,25 +243,34 @@ fun ProfileScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-
             }
 
         }
 
         is ProfileState.Error -> {
             val error = credentialsState as ProfileState.Error
-            if (error.errorMessage == ErrorConstant.UNAUTHORIZED) {
-                navHostController.popBackStack()
-                navHostController.navigate(NavigationRoutes.Login.route)
-                Toast.makeText(
-                    context, "Время сессии истекло!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                ErrorUiScreen {
-                    profileViewModel.retry()
+            when (error.errorMessage) {
+                ErrorConstant.UNAUTHORIZED -> {
+                    navHostController.popBackStack()
+                    navHostController.navigate(NavigationRoutes.Login.route)
+                    Toast.makeText(
+                        context, "Время сессии истекло!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
+                else ->
+                    ErrorUiScreen {
+                        profileViewModel.retry()
+                    }
             }
+        }
+
+        is ProfileState.Success -> {
+            Toast.makeText(
+                context, "Профиль успешно обновлен!",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

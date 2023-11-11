@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.cinema_app.data.mappers.FilmMapper
 import com.example.cinema_app.data.remote.MovieApiService
-import com.example.cinema_app.domain.entity.FilmDto
+import com.example.cinema_app.domain.entity.FilmDTO
 import com.example.cinema_app.domain.usecase.GetUserIdUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import retrofit2.HttpException
@@ -20,17 +20,17 @@ class MoviePagingSource @Inject constructor(
     private val filmMapper: FilmMapper,
     private val userIdUseCase: GetUserIdUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase
-) : PagingSource<Int, FilmDto>() {
+) : PagingSource<Int, FilmDTO>() {
 
 
-    override fun getRefreshKey(state: PagingState<Int, FilmDto>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, FilmDTO>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FilmDto> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FilmDTO> {
         return try {
 
-            val movies: MutableList<FilmDto> = mutableListOf()
+            val movies: MutableList<FilmDTO> = mutableListOf()
             val page = params.key ?: 1
             val response = movieApiService.getMovies(page)
             response.movies.forEach {

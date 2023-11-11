@@ -29,7 +29,8 @@ import com.example.cinema_app.ui.theme.padding16
 
 @Composable
 fun MovieHeadline(
-    content: DetailsDTO
+    content: DetailsDTO,
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -56,7 +57,7 @@ fun MovieHeadline(
         )
         Spacer(modifier = Modifier.width(8.dp))
         IconButton(
-            onClick = {},
+            onClick = onClick,
             modifier = Modifier
                 .background(
                     color = Gray750,
