@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -20,12 +19,15 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
+import com.example.cinema_app.ui.theme.padding8
 
 
 @Composable
 fun CustomTextField(
+    modifier: Modifier = Modifier,
     textFieldValue: String = Constants.EMPTY_STRING,
     outlined: Color = Color.Gray,
+    singleLine: Boolean = true,
     error: String? = null,
     container: Color = Gray900,
     onValueChange: (String) -> Unit,
@@ -37,12 +39,12 @@ fun CustomTextField(
         modifier = Modifier
             .background(
                 color = containerColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(padding8)
             )
             .border(
                 width = 1.dp,
                 color = outlinedColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(padding8)
             )
             .fillMaxWidth(),
         value = textFieldValue,
@@ -52,15 +54,14 @@ fun CustomTextField(
             fontFamily = InterRegular
         ),
         keyboardOptions = keyboardOptions,
-        singleLine = true,
+        singleLine = singleLine,
         enabled = true,
         cursorBrush = SolidColor(Color.White),
         decorationBox = @Composable { innerTextField ->
             Row(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(12.dp),
-                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                 innerTextField()

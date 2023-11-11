@@ -143,7 +143,7 @@ fun RegistrationSection(
         CustomClickableBox(
             checked = checked,
             birth = userAuthViewModel.registrationState.value.birthDate,
-            error = userState.birthDateError
+            error = userState.birthDateError,
         )
         if (userState.birthDateError != null) {
             RegistrationErrorAnimation(

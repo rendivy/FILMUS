@@ -30,7 +30,7 @@ import java.util.Locale
 fun ProfileAlert(checked: MutableState<Boolean>, profileViewModel: ProfileViewModel) {
     val datePickerState = remember {
         DatePickerState(
-            yearRange = 1950..LocalDateTime.now().year,
+            yearRange = 1950..2022,
             initialSelectedDateMillis = LocalDateTime.now().second.toLong(),
             initialDisplayedMonthMillis = null,
             initialDisplayMode = DisplayMode.Picker,

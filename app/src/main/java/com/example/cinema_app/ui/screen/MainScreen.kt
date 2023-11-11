@@ -1,6 +1,7 @@
 package com.example.cinema_app.ui.screen
 
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,12 +23,12 @@ import com.example.cinema_app.ui.screen.home.HomeScreen
 import com.example.cinema_app.ui.screen.profile.ProfileScreen
 
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun MainScreen(navHostController: NavHostController) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    Log.d("MainScreen", "currentRoute: $currentRoute")
     Scaffold(
         bottomBar = {
             if (currentRoute != "movieDetails/{id}/{movieRating}") {
@@ -42,10 +43,18 @@ fun MainScreen(navHostController: NavHostController) {
                 startDestination = NavigationRoutes.Home.route
             ) {
                 composable(NavigationRoutes.Profile.route) {
-                    ProfileScreen(profileViewModel = hiltViewModel())
+                    ProfileScreen(
+                        profileViewModel = hiltViewModel(),
+                        navHostController = navHostController,
+                        navController = navController
+                    )
                 }
                 composable(NavigationRoutes.Home.route) {
-                    HomeScreen(homeViewModel = hiltViewModel(), navController = navController)
+                    HomeScreen(
+                        homeViewModel = hiltViewModel(),
+                        navController = navController,
+                        navHostController = navHostController
+                    )
                 }
                 composable(
                     route = "movieDetails/{id}/{movieRating}",
@@ -55,13 +64,15 @@ fun MainScreen(navHostController: NavHostController) {
                     MovieDetailsScreen(
                         backStackEntry.arguments?.getString("id").toString(),
                         backStackEntry.arguments?.getString("movieRating").toString(),
-                        movieDetailsViewModel = hiltViewModel()
+                        movieDetailsViewModel = hiltViewModel(),
+                        navController = navController
                     )
                 }
                 composable(NavigationRoutes.Favourite.route) {
                     FavouriteScreen(
                         favouritesMovieViewModel = hiltViewModel(),
-                        navHostController = navHostController
+                        navHostController = navHostController,
+                        navController = navController
                     )
                 }
             }

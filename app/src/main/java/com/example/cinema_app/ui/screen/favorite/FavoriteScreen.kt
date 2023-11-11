@@ -1,5 +1,6 @@
 package com.example.cinema_app.ui.screen.favorite
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,11 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.cinema_app.R
+import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.common.NavigationConstant
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.state.FavouriteState
+import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.favorite.section.MovieSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray400
@@ -42,6 +46,7 @@ import com.example.cinema_app.ui.theme.padding5
 @Composable
 fun FavouriteScreen(
     favouritesMovieViewModel: FavouritesMovieViewModel,
+    navController: NavController,
     navHostController: NavHostController
 ) {
     val movieState by favouritesMovieViewModel.favouriteMovieState.collectAsStateWithLifecycle()
@@ -68,6 +73,8 @@ fun FavouriteScreen(
         )
     }) {
         when (movieState) {
+
+
             is FavouriteState.Loading -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -113,12 +120,29 @@ fun FavouriteScreen(
             }
 
             is FavouriteState.Content -> {
-                MovieSection(movieState = movieState, padding = it)
+                MovieSection(movieState = movieState, padding = it, navController = navController)
             }
 
             is FavouriteState.Error -> {
-                navHostController.popBackStack()
-                navHostController.navigate(NavigationConstant.LOGIN_ROUTE)
+                when ((movieState as FavouriteState.Error).message) {
+                    ErrorConstant.UNAUTHORIZED -> {
+                        navHostController.popBackStack()
+                        navHostController.navigate(NavigationConstant.LOGIN_ROUTE)
+                        Toast.makeText(
+                            navController.context,
+                            "Ваша сессия закончилась, пожалуйста войдите снова!",
+                            Toast.LENGTH_SHORT
+                        ).show(
+                        )
+                    }
+
+                    else -> {
+                        ErrorUiScreen {
+                            favouritesMovieViewModel.retry()
+                        }
+                    }
+                }
+
             }
 
             else -> {}

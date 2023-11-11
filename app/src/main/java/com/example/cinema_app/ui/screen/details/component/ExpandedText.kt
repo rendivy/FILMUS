@@ -31,10 +31,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.dp
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.padding8
 
 @Composable
 fun ExpandedText(
@@ -134,7 +134,7 @@ fun ExpandedText(
                     color = Accent
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(padding8))
 
                 Icon(
                     imageVector = if (!isExpanded) {

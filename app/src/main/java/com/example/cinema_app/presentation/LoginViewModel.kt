@@ -76,10 +76,12 @@ class LoginViewModel @Inject constructor(
         when (exception) {
             is HttpException -> when (exception.code()) {
                 400 -> {
-                    _errorState.value = LoginState.Error(ErrorConstant.AUTHORIZATION_ERROR)
+                    _loginState.value = loginState.value.copy(usernameError = ErrorConstant.BAD_REQUEST)
+                    _errorState.value = LoginState.Error(ErrorConstant.BAD_REQUEST)
                 }
 
                 else -> {
+                    _loginState.value = loginState.value.copy(usernameError = ErrorConstant.BAD_REQUEST)
                     _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
                 }
             }

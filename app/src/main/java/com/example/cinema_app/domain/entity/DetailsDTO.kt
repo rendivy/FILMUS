@@ -18,6 +18,6 @@ data class DetailsDTO(
     val tagline: String,
     val time: Int,
     val year: Int,
-    val filmRating: Double,
-    val userRating: Int? = null
+    val averageFilmRating: Double,
+    val userReviewX: ReviewX? = null,
 )
