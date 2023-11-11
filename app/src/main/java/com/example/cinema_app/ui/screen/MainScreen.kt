@@ -43,7 +43,11 @@ fun MainScreen(navHostController: NavHostController) {
                 startDestination = NavigationRoutes.Home.route
             ) {
                 composable(NavigationRoutes.Profile.route) {
-                    ProfileScreen(profileViewModel = hiltViewModel())
+                    ProfileScreen(
+                        profileViewModel = hiltViewModel(),
+                        navHostController = navHostController,
+                        navController = navController
+                    )
                 }
                 composable(NavigationRoutes.Home.route) {
                     HomeScreen(
@@ -60,13 +64,15 @@ fun MainScreen(navHostController: NavHostController) {
                     MovieDetailsScreen(
                         backStackEntry.arguments?.getString("id").toString(),
                         backStackEntry.arguments?.getString("movieRating").toString(),
-                        movieDetailsViewModel = hiltViewModel()
+                        movieDetailsViewModel = hiltViewModel(),
+                        navController = navController
                     )
                 }
                 composable(NavigationRoutes.Favourite.route) {
                     FavouriteScreen(
                         favouritesMovieViewModel = hiltViewModel(),
-                        navHostController = navHostController
+                        navHostController = navHostController,
+                        navController = navController
                     )
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.cinema_app.ui.screen.login
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,7 +28,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,12 +39,15 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.LoginViewModel
+import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.login.component.LoginSection
 import com.example.cinema_app.ui.theme.Accent
+import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
@@ -50,6 +57,8 @@ import com.example.cinema_app.ui.theme.TitleSmall
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
     val loginState by remember { loginViewModel.loginState }
+    val errorState by loginViewModel.errorState.collectAsStateWithLifecycle()
+    var loginError by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
@@ -95,6 +104,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     loginState = loginState,
                     userAuthViewModel = loginViewModel,
                     focusManager = focusManager,
+                    loginError = loginError,
                     navController = navController
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -107,12 +117,46 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
-                    )
+                    ),
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.continue_label),
-                        style = SecondarySemiBoldStyle
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        when (errorState) {
+                            is LoginState.Error -> {
+                                loginError = true
+                            }
+
+                            is LoginState.Success -> {
+                                navController.navigate(NavigationRoutes.Main.route)
+                            }
+
+                            is LoginState.Loading -> {
+                                AnimatedVisibility(visible = true) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.Center,
+                                        modifier = Modifier.padding(end = 8.dp)
+                                    ) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(12.dp),
+                                            color = Color.White,
+                                            trackColor = Gray400
+                                        )
+                                    }
+
+                                }
+                            }
+
+                            else -> {}
+                        }
+                        Text(
+                            text = stringResource(id = R.string.continue_label),
+                            style = SecondarySemiBoldStyle
+                        )
+                    }
                 }
             }
 

@@ -1,18 +1,24 @@
 package com.example.cinema_app.data.repository
 
+import com.example.cinema_app.data.database.MovieDataBase
+import com.example.cinema_app.data.dbentity.UserRating
 import com.example.cinema_app.data.entity.AddReviewBody
 import com.example.cinema_app.data.entity.FilmDetails
 import com.example.cinema_app.data.entity.Movie
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
 import com.example.cinema_app.domain.repository.MoviesRepository
+import com.example.cinema_app.domain.usecase.ReviewMapperUseCase
+import com.example.cinema_app.ui.state.ReviewContent
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesApiService: MovieApiService,
-    private val tokenManager: TokenLocalStorage
+    private val tokenManager: TokenLocalStorage,
+    private val reviewMapperUseCase: ReviewMapperUseCase,
+    private val dataBase: MovieDataBase
 ) : MoviesRepository {
 
     override suspend fun getMovies(): Movie {
@@ -25,6 +31,14 @@ class MoviesRepositoryImpl @Inject constructor(
         rating: Int,
         isAnonymous: Boolean
     ) {
+        val dao = dataBase.userDao()
+        val userRating = UserRating(
+            filmId = movieId,
+            userRating = rating
+        )
+        dao.updateUserRating(
+            userRating = userRating,
+        )
         val token = tokenManager.getToken()
         val addReviewBody = AddReviewBody(
             reviewText = reviewText,
@@ -40,5 +54,41 @@ class MoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieDetails(movieId: String): FilmDetails {
         return moviesApiService.getMovieDetails(movieId)
+    }
+
+    override suspend fun deleteReview(movieId: String, reviewId: String) {
+        val token = tokenManager.getToken()
+        val dao = dataBase.userDao()
+        val userRating = UserRating(
+            filmId = movieId,
+            userRating = null
+        )
+        dao.updateUserRating(
+            userRating = userRating,
+        )
+        moviesApiService.deleteReviewMovie(
+            token = "Bearer $token",
+            movieId = movieId,
+            reviewId = reviewId
+        )
+    }
+
+    override suspend fun editReview(movieId: String, reviewId: String, review: ReviewContent) {
+        val userRating = UserRating(
+            filmId = movieId,
+            userRating = review.rating.toInt()
+        )
+        val dao = dataBase.userDao()
+        dao.updateUserRating(
+            userRating = userRating,
+        )
+        val token = tokenManager.getToken()
+        val remoteReviewBody = reviewMapperUseCase.map(review)
+        moviesApiService.editReviewMovie(
+            token = "Bearer $token",
+            movieId = movieId,
+            reviewId = reviewId,
+            addReviewBody = remoteReviewBody
+        )
     }
 }

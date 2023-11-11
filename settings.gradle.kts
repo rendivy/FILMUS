@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "cinema-app"
+rootProject.name = "FILMUS"
 include(":app")

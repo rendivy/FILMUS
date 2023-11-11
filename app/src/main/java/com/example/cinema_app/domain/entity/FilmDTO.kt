@@ -4,7 +4,7 @@ import com.example.cinema_app.data.entity.Genre
 import com.example.cinema_app.data.entity.Review
 import com.example.cinema_app.data.entity.ReviewX
 
-data class FilmDto (
+data class FilmDTO (
     val country: String,
     val genres: List<Genre>,
     val id: String,

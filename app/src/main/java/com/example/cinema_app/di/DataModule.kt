@@ -3,8 +3,10 @@ package com.example.cinema_app.di
 import android.content.Context
 import com.example.cinema_app.common.NetworkConstant
 import com.example.cinema_app.common.NetworkConstant.BASE_URL
+import com.example.cinema_app.data.mappers.ReviewMapper
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
+import com.example.cinema_app.domain.usecase.ReviewMapperUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -30,6 +32,14 @@ object DataModule {
         .writeTimeout(NetworkConstant.WRITE_TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(NetworkConstant.READ_TIMEOUT, TimeUnit.SECONDS)
         .build()
+
+    @Provides
+    fun provideReviewMapperUseCase(reviewMapper: ReviewMapper): ReviewMapperUseCase {
+        return ReviewMapperUseCase(reviewMapper)
+    }
+
+    @Provides
+    fun provideReviewMapper() = ReviewMapper()
 
     @Provides
     @Singleton

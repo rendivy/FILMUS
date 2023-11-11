@@ -11,5 +11,6 @@ data class ProfileContent(
     val gender: Int ,
     val emailError: String? = null,
     val birthDate: String = Constants.EMPTY_STRING,
+    val unexpectedError: String? = null,
     val userAvatar: String? = null,
 )

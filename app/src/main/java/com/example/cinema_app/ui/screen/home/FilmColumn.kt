@@ -16,14 +16,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.example.cinema_app.domain.entity.FilmDto
+import com.example.cinema_app.domain.entity.FilmDTO
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 
 
 @Composable
 fun FilmColumn(
-    moviesPaging: LazyPagingItems<FilmDto>,
+    moviesPaging: LazyPagingItems<FilmDTO>,
     startIndex: Int = 0,
     navController: NavController
 ) {
