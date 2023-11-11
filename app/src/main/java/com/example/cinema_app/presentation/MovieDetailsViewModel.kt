@@ -47,7 +47,7 @@ class MovieDetailsViewModel @Inject constructor(
         )
     )
 
-    private val errorHandler = CoroutineExceptionHandler { _, exception ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
                 401 -> {
@@ -55,7 +55,9 @@ class MovieDetailsViewModel @Inject constructor(
                 }
 
                 400 -> {
-                    _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+                    _reviewState.value = _reviewState.value.copy(
+                        anonymousError = ErrorConstant.ANONYMOUS_ERROR
+                    )
                 }
             }
 
@@ -88,55 +90,53 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun deleteUserReview(movieId: String, reviewId: String) {
-        try {
-            viewModelScope.launch(errorHandler) {
-                deleteUserReviewUseCase.execute(movieId, reviewId)
-                _detailsState.value = DetailsState.Initial
-            }
-        } catch (e: Exception) {
-            _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            deleteUserReviewUseCase.execute(movieId, reviewId)
+            _detailsState.value = DetailsState.Initial
+            _reviewState.value = _reviewState.value.copy(
+                anonymousError = null
+            )
         }
+
     }
 
 
     fun addFavouriteMovie(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
     }
 
 
     fun addReview(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            try {
-                addUserReviewUseCase.execute(
-                    movieId,
-                    _reviewState.value.reviewText,
-                    _reviewState.value.rating.toInt(),
-                    _reviewState.value.isAnonymous
-                )
-                _detailsState.value = DetailsState.Initial
-            } catch (e: Exception) {
-                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
-            }
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            addUserReviewUseCase.execute(
+                movieId,
+                _reviewState.value.reviewText,
+                _reviewState.value.rating.toInt(),
+                _reviewState.value.isAnonymous
+            )
+            _detailsState.value = DetailsState.Initial
+            _reviewState.value = _reviewState.value.copy(
+                anonymousError = null
+            )
+
         }
 
     }
 
 
     fun editReview(movieId: String, reviewId: String) {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            try {
-                editUserReviewUseCase.execute(
-                    _reviewState.value,
-                    movieId,
-                    reviewId
-                )
-                _detailsState.value = DetailsState.Initial
-            } catch (e: Exception) {
-                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
-            }
-
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            editUserReviewUseCase.execute(
+                _reviewState.value,
+                movieId,
+                reviewId
+            )
+            _detailsState.value = DetailsState.Initial
+            _reviewState.value = _reviewState.value.copy(
+                anonymousError = null
+            )
         }
     }
 
@@ -145,7 +145,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun getMovieDetails(id: String) {
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch(exceptionHandler) {
             _detailsState.value = DetailsState.Loading
             val movieDetails = movieDetailsUseCase.execute(id, _reviewState)
             _detailsState.value = DetailsState.Content(movieDetails)
