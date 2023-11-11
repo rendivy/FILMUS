@@ -158,7 +158,7 @@ fun EditReviewDialog(
                             )
                         }
                     },
-                    enabled = movieDetailsViewModel.reviewState.value.reviewText.isNotEmpty(),
+                    enabled = (movieDetailsViewModel.reviewState.value.reviewText.isNotEmpty()),
                     shape = RoundedCornerShape(size = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent,
