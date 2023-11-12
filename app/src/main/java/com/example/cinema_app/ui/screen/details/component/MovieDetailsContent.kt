@@ -28,7 +28,9 @@ import com.example.cinema_app.ui.screen.details.DetailsTop
 import com.example.cinema_app.ui.screen.details.DetailsTopBar
 import com.example.cinema_app.ui.screen.details.GenreHeadline
 import com.example.cinema_app.ui.screen.details.MovieHeadline
-import com.example.cinema_app.ui.screen.details.ReviewHeadlines
+import com.example.cinema_app.ui.screen.details.review.AnonymousCard
+import com.example.cinema_app.ui.screen.details.review.ReviewItem
+import com.example.cinema_app.ui.screen.details.review.UserReview
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding16
 
@@ -48,9 +50,10 @@ fun MovieDetailsContent(
 
     Scaffold(
         topBar = {
-
-            DetailsTopBar(navController = navController)
-
+            DetailsTopBar(
+                navController = navController,
+                movieDetailsViewModel = movieDetailsViewModel
+            )
         },
         content = {
             LazyColumn(
@@ -86,12 +89,22 @@ fun MovieDetailsContent(
                     GenreHeadline(content)
                 }
                 item {
-                    ReviewHeadlines(
-                        content = content,
-                        movieDetailsViewModel = movieDetailsViewModel,
-                        reviewDialogOpen = reviewDialogOpen
-                    )
+                    if (content.userReviewX != null) {
+                        UserReview(content, movieDetailsViewModel)
+                    }
                 }
+                items(content.reviews.size) {
+                    if (content.reviews[it].isAnonymous) {
+                        AnonymousCard(content.reviews[it], viewModel = movieDetailsViewModel)
+                    } else {
+                        if (content.reviews[it].author != null) {
+                            ReviewItem(content.reviews[it], viewModel = movieDetailsViewModel)
+                        }
+
+                    }
+                }
+
+
             }
 
         })
@@ -101,7 +114,10 @@ fun MovieDetailsContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                DetailsTop(navController = navController, content = content)
+                DetailsTop(
+                    navController = navController,
+                    content = content,
+                )
             }
         }
     }

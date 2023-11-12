@@ -47,6 +47,7 @@ class MovieDetailsViewModel @Inject constructor(
         )
     )
 
+
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
@@ -56,7 +57,8 @@ class MovieDetailsViewModel @Inject constructor(
 
                 400 -> {
                     _reviewState.value = _reviewState.value.copy(
-                        anonymousError = ErrorConstant.ANONYMOUS_ERROR
+                        anonymousError = ErrorConstant.ANONYMOUS_ERROR,
+
                     )
                 }
             }

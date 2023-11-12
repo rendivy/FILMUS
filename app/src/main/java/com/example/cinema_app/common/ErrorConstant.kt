@@ -7,6 +7,7 @@ object ErrorConstant {
     const val BAD_REQUEST = "Неверный запрос."
     const val ANONYMOUS_ERROR = "Нельзя изменить публичный отзыв на анонимный."
     const val LOGIN_ERROR = "Логин не должен быть пустым."
+    const val UNIQUE_EMAIL = "Такой email уже используется другим пользователем"
     const val AUTHORIZATION_ERROR = "Неверный логин или пароль."
     const val UNKNOWN_ERROR = "Неизвестная ошибка."
     const val NAME_ERROR = "Имя не должно быть пустым."

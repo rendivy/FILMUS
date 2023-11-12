@@ -23,13 +23,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,6 +42,7 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleLarge
+import com.example.cinema_app.ui.theme.padding8
 import com.gowtham.ratingbar.RatingBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,10 +52,7 @@ fun AddReviewDialog(
     movieDetailsViewModel: MovieDetailsViewModel,
     movieId: String,
 ) {
-    val context = LocalContext.current
-    val buttonAlpha =
-        if (movieDetailsViewModel.reviewState.value.reviewText.isNotEmpty()) 1f else 0.45f
-    val checked = remember { mutableStateOf(false) }
+    val buttonAlpha = if (movieDetailsViewModel.reviewState.value.reviewText.isNotEmpty()) 1f else 0.45f
     Dialog(
         onDismissRequest = { dialogIsOpen.value = false },
         properties = DialogProperties(
@@ -68,11 +63,11 @@ fun AddReviewDialog(
     )
     {
         Card(
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(padding8),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 31.dp, end = 31.dp),
-            elevation = CardDefaults.cardElevation(8.dp)
+            elevation = CardDefaults.cardElevation(padding8)
         ) {
             Column(
                 modifier = Modifier
@@ -103,7 +98,7 @@ fun AddReviewDialog(
                     onRatingChanged = {},
                     size = 24.dp
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(padding8))
                 CustomTextField(
                     textFieldValue = movieDetailsViewModel.reviewState.value.reviewText,
                     onValueChange = { movieDetailsViewModel.setReviewText(it) },
@@ -135,7 +130,7 @@ fun AddReviewDialog(
                             )
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(padding8))
                     Text(
                         text = "Анонимный отзыв",
                         style = SecondarySemiBoldStyle,
@@ -169,7 +164,7 @@ fun AddReviewDialog(
                         style = SecondarySemiBoldStyle
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(padding8))
                 Button(
                     onClick = {
                         dialogIsOpen.value = false

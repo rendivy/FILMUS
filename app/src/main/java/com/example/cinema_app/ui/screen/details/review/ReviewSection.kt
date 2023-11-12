@@ -35,7 +35,8 @@ fun ReviewSection(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
     content.reviews.forEach {
         if (it.isAnonymous) {
             AnonymousCard(it, viewModel = viewModel)
-        } else {
+        }
+        else {
             if (it.author != null) {
                 ReviewItem(it, viewModel = viewModel)
             }
