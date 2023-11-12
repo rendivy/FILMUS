@@ -19,8 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.DetailsPoster
@@ -28,9 +30,11 @@ import com.example.cinema_app.ui.screen.details.DetailsTop
 import com.example.cinema_app.ui.screen.details.DetailsTopBar
 import com.example.cinema_app.ui.screen.details.GenreHeadline
 import com.example.cinema_app.ui.screen.details.MovieHeadline
+import com.example.cinema_app.ui.screen.details.ReviewHeadlines
 import com.example.cinema_app.ui.screen.details.review.AnonymousCard
 import com.example.cinema_app.ui.screen.details.review.ReviewItem
 import com.example.cinema_app.ui.screen.details.review.UserReview
+import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding16
 
@@ -46,6 +50,9 @@ fun MovieDetailsContent(
 ) {
     val lazyListState = rememberLazyListState()
     val reviewDialogOpen = remember { mutableStateOf(false) }
+    val favouriteState = movieDetailsViewModel.favouriteState.value.filmInFavourite
+    val painter = if (favouriteState) painterResource(id = R.drawable.favourite_icon_fill) else  painterResource(id = R.drawable.favourite_icon)
+    val tintColor = if (favouriteState) Accent else Color.White
     val scrollState = remember { derivedStateOf { lazyListState.firstVisibleItemIndex > 2 } }
 
     Scaffold(
@@ -69,7 +76,10 @@ fun MovieDetailsContent(
                 item {
                     MovieHeadline(
                         content = content,
-                        onClick = { movieDetailsViewModel.addFavouriteMovie(content.id) })
+                        painter = painter,
+                        tintColor = tintColor,
+                        onClick = { movieDetailsViewModel.setFavouriteState(movieId = content.id) },
+                        )
                 }
                 if (content.description != "-") {
                     item {
@@ -92,6 +102,13 @@ fun MovieDetailsContent(
                     if (content.userReviewX != null) {
                         UserReview(content, movieDetailsViewModel)
                     }
+                }
+                item {
+                    ReviewHeadlines(
+                        content = content,
+                        movieDetailsViewModel = movieDetailsViewModel,
+                        reviewDialogOpen = reviewDialogOpen
+                    )
                 }
                 items(content.reviews.size) {
                     if (content.reviews[it].isAnonymous) {
@@ -117,6 +134,8 @@ fun MovieDetailsContent(
                 DetailsTop(
                     navController = navController,
                     content = content,
+                    painter = painter,
+                    tintColor = tintColor
                 )
             }
         }

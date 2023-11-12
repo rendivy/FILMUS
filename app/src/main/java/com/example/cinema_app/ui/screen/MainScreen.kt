@@ -1,7 +1,5 @@
 package com.example.cinema_app.ui.screen
 
-import android.os.Build
-import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -23,7 +21,6 @@ import com.example.cinema_app.ui.screen.home.HomeScreen
 import com.example.cinema_app.ui.screen.profile.ProfileScreen
 
 
-@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun MainScreen(navHostController: NavHostController) {
     val navController = rememberNavController()
@@ -65,7 +62,7 @@ fun MainScreen(navHostController: NavHostController) {
                         backStackEntry.arguments?.getString("id").toString(),
                         backStackEntry.arguments?.getString("movieRating").toString(),
                         movieDetailsViewModel = hiltViewModel(),
-                        navController = navController
+                        navController = navHostController
                     )
                 }
                 composable(NavigationRoutes.Favourite.route) {

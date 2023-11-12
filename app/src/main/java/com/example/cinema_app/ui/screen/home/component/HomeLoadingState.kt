@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding16
 
 @Composable
 fun HomeLoadingState(cardHeight: Dp) {
@@ -37,7 +39,7 @@ fun HomeLoadingState(cardHeight: Dp) {
                 .shimmerEffect(),
         )
         Text(
-            modifier = Modifier.padding(top = 16.dp, start = 16.dp),
+            modifier = Modifier.padding(top = padding16, start = padding16),
             text = "Каталог",
             textAlign = TextAlign.Start,
             style = SemiBoldStyle,
@@ -47,7 +49,7 @@ fun HomeLoadingState(cardHeight: Dp) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, bottom = 16.dp)
+                    .padding(start = padding16, bottom = padding16)
             ) {
                 Box(
                     modifier = Modifier
@@ -59,7 +61,7 @@ fun HomeLoadingState(cardHeight: Dp) {
                     modifier = Modifier
                         .height(130.dp)
                         .fillMaxWidth()
-                        .padding(start = 10.dp)
+                        .padding(start = padding10)
                         .shimmerEffect()
                 )
             }

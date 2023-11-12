@@ -26,6 +26,8 @@ import com.example.cinema_app.ui.state.ProfileContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding8
 
 
 @Composable
@@ -53,7 +55,7 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.email,
             onValueChange = profileViewModel::setEmail,
@@ -69,7 +71,7 @@ fun ProfileSection(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.name_label),
             modifier = Modifier
@@ -77,7 +79,7 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.name,
             onValueChange = profileViewModel::setName,
@@ -93,7 +95,7 @@ fun ProfileSection(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = "Ссылка на аватар",
             modifier = Modifier
@@ -101,12 +103,12 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.userAvatar ?: "",
             onValueChange = { profileViewModel.setUserAvatar(it) },
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.user_sex_label),
             modifier = Modifier
@@ -115,7 +117,7 @@ fun ProfileSection(
             style = TitleMedium
         )
         ProfileSwitcher(profileViewModel = profileViewModel, index = userState.gender)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.date_label),
             modifier = Modifier
@@ -123,7 +125,7 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomClickableBox(
             checked = checked,
             birth = userState.birthDate,

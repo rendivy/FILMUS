@@ -8,6 +8,7 @@
     <string name="no_favourite_label">У вас пока нет любимых фильмов</string>
     <string name="no_favourite_text">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
     <string name="date_label">Дата роджения</string>
+    <string name="repeat_password">Повторите пароль</string>
     <string name="login_screen_label">Вход</string>
     <string name="user_sex_label">Пол</string>
     <string name="login_label">Логин</string>
@@ -15,6 +16,7 @@
     <string name="register_label">Зарегистрируйтесь</string>
     <string name="password_label">Пароль</string>
     <string name="main_registration">Регистрация</string>
+    <string name="magazine_label">Каталог</string>
     <string name="app_logo">FИЛЬМУС</string>
     <string name="already_registered">Уже зарегистрированы?</string>
     <string name="enter_button">Войдите</string>

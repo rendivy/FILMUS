@@ -56,6 +56,9 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
+import com.example.cinema_app.ui.theme.padding100
+import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding54
 
 
 @Composable
@@ -100,7 +103,7 @@ fun ProfileScreen(
                     .fillMaxSize()
                     .background(Gray900)
                     .verticalScroll(rememberScrollState())
-                    .padding(16.dp)
+                    .padding(padding16)
                     .pointerInput(Unit) {
                         detectTapGestures(onTap = {
                             focusManager.clearFocus()
@@ -136,7 +139,7 @@ fun ProfileScreen(
                                     modifier = Modifier
                                         .size(88.dp)
                                         .clip(
-                                            RoundedCornerShape(100.dp)
+                                            RoundedCornerShape(padding100)
                                         )
                                         .background(Color.White),
                                     contentAlignment = Alignment.Center
@@ -144,7 +147,7 @@ fun ProfileScreen(
                                     Image(
                                         painterResource(id = R.drawable.profile_icon),
                                         contentDescription = null,
-                                        modifier = Modifier.size(54.dp)
+                                        modifier = Modifier.size(padding54)
                                     )
                                 }
                             }
@@ -195,7 +198,7 @@ fun ProfileScreen(
                     userState = profileState.value,
                     profileViewModel = profileViewModel
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(padding16))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()

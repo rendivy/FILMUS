@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.presentation.state.DetailsState
+import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.details.component.DetailsLoadingScreen
 import com.example.cinema_app.ui.screen.details.component.MovieDetailsContent
@@ -50,7 +51,7 @@ fun MovieDetailsScreen(
             val errorMessage = (detailsState as DetailsState.Error).message
             if (errorMessage == ErrorConstant.UNAUTHORIZED) {
                 navController.popBackStack()
-                navController.navigate("login")
+                navController.navigate(NavigationRoutes.Login.route)
                 Toast.makeText(
                     navController.context,
                     "Ваша сессия закончилась, пожалуйста войдите снова",

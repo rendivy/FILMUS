@@ -26,6 +26,8 @@ import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimati
 import com.example.cinema_app.ui.state.LoginContent
 import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding8
 
 
 @Composable
@@ -40,7 +42,7 @@ fun LoginSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(start = padding16, end = padding16)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -55,38 +57,35 @@ fun LoginSection(
             style = TitleLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.login_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp, bottom = 8.dp),
+                .padding(2.dp, bottom = padding8),
             color = Color.White,
             style = TitleMedium
         )
         CustomTextField(
             textFieldValue = loginState.username,
-            onValueChange = userAuthViewModel::setAuthLogin,
+            onValueChange = userAuthViewModel::setLogin,
             error = loginState.usernameError
         )
-        if (loginError){
-            LoginErrorAnimation(errorMessage = "Неверный логин или пароль")
-        }
         if (loginState.usernameError != null) {
             LoginErrorAnimation(errorMessage = loginState.usernameError)
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.password_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp, bottom = 8.dp),
+                .padding(2.dp, bottom = padding8),
             color = Color.White,
             style = TitleMedium
         )
         PasswordTextField(
             textFieldValue = loginState.password,
-            onValueChange = userAuthViewModel::setAuthPassword,
+            onValueChange = userAuthViewModel::setPassword,
             error = loginState.passwordError
         )
         if (loginState.passwordError != null) {

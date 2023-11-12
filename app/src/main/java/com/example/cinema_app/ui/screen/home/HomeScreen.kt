@@ -2,7 +2,6 @@ package com.example.cinema_app.ui.screen.home
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -15,8 +14,7 @@ import com.example.cinema_app.ui.screen.home.component.HandleErrorState
 import com.example.cinema_app.ui.screen.home.component.HomeContentState
 import com.example.cinema_app.ui.screen.home.component.HomeLoadingState
 
-@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel,

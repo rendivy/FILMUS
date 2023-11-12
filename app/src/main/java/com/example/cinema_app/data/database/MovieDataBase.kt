@@ -9,5 +9,4 @@ import com.example.cinema_app.data.dbentity.UserRating
 @Database(entities = [UserRating::class], version = 1)
 abstract class MovieDataBase : RoomDatabase() {
     abstract fun userDao(): UserRatingDao
-
 }

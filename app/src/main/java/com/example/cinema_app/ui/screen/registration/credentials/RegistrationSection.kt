@@ -30,6 +30,8 @@ import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding8
 
 @Composable
 fun RegistrationSection(
@@ -42,7 +44,7 @@ fun RegistrationSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(start = padding16, end = padding16)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -57,7 +59,7 @@ fun RegistrationSection(
             style = SemiBoldStyle,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.name_label),
             modifier = Modifier
@@ -65,7 +67,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.name,
             onValueChange = userAuthViewModel::setName,
@@ -79,7 +81,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.user_sex_label),
             modifier = Modifier
@@ -88,7 +90,7 @@ fun RegistrationSection(
             style = TitleSmall
         )
         TextSwitchTest(userAuthViewModel)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.login_label),
             modifier = Modifier
@@ -96,7 +98,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.login,
             onValueChange = userAuthViewModel::setLogin,
@@ -109,7 +111,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.email_label),
             modifier = Modifier
@@ -117,7 +119,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomTextField(
             textFieldValue = userState.email,
             onValueChange = userAuthViewModel::setEmail,
@@ -131,7 +133,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
             text = stringResource(id = R.string.date_label),
             modifier = Modifier
@@ -139,7 +141,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         CustomClickableBox(
             checked = checked,
             birth = userAuthViewModel.registrationState.value.birthDate,

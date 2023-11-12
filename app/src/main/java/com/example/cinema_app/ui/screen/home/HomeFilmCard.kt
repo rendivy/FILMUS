@@ -44,6 +44,7 @@ import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.padding16
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -61,7 +62,7 @@ fun HomeFilmCard(
         modifier = modifier
             .fillMaxWidth()
             .background(Gray900)
-            .padding(16.dp)
+            .padding(padding16)
     ) {
         val filmRatingColor = when (filmRating) {
             in 0.1..2.0 -> BadRatingColor
@@ -162,8 +163,8 @@ fun HomeFilmCard(
                                             top = 4.dp,
                                             bottom = 4.dp
                                         )
-                                        .width(16.dp)
-                                        .height(16.dp),
+                                        .width(padding16)
+                                        .height(padding16),
                                 )
                                 Text(
                                     modifier = Modifier.padding(

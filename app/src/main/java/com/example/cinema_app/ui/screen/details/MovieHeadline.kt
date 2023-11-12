@@ -15,10 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.ui.screen.home.RatingBox
 import com.example.cinema_app.ui.theme.Gray750
@@ -30,6 +30,8 @@ import com.example.cinema_app.ui.theme.padding16
 @Composable
 fun MovieHeadline(
     content: DetailsDTO,
+    painter: Painter,
+    tintColor: Color,
     onClick: () -> Unit,
 ) {
     Row(
@@ -67,7 +69,8 @@ fun MovieHeadline(
                 .height(40.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.favourite_icon),
+                painter = painter,
+                tint = tintColor,
                 contentDescription = null
             )
         }

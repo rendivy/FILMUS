@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding8
 
 fun ContentDrawScope.drawWithLayer(block: ContentDrawScope.() -> Unit) {
     with(drawContext.canvas.nativeCanvas) {
@@ -56,7 +57,7 @@ fun TextSwitch(
     BoxWithConstraints(
         modifier
             .height(42.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(padding8))
             .background(
                 color = Black300
             )
@@ -75,7 +76,7 @@ fun TextSwitch(
             Box(
                 modifier = Modifier
                     .offset(x = indicatorOffset)
-                    .shadow(4.dp, RoundedCornerShape(8.dp))
+                    .shadow(4.dp, RoundedCornerShape(padding8))
                     .width(tabWidth)
                     .fillMaxHeight()
             )
@@ -84,12 +85,12 @@ fun TextSwitch(
                 .fillMaxWidth()
 
                 .drawWithContent {
-                    val padding = 8.dp.toPx()
+                    val padding = padding8.toPx()
                     drawRoundRect(
                         topLeft = Offset(x = indicatorOffset.toPx() + padding, padding),
                         size = Size(size.width / 2 - padding * 2, size.height - padding * 2),
                         color = Color.Black,
-                        cornerRadius = CornerRadius(x = 8.dp.toPx(), y = 8.dp.toPx()),
+                        cornerRadius = CornerRadius(x = padding8.toPx(), y = padding8.toPx()),
                     )
 
                     drawWithLayer {
@@ -98,7 +99,7 @@ fun TextSwitch(
                             topLeft = Offset(x = indicatorOffset.toPx(), 0f),
                             size = Size(size.width / 2, size.height),
                             color = Color.White,
-                            cornerRadius = CornerRadius(x = 8.dp.toPx(), y = 8.dp.toPx()),
+                            cornerRadius = CornerRadius(x = padding8.toPx(), y = padding8.toPx()),
                             blendMode = BlendMode.SrcOut
                         )
                     }

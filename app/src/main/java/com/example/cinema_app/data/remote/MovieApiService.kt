@@ -44,6 +44,15 @@ interface MovieApiService {
         @Path("id") movieId: String
     )
 
+    @DELETE("${NetworkConstant.FAVORITE_MOVIES_URL}/{id}/delete")
+    suspend fun deleteFavouriteMovie(
+        @Header("Authorization") token: String,
+        @Path("id") movieId: String
+    )
+
+
+
+
     @POST(NetworkConstant.LOGOUT_URL)
     suspend fun logout(@Header("Authorization") token: String)
 

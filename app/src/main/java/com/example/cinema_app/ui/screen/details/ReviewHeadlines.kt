@@ -21,7 +21,6 @@ import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.dialog.AddReviewDialog
-import com.example.cinema_app.ui.screen.details.review.ReviewSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
@@ -67,6 +66,4 @@ fun ReviewHeadlines(
     if (reviewDialogOpen.value) {
         AddReviewDialog(reviewDialogOpen, movieDetailsViewModel, movieId = content.id)
     }
-
-    ReviewSection(content = content, viewModel = movieDetailsViewModel)
 }

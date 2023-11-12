@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.presentation.validator.ErrorType
@@ -23,6 +22,8 @@ import com.example.cinema_app.ui.screen.registration.component.RegistrationError
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding8
 
 
 @Composable
@@ -36,7 +37,7 @@ fun RegistrationPasswordSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(start = padding16, end = padding16)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -50,7 +51,7 @@ fun RegistrationPasswordSection(
             modifier = Modifier.fillMaxWidth(),
             style = TitleSmall,
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         PasswordTextField(
             textFieldValue = userState.password,
             error = userState.passwordError,
@@ -63,13 +64,13 @@ fun RegistrationPasswordSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Text(
-            text = "Повторите пароль",
+            text = stringResource(id = R.string.repeat_password),
             modifier = Modifier.fillMaxWidth(),
             style = TitleSmall,
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding8))
         PasswordTextField(
             textFieldValue = userState.confirmPassword,
             error = userState.confirmPasswordError,

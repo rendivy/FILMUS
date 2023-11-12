@@ -42,6 +42,9 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding12
+import com.example.cinema_app.ui.theme.padding16
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +72,7 @@ fun RegistrationPasswordScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(width = 6.dp, height = 12.dp),
+                            modifier = Modifier.size(width = 6.dp, height = padding12),
                             tint = Color.White,
                         )
                     }
@@ -99,16 +102,16 @@ fun RegistrationPasswordScreen(
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp),
+                        .padding(start = padding16, end = padding16),
                     onClick = {
                         userAuthViewModel.registerUser()
                         navController.navigate(NavigationRoutes.Main.route)
                     },
-                    shape = RoundedCornerShape(size = 10.dp),
+                    shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
                     ),
-                    contentPadding = PaddingValues(12.dp)
+                    contentPadding = PaddingValues(padding12)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
@@ -122,7 +125,7 @@ fun RegistrationPasswordScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Gray900)
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = padding16),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
