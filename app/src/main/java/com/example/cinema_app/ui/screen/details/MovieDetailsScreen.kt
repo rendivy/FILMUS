@@ -27,6 +27,8 @@ fun MovieDetailsScreen(
 ) {
     val detailsState by movieDetailsViewModel.detailsState.collectAsStateWithLifecycle()
 
+
+
     when (detailsState) {
         is DetailsState.Initial -> {
             movieDetailsViewModel.getMovieDetails(movieId)

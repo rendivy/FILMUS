@@ -49,7 +49,7 @@ fun MainScreen(navHostController: NavHostController) {
                         navController = navController
                     )
                 }
-                composable(NavigationRoutes.Home.route) {
+                composable(NavigationRoutes.Home.route) { entry ->
                     HomeScreen(
                         homeViewModel = hiltViewModel(),
                         navController = navController,

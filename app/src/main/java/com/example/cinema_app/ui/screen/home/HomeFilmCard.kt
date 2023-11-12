@@ -32,7 +32,6 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
 import com.example.cinema_app.data.entity.Genre
-import com.example.cinema_app.data.entity.ReviewX
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.CardTitle
@@ -56,7 +55,7 @@ fun HomeFilmCard(
     filmPoster: String,
     filmGenres: List<Genre>,
     filmRating: Double,
-    userRating: ReviewX?
+    userRating: Int?
 ) {
     Column(
         modifier = modifier
@@ -135,8 +134,8 @@ fun HomeFilmCard(
                             .padding(start = 4.dp)
                             .fillMaxWidth(0.8f)
                     )
-                    if (userRating?.rating != null) {
-                        val color = when (userRating.rating) {
+                    if (userRating != null) {
+                        val color = when (userRating) {
                             in 0..2 -> BadRatingColor
                             in 2..4 -> SemiBadRatingColor
                             in 4..6 -> SemiMediumRatingColor
@@ -172,7 +171,7 @@ fun HomeFilmCard(
                                         top = 4.dp,
                                         bottom = 4.dp
                                     ),
-                                    text = "${userRating.rating}",
+                                    text = "${userRating}",
                                     style = TitleMedium,
                                     color = Color.White,
                                     fontSize = 16.sp,

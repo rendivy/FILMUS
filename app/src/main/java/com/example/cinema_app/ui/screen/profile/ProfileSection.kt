@@ -60,12 +60,14 @@ fun ProfileSection(
             error = userState.emailError,
         )
         AnimatedVisibility(visible = userState.emailError != null){
-            Text(
-                text = "Такой email уже используется другим аккаунтом",
-                modifier = Modifier.fillMaxWidth().padding(2.dp),
-                color = Red,
-                style = TitleMedium
-            )
+            userState.emailError?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier.fillMaxWidth().padding(2.dp),
+                    color = Red,
+                    style = TitleMedium
+                )
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -81,6 +83,16 @@ fun ProfileSection(
             onValueChange = profileViewModel::setName,
             error = userState.nameError
         )
+        AnimatedVisibility(visible = userState.nameError != null){
+            userState.nameError?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier.fillMaxWidth().padding(2.dp),
+                    color = Red,
+                    style = TitleMedium
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "Ссылка на аватар",

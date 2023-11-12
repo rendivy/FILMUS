@@ -86,11 +86,13 @@ fun ProfileScreen(
         is ProfileState.Content -> {
             val profileState = remember { profileViewModel.profileState }
             val content = (credentialsState as ProfileState.Content).profileCredentials
-            val enabled =
-                profileState.value == content || profileState.value.login.isEmpty() || profileState.value.email.isEmpty()
+
+            var enabled = (profileState.value == content || !(profileState.value.nameError == null && profileState.value.emailError == null))
+
             val buttonAlpha = if (enabled) {
                 0.45f
-            } else {
+            }
+            else {
                 1f
             }
             Column(
@@ -200,11 +202,14 @@ fun ProfileScreen(
                         .alpha(buttonAlpha),
                     enabled = !enabled,
                     onClick = {
-                        profileViewModel.updateUserProfile()
-                        if (profileState.value.unexpectedError == null && profileState.value.emailError == null) {
-                            Toast.makeText(
-                                context, "Ваш профиль успешно обновлен!", Toast.LENGTH_LONG
-                            ).show()
+                        profileViewModel.updateUserProfile {
+                            if (profileState.value.emailError == null && profileState.value.nameError == null) {
+                                Toast.makeText(
+                                    context,
+                                    "Ваш профиль успешно обновлен!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     },
                     shape = RoundedCornerShape(size = 10.dp),

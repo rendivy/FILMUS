@@ -38,13 +38,20 @@ class MoviePagingSource @Inject constructor(
                 val response = movieApiService.getMovies(page)
                 response.movies.forEach {
                     val filmDetails = movieApiService.getMovieDetails(it.id)
-                    val userRatings = getUserProfileUseCase.getUserReview(filmDetails.reviews)
-                    val userRating = UserRating(
-                        filmId = it.id,
-                        userRating = userRatings?.rating
-                    )
-                    movieDataBase.userDao().insertUserRating(userRating)
-                    movies += filmMapper.map(it, userRatings)
+                    if (movieDataBase.userDao().getUserRating(it.id) == null) {
+                        val userRatings = getUserProfileUseCase.getUserReview(filmDetails.reviews)
+                        val userRating = UserRating(
+                            filmId = it.id,
+                            userRating = userRatings?.rating
+                        )
+                        movieDataBase.userDao().insertUserRating(userRating)
+                        movies += filmMapper.map(it, userRatings?.rating)
+                    }
+                    else {
+                        val userRatings = movieDataBase.userDao().getUserRating(it.id)
+                        movies += filmMapper.map(it, userRatings?.userRating)
+                    }
+
 
                 }
 
