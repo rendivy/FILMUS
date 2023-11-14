@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.data.converter.DateConverter
+import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.LogoutUserUseCase
@@ -55,7 +55,6 @@ class ProfileViewModel @Inject constructor(
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        Log.d("ProfileViewModel", exception.message.toString())
         when (exception) {
             is HttpException -> when (exception.code()) {
                 401 -> {

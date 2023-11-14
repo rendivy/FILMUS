@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.Constants.DEFAULT_SEX_INDEX
 import com.example.cinema_app.presentation.RegistrationViewModel
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -24,7 +24,7 @@ fun TextSwitchTest(userAuthViewModel: RegistrationViewModel) {
         mutableIntStateOf(DEFAULT_SEX_INDEX)
     }
 
-    Column(modifier = Modifier.padding(top = padding8)) {
+    Column(modifier = Modifier.padding(top = shortPadding)) {
         TextSwitch(
             selectedIndex = selectedIndex,
             items = items,

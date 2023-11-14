@@ -31,11 +31,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.cinema_app.R
+import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.common.NavigationConstant
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
 import com.example.cinema_app.presentation.state.FavouriteState
-import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
+import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.favorite.section.MovieSection
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Accent
@@ -44,7 +45,7 @@ import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.TitleSmall
 import com.example.cinema_app.ui.theme.padding100
 import com.example.cinema_app.ui.theme.padding15
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.padding5
 
@@ -82,7 +83,7 @@ fun FavouriteScreen(
 
 
             is FavouriteState.Loading -> {
-                Column(modifier = Modifier.padding(top = padding16)) {
+                Column(modifier = Modifier.padding(top = mediumPadding)) {
                     for (j in 0..3) {
                         Row(
                             modifier = Modifier
@@ -121,9 +122,9 @@ fun FavouriteScreen(
                         .background(Gray900)
                         .padding(
                             top = padding100,
-                            bottom = padding16,
-                            start = padding16,
-                            end = padding16
+                            bottom = mediumPadding,
+                            start = mediumPadding,
+                            end = mediumPadding
                         ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
@@ -152,7 +153,7 @@ fun FavouriteScreen(
                         navHostController.navigate(NavigationConstant.LOGIN_ROUTE)
                         Toast.makeText(
                             navController.context,
-                            "Ваша сессия закончилась, пожалуйста войдите снова!",
+                            Constants.UNAUTHORIZED,
                             Toast.LENGTH_SHORT
                         ).show(
                         )

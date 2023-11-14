@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.switcher.TextSwitch
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun ProfileSwitcher(profileViewModel: ProfileViewModel, index: Int) {
@@ -18,7 +18,7 @@ fun ProfileSwitcher(profileViewModel: ProfileViewModel, index: Int) {
     }
     val selectedIndex = remember { mutableStateOf(index) }
 
-    Column(modifier = Modifier.padding(top = padding8)) {
+    Column(modifier = Modifier.padding(top = shortPadding)) {
         TextSwitch(
             selectedIndex = selectedIndex.value,
             items = items,

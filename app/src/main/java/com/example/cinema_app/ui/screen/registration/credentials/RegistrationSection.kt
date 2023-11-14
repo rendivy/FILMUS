@@ -24,14 +24,14 @@ import com.example.cinema_app.presentation.validator.ErrorType
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.switcher.TextSwitchTest
-import com.example.cinema_app.ui.screen.registration.component.DateAlert
+import com.example.cinema_app.ui.screen.profile.DatePickerAlert
 import com.example.cinema_app.ui.screen.registration.component.RegistrationErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
-import com.example.cinema_app.ui.theme.padding16
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun RegistrationSection(
@@ -44,7 +44,7 @@ fun RegistrationSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = padding16, end = padding16)
+            .padding(start = mediumPadding, end = mediumPadding)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -59,7 +59,7 @@ fun RegistrationSection(
             style = SemiBoldStyle,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.name_label),
             modifier = Modifier
@@ -67,7 +67,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.name,
             onValueChange = userAuthViewModel::setName,
@@ -81,7 +81,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.user_sex_label),
             modifier = Modifier
@@ -90,7 +90,7 @@ fun RegistrationSection(
             style = TitleSmall
         )
         TextSwitchTest(userAuthViewModel)
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.login_label),
             modifier = Modifier
@@ -98,7 +98,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.login,
             onValueChange = userAuthViewModel::setLogin,
@@ -111,7 +111,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.email_label),
             modifier = Modifier
@@ -119,7 +119,7 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.email,
             onValueChange = userAuthViewModel::setEmail,
@@ -133,7 +133,7 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.date_label),
             modifier = Modifier
@@ -141,10 +141,10 @@ fun RegistrationSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomClickableBox(
             checked = checked,
-            birth = userAuthViewModel.registrationState.value.birthDate,
+            birth = userAuthViewModel.registrationContent.value.birthDate,
             error = userState.birthDateError,
         )
         if (userState.birthDateError != null) {
@@ -154,6 +154,6 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        DateAlert(checked = checked, userAuthViewModel = userAuthViewModel)
+        DatePickerAlert(checked = checked, userAuthViewModel::setUserBirthdate)
     }
 }

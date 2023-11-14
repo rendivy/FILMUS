@@ -12,13 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.ui.screen.details.section.FilmDetailsSection
 import com.example.cinema_app.ui.screen.details.section.GenreSection
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -31,16 +34,16 @@ fun GenreHeadline(content: DetailsDTO) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Жанры",
+            text = stringResource(id = R.string.genres),
             modifier = Modifier
                 .background(color = Gray900)
-                .padding(start = padding16, end = padding16, bottom = 10.dp),
+                .padding(start = mediumPadding, end = mediumPadding, bottom = padding10),
             style = SemiBoldStyle
         )
         GenreSection(content.genres)
         Spacer(
             modifier = Modifier
-                .height(10.dp)
+                .height(padding10)
                 .fillMaxWidth()
                 .background(Gray900)
         )

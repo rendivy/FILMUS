@@ -7,9 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
+import com.example.cinema_app.common.Constants
 import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
+import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.home.CachedFilmScreen
 import retrofit2.HttpException
 
@@ -29,7 +30,7 @@ fun HandleErrorState(
                 navController.navigate(NavigationRoutes.Login.route)
                 LaunchedEffect(Unit){
                     Toast.makeText(
-                        context, "Ваша сессия закончилась, пожалуйста войдите снова",
+                        context, Constants.UNAUTHORIZED,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

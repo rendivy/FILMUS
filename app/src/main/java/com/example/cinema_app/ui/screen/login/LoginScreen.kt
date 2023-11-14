@@ -51,18 +51,18 @@ import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleSmall
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding12
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
-    val loginState by remember { loginViewModel.loginState }
+    val loginState by remember { loginViewModel.loginContent }
     val errorState by loginViewModel.errorState.collectAsStateWithLifecycle()
     var loginError by remember { mutableStateOf(false) }
     val enabled = loginViewModel.validateLoginCredentials()
@@ -87,7 +87,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(padding12),
+                            modifier = Modifier.size(semiMediumPadding),
                             tint = Color.White,
                         )
                     }
@@ -121,10 +121,10 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .alpha(buttonAlpha)
-                        .padding(start = padding16, end = padding16),
+                        .padding(start = mediumPadding, end = mediumPadding),
                     onClick = { loginViewModel.loginUser() },
                     enabled = enabled,
-                    contentPadding = PaddingValues(padding12),
+                    contentPadding = PaddingValues(semiMediumPadding),
                     shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent,
@@ -150,10 +150,10 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                                     Column(
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                         verticalArrangement = Arrangement.Center,
-                                        modifier = Modifier.padding(end = padding8)
+                                        modifier = Modifier.padding(end = shortPadding)
                                     ) {
                                         CircularProgressIndicator(
-                                            modifier = Modifier.size(padding12),
+                                            modifier = Modifier.size(semiMediumPadding),
                                             color = Color.White,
                                             trackColor = Gray400
                                         )
@@ -174,7 +174,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = padding16, end = padding16),
+                            .padding(start = mediumPadding, end = mediumPadding),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center){
                         loginState.uncorrectedUserName?.let { it1 ->
@@ -193,7 +193,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Gray900)
-                    .padding(bottom = padding16),
+                    .padding(bottom = mediumPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -201,7 +201,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     text = stringResource(id = R.string.dont_have_account),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(ShortSpace))
+                Spacer(modifier = Modifier.size(tinyPadding))
                 Text(
                     text = stringResource(id = R.string.register_label),
                     modifier = Modifier.clickable(onClick = {

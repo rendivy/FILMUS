@@ -26,8 +26,8 @@ import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimati
 import com.example.cinema_app.ui.state.LoginContent
 import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.TitleMedium
-import com.example.cinema_app.ui.theme.padding16
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -42,7 +42,7 @@ fun LoginSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = padding16, end = padding16)
+            .padding(start = mediumPadding, end = mediumPadding)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -57,12 +57,12 @@ fun LoginSection(
             style = TitleLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.login_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp, bottom = padding8),
+                .padding(2.dp, bottom = shortPadding),
             color = Color.White,
             style = TitleMedium
         )
@@ -74,12 +74,12 @@ fun LoginSection(
         if (loginState.usernameError != null) {
             LoginErrorAnimation(errorMessage = loginState.usernameError)
         }
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.password_label),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(2.dp, bottom = padding8),
+                .padding(2.dp, bottom = shortPadding),
             color = Color.White,
             style = TitleMedium
         )

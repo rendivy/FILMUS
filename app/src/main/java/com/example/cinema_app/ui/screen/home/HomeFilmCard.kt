@@ -43,11 +43,12 @@ import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding16
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding5
+import com.example.cinema_app.ui.theme.shortPadding
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -65,7 +66,7 @@ fun HomeFilmCard(
         modifier = modifier
             .fillMaxWidth()
             .background(Gray900)
-            .padding(padding16)
+            .padding(mediumPadding)
     ) {
         val filmRatingColor = when (filmRating) {
             in 0.1..2.0 -> BadRatingColor
@@ -95,7 +96,7 @@ fun HomeFilmCard(
                                 .fillMaxWidth()
                                 .shimmerEffect()
                                 .height(130.dp)
-                                .clip(RoundedCornerShape(5.dp))
+                                .clip(RoundedCornerShape(padding5))
                         )
                     } else {
                         SubcomposeAsyncImageContent()
@@ -107,7 +108,7 @@ fun HomeFilmCard(
                             .align(Alignment.TopStart)
                             .width(37.dp)
                             .height(20.dp)
-                            .clip(RoundedCornerShape(5.dp))
+                            .clip(RoundedCornerShape(padding5))
                             .background(filmRatingColor),
                         contentAlignment = Alignment.Center
                     ) {
@@ -135,7 +136,7 @@ fun HomeFilmCard(
                         style = CardTitle,
                         color = Color.White,
                         modifier = Modifier
-                            .padding(start = ShortSpace)
+                            .padding(start = tinyPadding)
                             .fillMaxWidth(0.8f)
                     )
                     if (userRating != null) {
@@ -161,19 +162,19 @@ fun HomeFilmCard(
                                     contentDescription = "star rating",
                                     modifier = Modifier
                                         .padding(
-                                            start = ShortSpace,
-                                            end = ShortSpace,
-                                            top = ShortSpace,
-                                            bottom = ShortSpace
+                                            start = tinyPadding,
+                                            end = tinyPadding,
+                                            top = tinyPadding,
+                                            bottom = tinyPadding
                                         )
-                                        .width(padding16)
-                                        .height(padding16),
+                                        .width(mediumPadding)
+                                        .height(mediumPadding),
                                 )
                                 Text(
                                     modifier = Modifier.padding(
-                                        end = ShortSpace,
-                                        top = ShortSpace,
-                                        bottom = ShortSpace
+                                        end = tinyPadding,
+                                        top = tinyPadding,
+                                        bottom = tinyPadding
                                     ),
                                     text = "${userRating}",
                                     style = TitleMedium,
@@ -185,18 +186,18 @@ fun HomeFilmCard(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(ShortSpace))
+                Spacer(modifier = Modifier.height(tinyPadding))
                 Row() {
                     Text(
                         text = filmCountry,
                         style = TitleMedium,
                         color = Color.White,
-                        fontSize = 12.sp, modifier = Modifier.padding(start = ShortSpace)
+                        fontSize = 12.sp, modifier = Modifier.padding(start = tinyPadding)
                     )
                     Text(
                         text = "·", style = TitleMedium,
                         color = Color.White,
-                        fontSize = 12.sp, modifier = Modifier.padding(start = ShortSpace, end = ShortSpace)
+                        fontSize = 12.sp, modifier = Modifier.padding(start = tinyPadding, end = tinyPadding)
                     )
 
                     Text(
@@ -251,7 +252,7 @@ fun RatingBox(ratingValue: String) {
         modifier = Modifier
             .width(51.dp)
             .height(26.dp)
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(padding5))
             .background(containerColor),
         contentAlignment = Alignment.Center
     ) {
@@ -272,12 +273,12 @@ fun GenreTag(
     backgroundColor: Color = Gray750,
     style: TextStyle = TitleMedium,
     tinyPadding: Dp = 2.dp,
-    mediumPadding: Dp = padding8
+    mediumPadding: Dp = shortPadding
 ) {
     Box(
         modifier = Modifier
-            .padding(start = ShortSpace, end = ShortSpace, bottom = ShortSpace, top = ShortSpace)
-            .background(color = backgroundColor, shape = RoundedCornerShape(5.dp))
+            .padding(start = com.example.cinema_app.ui.theme.tinyPadding, end = com.example.cinema_app.ui.theme.tinyPadding, bottom = com.example.cinema_app.ui.theme.tinyPadding, top = com.example.cinema_app.ui.theme.tinyPadding)
+            .background(color = backgroundColor, shape = RoundedCornerShape(padding5))
 
     ) {
         Text(

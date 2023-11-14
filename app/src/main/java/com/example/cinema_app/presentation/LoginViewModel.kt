@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
     private val _errorState = MutableStateFlow<LoginState>(LoginState.Initial)
     val errorState: StateFlow<LoginState> = _errorState
 
-    val loginState: State<LoginContent>
+    val loginContent: State<LoginContent>
         get() = _loginState
 
 
@@ -48,7 +48,7 @@ class LoginViewModel @Inject constructor(
             is HttpException -> when (exception.code()) {
                 400 -> {
                     _loginState.value =
-                        loginState.value.copy(uncorrectedUserName = ErrorConstant.UNAUTHORIZED)
+                        loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNAUTHORIZED)
                     _errorState.value = LoginState.Error(ErrorConstant.UNAUTHORIZED)
                 }
 
@@ -60,18 +60,20 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginUser() {
+        _loginState.value =
+            loginContent.value.copy(uncorrectedUserName = null)
         viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
             _errorState.value = LoginState.Loading
-            loginUserUseCase.invoke(loginContent = loginState.value)
+            loginUserUseCase.invoke(loginContent = loginContent.value)
             _errorState.value = LoginState.Success
         }
     }
 
     fun validateLoginCredentials() : Boolean {
-        return loginState.value.passwordError == null &&
-                loginState.value.password.isNotEmpty() &&
-                loginState.value.usernameError == null &&
-                loginState.value.username.isNotEmpty()
+        return loginContent.value.passwordError == null &&
+                loginContent.value.password.isNotEmpty() &&
+                loginContent.value.usernameError == null &&
+                loginContent.value.username.isNotEmpty()
     }
 
     fun setLogin(login: String) {

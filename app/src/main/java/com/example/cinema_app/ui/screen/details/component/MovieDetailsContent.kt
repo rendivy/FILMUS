@@ -36,7 +36,7 @@ import com.example.cinema_app.ui.screen.details.review.ReviewItem
 import com.example.cinema_app.ui.screen.details.review.UserReview
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 
 @ExperimentalLayoutApi
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -44,7 +44,6 @@ import com.example.cinema_app.ui.theme.padding16
 @Composable
 fun MovieDetailsContent(
     content: DetailsDTO,
-    filmRating: String,
     movieDetailsViewModel: MovieDetailsViewModel,
     navController: NavController
 ) {
@@ -59,7 +58,6 @@ fun MovieDetailsContent(
         topBar = {
             DetailsTopBar(
                 navController = navController,
-                movieDetailsViewModel = movieDetailsViewModel
             )
         },
         content = {
@@ -85,12 +83,11 @@ fun MovieDetailsContent(
                     item {
                         ExpandedText(
                             text = content.description,
-                            color = Color.White,
                             modifier = Modifier.padding(
-                                start = padding16,
-                                end = padding16,
+                                start = mediumPadding,
+                                end = mediumPadding,
                                 bottom = 10.dp,
-                                top = padding16
+                                top = mediumPadding
                             )
                         )
                     }

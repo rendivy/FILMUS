@@ -22,8 +22,8 @@ import com.example.cinema_app.ui.screen.registration.component.RegistrationError
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleSmall
-import com.example.cinema_app.ui.theme.padding16
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -32,12 +32,10 @@ fun RegistrationPasswordSection(
     userAuthViewModel: RegistrationViewModel,
     focusManager: FocusManager
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = padding16, end = padding16)
+            .padding(start = mediumPadding, end = mediumPadding)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -51,7 +49,7 @@ fun RegistrationPasswordSection(
             modifier = Modifier.fillMaxWidth(),
             style = TitleSmall,
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         PasswordTextField(
             textFieldValue = userState.password,
             error = userState.passwordError,
@@ -64,13 +62,13 @@ fun RegistrationPasswordSection(
                 outlinedColor = Red
             )
         }
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.repeat_password),
             modifier = Modifier.fillMaxWidth(),
             style = TitleSmall,
         )
-        Spacer(modifier = Modifier.height(padding8))
+        Spacer(modifier = Modifier.height(shortPadding))
         PasswordTextField(
             textFieldValue = userState.confirmPassword,
             error = userState.confirmPasswordError,

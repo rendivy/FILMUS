@@ -16,10 +16,24 @@
     <string name="register_label">Зарегистрируйтесь</string>
     <string name="password_label">Пароль</string>
     <string name="main_registration">Регистрация</string>
+    <string name="genres">Жанры</string>
+    <string name="avatar_ling">Ссылка на аватар</string>
+    <string name="anonymous_user">Анонимный пользователь</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
     <string name="magazine_label">Каталог</string>
+    <string name="review_label">Отзывы</string>
+    <string name="show_more">Показать еще</string>
+    <string name="show_less">Скрыть</string>
+    <string name="save">Сохранить</string>
+    <string name="confirm">Подтвердить</string>
     <string name="app_logo">FИЛЬМУС</string>
+    <string name="cancel">Отмена</string>
     <string name="already_registered">Уже зарегистрированы?</string>
     <string name="enter_button">Войдите</string>
+    <string name="main_screen_label">Главная</string>
+    <string name="review_set">Оставить отзыв</string>
+    <string name="profileSuccess">Профиль успешно обновлен</string>
+    <string name="unauthorized">"Ваша сессия закончилась, пожалуйста войдите снова"</string>
     <string name="continue_label">Продолжить</string>
     <string name="email_label">Электронная почта</string>
 </resources>

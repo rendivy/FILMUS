@@ -30,13 +30,14 @@ import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleLarge
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding24
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsTopBar(
     navController: NavController,
-    movieDetailsViewModel: MovieDetailsViewModel
 ) {
 
     TopAppBar(
@@ -78,7 +79,7 @@ fun DetailsTop(
         title = {
             Text(
                 text = content.name,
-                modifier = Modifier.padding(top = 10.dp),
+                modifier = Modifier.padding(top = padding10),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 fontSize = 20.sp,
@@ -104,7 +105,7 @@ fun DetailsTop(
             ) {
                 Icon(
                     painter = painter,
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(padding24),
                     tint = tintColor,
                     contentDescription = null
                 )

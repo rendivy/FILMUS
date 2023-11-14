@@ -24,9 +24,9 @@ import com.example.cinema_app.ui.screen.home.RatingBox
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -40,9 +40,9 @@ fun MovieHeadline(
         modifier = Modifier
             .background(color = Gray900)
             .padding(
-                start = padding16,
-                end = padding16,
-                top = padding16,
+                start = mediumPadding,
+                end = mediumPadding,
+                top = mediumPadding,
                 bottom = padding20
             )
             .fillMaxWidth(),
@@ -50,7 +50,7 @@ fun MovieHeadline(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         RatingBox(content.averageFilmRating.toString())
-        Spacer(modifier = Modifier.width(padding8))
+        Spacer(modifier = Modifier.width(shortPadding))
         Text(
             text = content.name,
             modifier = Modifier
@@ -59,7 +59,7 @@ fun MovieHeadline(
             style = InternBoldLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.width(padding8))
+        Spacer(modifier = Modifier.width(shortPadding))
         IconButton(
             onClick = onClick,
             modifier = Modifier

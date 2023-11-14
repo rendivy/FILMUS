@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui
+package com.example.cinema_app.ui.screen.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
@@ -38,6 +39,12 @@ import com.example.cinema_app.ui.theme.MediumRatingColor
 import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding15
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.padding5
+import com.example.cinema_app.ui.theme.shortPadding
+import com.example.cinema_app.ui.theme.tinyPadding
 
 
 @Composable
@@ -58,7 +65,7 @@ fun FilmCard(
                     .height(240.dp)
                     .clip(RoundedCornerShape(5.dp))
                     .clickable {
-                        navController.navigate("movieDetails/${movieId}/${6.2}")
+                        navController.navigate("movieDetails/${movieId}/'")
                     },
                 model = path,
                 contentScale = ContentScale.Crop,
@@ -104,19 +111,19 @@ fun FilmCard(
                             contentDescription = "star rating",
                             modifier = Modifier
                                 .padding(
-                                    start = 4.dp,
-                                    end = 4.dp,
-                                    top = 4.dp,
-                                    bottom = 4.dp
+                                    start = tinyPadding,
+                                    end = tinyPadding,
+                                    top = tinyPadding,
+                                    bottom = tinyPadding
                                 )
-                                .width(16.dp)
-                                .height(16.dp),
+                                .width(mediumPadding)
+                                .height(mediumPadding),
                         )
                         Text(
                             modifier = Modifier.padding(
-                                end = 4.dp,
-                                top = 4.dp,
-                                bottom = 4.dp
+                                end = tinyPadding,
+                                top = tinyPadding,
+                                bottom = tinyPadding
                             ),
                             text = "${userRating}",
                             style = TitleMedium,
@@ -129,13 +136,13 @@ fun FilmCard(
             }
 
         }
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(padding5))
         Text(
             text = movieName,
+            style = TitleMedium,
             fontSize = 14.sp,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-
         )
     }
 
@@ -151,7 +158,7 @@ fun LargeFilmCard(
     navController: NavController
 ) {
     Column(
-        modifier = Modifier.padding(start = 15.dp, top = 20.dp, bottom = 20.dp, end = 15.dp),
+        modifier = Modifier.padding(start = padding15, top = padding20, bottom = padding20, end = padding15),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -165,7 +172,7 @@ fun LargeFilmCard(
                     .clickable {
                         navController.navigate("movieDetails/${movieId}/${6.2}")
                     }
-                    .clip(RoundedCornerShape(8.dp)),
+                    .clip(RoundedCornerShape(shortPadding)),
                 contentDescription = "Film Card"
             ) {
                 when (painter.state) {
@@ -174,7 +181,7 @@ fun LargeFilmCard(
                             modifier = Modifier
                                 .height(240.dp)
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
+                                .clip(RoundedCornerShape(shortPadding))
                                 .shimmerEffect()
                         )
                     }
@@ -208,19 +215,19 @@ fun LargeFilmCard(
                             contentDescription = "star rating",
                             modifier = Modifier
                                 .padding(
-                                    start = 4.dp,
-                                    end = 4.dp,
-                                    top = 4.dp,
-                                    bottom = 4.dp
+                                    start = tinyPadding,
+                                    end = tinyPadding,
+                                    top = tinyPadding,
+                                    bottom = tinyPadding
                                 )
-                                .width(16.dp)
-                                .height(16.dp),
+                                .width(mediumPadding)
+                                .height(mediumPadding),
                         )
                         Text(
                             modifier = Modifier.padding(
-                                end = 4.dp,
-                                top = 4.dp,
-                                bottom = 4.dp
+                                end = tinyPadding,
+                                top = tinyPadding,
+                                bottom = tinyPadding
                             ),
                             text = "${userRating}",
                             style = TitleMedium,
