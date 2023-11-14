@@ -1,12 +1,14 @@
 package com.example.cinema_app.di
 
+import com.example.cinema_app.data.database.MovieDataBase
 import com.example.cinema_app.data.mappers.FilmMapper
+import com.example.cinema_app.data.pagination.MoviePagingSource
 import com.example.cinema_app.data.remote.MovieApiService
-import com.example.cinema_app.data.repository.ProfileRepositoryImpl
+import com.example.cinema_app.domain.repository.ProfileRepository
 import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase
 import com.example.cinema_app.domain.usecase.GetUserIdUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
-import com.example.cinema_app.pagination.MoviePagingSource
+import com.example.cinema_app.presentation.mappers.PresentationFilmMapper
 import com.example.cinema_app.presentation.mappers.UserReviewMapper
 import dagger.Module
 import dagger.Provides
@@ -24,6 +26,12 @@ object AppModule {
         return GetAverageFilmRatingsUseCase()
     }
 
+
+    @Provides
+    fun providePresentationFilmMapper(): PresentationFilmMapper {
+        return PresentationFilmMapper()
+    }
+
     @Provides
     fun provideFilmMapper(getAverageFilmRatingsUseCase: GetAverageFilmRatingsUseCase): FilmMapper {
         return FilmMapper(getAverageFilmRatingsUseCase = getAverageFilmRatingsUseCase)
@@ -31,8 +39,8 @@ object AppModule {
 
 
     @Provides
-    fun provideUserIdUseCase(profileRepositoryImpl: ProfileRepositoryImpl): GetUserIdUseCase {
-        return GetUserIdUseCase(profileRepositoryImpl = profileRepositoryImpl)
+    fun provideUserIdUseCase(profileRepository: ProfileRepository): GetUserIdUseCase {
+        return GetUserIdUseCase(profileRepository = profileRepository)
     }
 
     @Provides
@@ -45,10 +53,15 @@ object AppModule {
     @Singleton
     fun provideMoviePagingSource(
         movieApiService: MovieApiService,
+        movieDataBase: MovieDataBase,
         filmMapper: FilmMapper,
         getUserProfileUseCase: GetUserProfileUseCase,
-        userIdUseCase: GetUserIdUseCase
     ): MoviePagingSource {
-        return MoviePagingSource(movieApiService, filmMapper, userIdUseCase, getUserProfileUseCase )
+        return MoviePagingSource(
+            movieApiService,
+            filmMapper,
+            movieDataBase = movieDataBase,
+            getUserProfileUseCase
+        )
     }
 }

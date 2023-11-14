@@ -16,5 +16,6 @@ data class RegistrationContent(
     val loginError: String? = null,
     val confirmPassword: String = Constants.EMPTY_STRING,
     val confirmPasswordError: String? = null,
-    val birthDateError: String? = null
+    val birthDateError: String? = null,
+    val uniqueLoginError: String? = null
 )

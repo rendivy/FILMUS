@@ -18,6 +18,10 @@ class TokenLocalStorage(context: Context) {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
 
+    fun deleteToken() {
+        encryptedSharedPreferences.edit().remove("token").apply()
+    }
+
     fun getToken(): String {
         return encryptedSharedPreferences.getString("token", Constants.EMPTY_STRING)
             ?: Constants.EMPTY_STRING

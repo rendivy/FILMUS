@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -31,6 +33,9 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
 
 
 @Composable
@@ -38,9 +43,9 @@ fun GreetingsScreen(navController: NavController) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().verticalScroll(rememberScrollState())
             .background(Gray900)
-            .padding(start = 16.dp, end = 16.dp),
+            .padding(start = mediumPadding, end = mediumPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -63,15 +68,15 @@ fun GreetingsScreen(navController: NavController) {
             style = TitleSmall,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Button(
             onClick = {
                 navController.navigate(NavigationRoutes.Registration.route)
             },
             modifier = Modifier
                 .fillMaxWidth(),
-            shape = RoundedCornerShape(size = 10.dp),
-            contentPadding = PaddingValues(12.dp),
+            shape = RoundedCornerShape(size = padding10),
+            contentPadding = PaddingValues(semiMediumPadding),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Accent
             )
@@ -92,8 +97,8 @@ fun GreetingsScreen(navController: NavController) {
 
             modifier = Modifier
                 .fillMaxWidth(),
-            shape = RoundedCornerShape(size = 10.dp),
-            contentPadding = PaddingValues(12.dp),
+            shape = RoundedCornerShape(size = padding10),
+            contentPadding = PaddingValues(semiMediumPadding),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Black300
             )

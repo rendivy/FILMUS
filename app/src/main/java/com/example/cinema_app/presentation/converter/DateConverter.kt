@@ -1,4 +1,4 @@
-package com.example.cinema_app.data.converter
+package com.example.cinema_app.presentation.converter
 
 import java.text.SimpleDateFormat
 import java.util.Date

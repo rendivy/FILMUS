@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -43,12 +44,13 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
+import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.presentation.state.ProfileState
 import com.example.cinema_app.ui.component.NoRippleInteractionSource
 import com.example.cinema_app.ui.navigation.NavigationRoutes
-import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
+import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
@@ -56,11 +58,17 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding100
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding54
 
 
 @Composable
 fun ProfileScreen(
-    profileViewModel: ProfileViewModel, navHostController: NavController,
+    profileViewModel: ProfileViewModel,
+    navHostController: NavController,
     navController: NavController
 ) {
     val focusManager = LocalFocusManager.current
@@ -74,19 +82,24 @@ fun ProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .shimmerEffect())
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .shimmerEffect()
+                )
             }
         }
 
         is ProfileState.Content -> {
             val profileState = remember { profileViewModel.profileState }
             val content = (credentialsState as ProfileState.Content).profileCredentials
-            val enabled = profileState.value == content
+
+            var enabled = (profileState.value == content || !(profileState.value.nameError == null && profileState.value.emailError == null))
+
             val buttonAlpha = if (enabled) {
                 0.45f
-            } else {
+            }
+            else {
                 1f
             }
             Column(
@@ -94,7 +107,7 @@ fun ProfileScreen(
                     .fillMaxSize()
                     .background(Gray900)
                     .verticalScroll(rememberScrollState())
-                    .padding(16.dp)
+                    .padding(mediumPadding)
                     .pointerInput(Unit) {
                         detectTapGestures(onTap = {
                             focusManager.clearFocus()
@@ -130,7 +143,7 @@ fun ProfileScreen(
                                     modifier = Modifier
                                         .size(88.dp)
                                         .clip(
-                                            RoundedCornerShape(100.dp)
+                                            RoundedCornerShape(padding100)
                                         )
                                         .background(Color.White),
                                     contentAlignment = Alignment.Center
@@ -138,7 +151,7 @@ fun ProfileScreen(
                                     Image(
                                         painterResource(id = R.drawable.profile_icon),
                                         contentDescription = null,
-                                        modifier = Modifier.size(54.dp)
+                                        modifier = Modifier.size(padding54)
                                     )
                                 }
                             }
@@ -173,7 +186,7 @@ fun ProfileScreen(
                         },
                         interactionSource = NoRippleInteractionSource(),
                         modifier = Modifier
-                            .padding(bottom = 12.dp)
+                            .padding(bottom = semiMediumPadding)
                             .fillMaxWidth(),
                     )
                     {
@@ -189,25 +202,29 @@ fun ProfileScreen(
                     userState = profileState.value,
                     profileViewModel = profileViewModel
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(mediumPadding))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alpha(buttonAlpha),
                     enabled = !enabled,
                     onClick = {
-                        profileViewModel.updateUserProfile()
-                        Toast.makeText(
-                            context, "Профиль успешно обновлен!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        profileViewModel.updateUserProfile {
+                            if (profileState.value.emailError == null && profileState.value.nameError == null) {
+                                Toast.makeText(
+                                    context,
+                                    Constants.PROFILE_UPDATED,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     },
-                    shape = RoundedCornerShape(size = 10.dp),
+                    shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent,
                         disabledContainerColor = Accent
                     ),
-                    contentPadding = PaddingValues(12.dp)
+                    contentPadding = PaddingValues(semiMediumPadding)
                 ) {
                     Text(
                         text = "Cохранить",
@@ -222,8 +239,8 @@ fun ProfileScreen(
 
                     modifier = Modifier
                         .fillMaxWidth(),
-                    shape = RoundedCornerShape(size = 10.dp),
-                    contentPadding = PaddingValues(12.dp),
+                    shape = RoundedCornerShape(size = padding10),
+                    contentPadding = PaddingValues(semiMediumPadding),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Black300
                     )
@@ -238,25 +255,34 @@ fun ProfileScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-
             }
 
         }
 
         is ProfileState.Error -> {
             val error = credentialsState as ProfileState.Error
-            if (error.errorMessage == ErrorConstant.UNAUTHORIZED) {
-                navHostController.popBackStack()
-                navHostController.navigate(NavigationRoutes.Login.route)
-                Toast.makeText(
-                    context, "Время сессии истекло!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                ErrorUiScreen {
-                    profileViewModel.retry()
+            when (error.errorMessage) {
+                ErrorConstant.UNAUTHORIZED -> {
+                    navHostController.popBackStack()
+                    navHostController.navigate(NavigationRoutes.Login.route)
+                    Toast.makeText(
+                        context, stringResource(id = R.string.unauthorized),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
+                else ->
+                    ErrorUiScreen {
+                        profileViewModel.retry()
+                    }
             }
+        }
+
+        is ProfileState.Success -> {
+            Toast.makeText(
+                context, stringResource(id = R.string.profileSuccess),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

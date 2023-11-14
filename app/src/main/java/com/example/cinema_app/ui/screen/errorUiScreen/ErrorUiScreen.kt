@@ -1,4 +1,4 @@
-package com.example.cinema_app.ui.screen.badRequestScreen
+package com.example.cinema_app.ui.screen.errorUiScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,15 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.maxFavouriteCardSize
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.padding15
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.largePadding
 
 @Composable
 fun ErrorUiScreen(
@@ -48,19 +50,19 @@ fun ErrorUiScreen(
             colorFilter = ColorFilter.tint(Color.White),
             modifier = Modifier.size(maxFavouriteCardSize)
         )
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(text = "Произошла ошибка", style = SemiBoldStyle)
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp),
+                .padding(start = largePadding, end = largePadding),
             onClick = onClick,
-            shape = RoundedCornerShape(size = 10.dp),
+            shape = RoundedCornerShape(size = padding10),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Accent
             ),
-            contentPadding = PaddingValues(12.dp)
+            contentPadding = PaddingValues(semiMediumPadding)
         ) {
             Text(
                 text = "Повторить",

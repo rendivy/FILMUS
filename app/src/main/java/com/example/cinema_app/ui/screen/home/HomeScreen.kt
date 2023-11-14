@@ -1,10 +1,6 @@
 package com.example.cinema_app.ui.screen.home
 
-import android.os.Build
-import androidx.annotation.RequiresExtension
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -16,8 +12,7 @@ import com.example.cinema_app.ui.screen.home.component.HandleErrorState
 import com.example.cinema_app.ui.screen.home.component.HomeContentState
 import com.example.cinema_app.ui.screen.home.component.HomeLoadingState
 
-@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel,
@@ -29,9 +24,6 @@ fun HomeScreen(
     val moviesPaging = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
     val cardHeight = (screenHeight * 0.9f).coerceAtMost(497.dp)
 
-    LaunchedEffect(Unit){
-        moviesPaging.retry()
-    }
 
     when (moviesPaging.loadState.refresh) {
         is LoadState.Error -> {
@@ -39,7 +31,8 @@ fun HomeScreen(
                 navController = navHostController,
                 context = context,
                 refreshState = moviesPaging.loadState.refresh,
-                onClick = { moviesPaging.retry() }
+                onClick = { moviesPaging.retry() },
+                homeViewModel = homeViewModel
             )
         }
 
@@ -56,7 +49,6 @@ fun HomeScreen(
                 moviesPaging = moviesPaging
             )
         }
-
     }
 }
 

@@ -12,11 +12,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun LoginErrorAnimation(errorMessage: String) {
     Box(contentAlignment = Alignment.Center) {
-        AnimatedVisibility(visible = true, modifier = Modifier.padding(top = 8.dp)) {
+        AnimatedVisibility(visible = true, modifier = Modifier.padding(top = shortPadding)) {
             Text(
                 text = errorMessage,
                 modifier = Modifier

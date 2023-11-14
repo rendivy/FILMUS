@@ -16,16 +16,17 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.dialog.AddReviewDialog
-import com.example.cinema_app.ui.screen.details.review.ReviewSection
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.largePadding
+import com.example.cinema_app.ui.theme.padding50
 
 @Composable
 fun ReviewHeadlines(
@@ -36,22 +37,22 @@ fun ReviewHeadlines(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(end = padding16),
+            .padding(end = mediumPadding),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "Отзывы",
+            text = stringResource(id = R.string.review_label),
             modifier = Modifier
                 .background(color = Gray900)
-                .padding(start = padding16, end = padding16, bottom = padding16),
+                .padding(start = mediumPadding, end = mediumPadding, bottom = mediumPadding),
             style = SemiBoldStyle
         )
         if (content.userReviewX == null) {
             Box(
                 modifier = Modifier
-                    .size(32.dp)
-                    .background(color = Accent, shape = RoundedCornerShape(50.dp))
-                    .clip(RoundedCornerShape(50.dp))
+                    .size(largePadding)
+                    .background(color = Accent, shape = RoundedCornerShape(padding50))
+                    .clip(RoundedCornerShape(padding50))
             ) {
                 IconButton(onClick = {
                     reviewDialogOpen.value = true
@@ -67,6 +68,4 @@ fun ReviewHeadlines(
     if (reviewDialogOpen.value) {
         AddReviewDialog(reviewDialogOpen, movieDetailsViewModel, movieId = content.id)
     }
-
-    ReviewSection(content = content, viewModel = movieDetailsViewModel)
 }
