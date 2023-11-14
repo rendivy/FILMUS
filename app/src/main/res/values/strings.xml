@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cinema-app</string>
+    <string name="app_name">FILMUS</string>
     <string name="greetings_screen_label">Погрузиcь в мир кино</string>
     <string name="greetings_screen_source">Мы предлагаем удобный и легкий способ насладиться любимыми фильмами прямо с Вашего мобильного устройства.</string>
     <string name="name_label">Имя</string>
@@ -8,6 +8,7 @@
     <string name="no_favourite_label">У вас пока нет любимых фильмов</string>
     <string name="no_favourite_text">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
     <string name="date_label">Дата роджения</string>
+    <string name="repeat_password">Повторите пароль</string>
     <string name="login_screen_label">Вход</string>
     <string name="user_sex_label">Пол</string>
     <string name="login_label">Логин</string>
@@ -15,9 +16,24 @@
     <string name="register_label">Зарегистрируйтесь</string>
     <string name="password_label">Пароль</string>
     <string name="main_registration">Регистрация</string>
+    <string name="genres">Жанры</string>
+    <string name="avatar_ling">Ссылка на аватар</string>
+    <string name="anonymous_user">Анонимный пользователь</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
+    <string name="magazine_label">Каталог</string>
+    <string name="review_label">Отзывы</string>
+    <string name="show_more">Показать еще</string>
+    <string name="show_less">Скрыть</string>
+    <string name="save">Сохранить</string>
+    <string name="confirm">Подтвердить</string>
     <string name="app_logo">FИЛЬМУС</string>
+    <string name="cancel">Отмена</string>
     <string name="already_registered">Уже зарегистрированы?</string>
     <string name="enter_button">Войдите</string>
+    <string name="main_screen_label">Главная</string>
+    <string name="review_set">Оставить отзыв</string>
+    <string name="profileSuccess">Профиль успешно обновлен</string>
+    <string name="unauthorized">"Ваша сессия закончилась, пожалуйста войдите снова"</string>
     <string name="continue_label">Продолжить</string>
     <string name="email_label">Электронная почта</string>
 </resources>

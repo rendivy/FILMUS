@@ -8,7 +8,7 @@ class ValidateEmailUseCase {
     private val emailPattern = ErrorConstant.EMAIL_PATTERN
 
     fun execute(email: String): ValidationResult {
-        return if (!email.matches(emailPattern.toRegex())) {
+        return if (email.isNotEmpty() && !email.matches(emailPattern.toRegex())) {
             ValidationResult(
                 successful = false,
                 errorMessage = ErrorConstant.EMAIL_ERROR

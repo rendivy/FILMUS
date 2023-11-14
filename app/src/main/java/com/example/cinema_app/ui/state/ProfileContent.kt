@@ -8,8 +8,9 @@ data class ProfileContent(
     val name: String,
     val nameError: String? = null,
     val email: String,
-    val gender: Int ,
     val emailError: String? = null,
+    val gender: Int ,
     val birthDate: String = Constants.EMPTY_STRING,
+    val unexpectedError: String? = null,
     val userAvatar: String? = null,
 )

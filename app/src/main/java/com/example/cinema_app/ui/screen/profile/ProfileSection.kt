@@ -1,5 +1,6 @@
 package com.example.cinema_app.ui.screen.profile
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,8 +23,11 @@ import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.state.ProfileContent
+import com.example.cinema_app.ui.theme.Red
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -51,13 +55,25 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.email,
             onValueChange = profileViewModel::setEmail,
             error = userState.emailError,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        AnimatedVisibility(visible = userState.emailError != null){
+            userState.emailError?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(2.dp),
+                    color = Red,
+                    style = TitleMedium
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.name_label),
             modifier = Modifier
@@ -65,26 +81,38 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.name,
             onValueChange = profileViewModel::setName,
             error = userState.nameError
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        AnimatedVisibility(visible = userState.nameError != null){
+            userState.nameError?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(2.dp),
+                    color = Red,
+                    style = TitleMedium
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
-            text = "Ссылка на аватар",
+            text = stringResource(id = R.string.avatar_ling),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(2.dp),
             style = TitleMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomTextField(
             textFieldValue = userState.userAvatar ?: "",
             onValueChange = { profileViewModel.setUserAvatar(it) },
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.user_sex_label),
             modifier = Modifier
@@ -93,7 +121,7 @@ fun ProfileSection(
             style = TitleMedium
         )
         ProfileSwitcher(profileViewModel = profileViewModel, index = userState.gender)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Text(
             text = stringResource(id = R.string.date_label),
             modifier = Modifier
@@ -101,11 +129,12 @@ fun ProfileSection(
                 .padding(2.dp),
             style = TitleSmall
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         CustomClickableBox(
             checked = checked,
-            birth = profileViewModel.convertDate(userState.birthDate),
-        )
-        ProfileAlert(checked = checked, profileViewModel = profileViewModel)
+            birth = userState.birthDate,
+
+            )
+        DatePickerAlert(checked = checked, profileViewModel::setBirthDate)
     }
 }

@@ -24,9 +24,9 @@ import com.example.cinema_app.ui.theme.GoodRatingColor
 import com.example.cinema_app.ui.theme.MediumRatingColor
 import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleMedium
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 
 @Composable
 fun UserRatingBox(userRating: Int) {
@@ -52,19 +52,19 @@ fun UserRatingBox(userRating: Int) {
                 contentDescription = "star rating",
                 modifier = Modifier
                     .padding(
-                        start = ShortSpace,
-                        end = ShortSpace,
-                        top = ShortSpace,
-                        bottom = ShortSpace
+                        start = tinyPadding,
+                        end = tinyPadding,
+                        top = tinyPadding,
+                        bottom = tinyPadding
                     )
-                    .width(padding16)
-                    .height(padding16),
+                    .width(mediumPadding)
+                    .height(mediumPadding),
             )
             Text(
                 modifier = Modifier.padding(
-                    end = ShortSpace,
-                    top = ShortSpace,
-                    bottom = ShortSpace
+                    end = tinyPadding,
+                    top = tinyPadding,
+                    bottom = tinyPadding
                 ),
                 text = "$userRating",
                 style = TitleMedium,

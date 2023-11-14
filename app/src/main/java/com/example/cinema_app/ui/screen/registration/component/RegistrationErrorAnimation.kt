@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.cinema_app.presentation.validator.ErrorType
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -30,7 +31,7 @@ fun RegistrationErrorAnimation(
         ErrorType.CONFIRM_PASSWORD -> errorMessage = userState.confirmPasswordError!!
         else -> {}
     }
-    AnimatedVisibility(visible = true, modifier = Modifier.padding(top = 8.dp)) {
+    AnimatedVisibility(visible = true, modifier = Modifier.padding(top = shortPadding)) {
         Text(
             text = errorMessage,
             modifier = Modifier

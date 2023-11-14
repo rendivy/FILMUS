@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
@@ -40,8 +41,12 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
 
 @ExperimentalMaterial3Api
 @Composable
@@ -49,8 +54,10 @@ fun RegistrationScreen(
     userAuthViewModel: RegistrationViewModel,
     navController: NavController
 ) {
-    val registrationState by remember { userAuthViewModel.registrationState }
+    val registrationState by remember { userAuthViewModel.registrationContent }
     val focusManager = LocalFocusManager.current
+    val enabled = !userAuthViewModel.isFirstRegistrationPageValid()
+    val alpha = if (enabled) 1f else 0.45f
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -70,7 +77,7 @@ fun RegistrationScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(width = 6.dp, height = 12.dp),
+                            modifier = Modifier.size(width = 6.dp, height = semiMediumPadding),
                             tint = Color.White,
                         )
                     }
@@ -97,21 +104,23 @@ fun RegistrationScreen(
                     userAuthViewModel = userAuthViewModel,
                     focusManager = focusManager
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(padding20))
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp),
+                        .fillMaxWidth().alpha(alpha)
+                        .padding(start = mediumPadding, end = mediumPadding),
                     onClick = {
                         if (userAuthViewModel.checkAllStates()) {
                             navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route)
                         }
                     },
-                    shape = RoundedCornerShape(size = 10.dp),
+                    enabled = enabled,
+                    shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Accent
+                        containerColor = Accent,
+                        disabledContainerColor = Accent
                     ),
-                    contentPadding = PaddingValues(12.dp)
+                    contentPadding = PaddingValues(semiMediumPadding)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
@@ -125,7 +134,7 @@ fun RegistrationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Gray900)
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = mediumPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -133,7 +142,7 @@ fun RegistrationScreen(
                     text = stringResource(id = R.string.already_registered),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(ShortSpace))
+                Spacer(modifier = Modifier.size(tinyPadding))
                 Text(
                     text = stringResource(id = R.string.enter_button),
                     modifier = Modifier.clickable(

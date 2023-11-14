@@ -10,6 +10,7 @@ import com.example.cinema_app.data.entity.ProfileCredentials
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.data.entity.Token
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -35,6 +36,37 @@ interface MovieApiService {
         @Header("Authorization") token: String,
         @Path("movieId") movieId: String,
         @Body addReviewBody: AddReviewBody
+    )
+
+    @POST("${NetworkConstant.FAVORITE_MOVIES_URL}/{id}/add")
+    suspend fun addFavouriteMovie(
+        @Header("Authorization") token: String,
+        @Path("id") movieId: String
+    )
+
+    @DELETE("${NetworkConstant.FAVORITE_MOVIES_URL}/{id}/delete")
+    suspend fun deleteFavouriteMovie(
+        @Header("Authorization") token: String,
+        @Path("id") movieId: String
+    )
+
+
+    @POST(NetworkConstant.LOGOUT_URL)
+    suspend fun logout(@Header("Authorization") token: String)
+
+    @PUT("${NetworkConstant.REVIEW_URL}{id}/edit")
+    suspend fun editReviewMovie(
+        @Header("Authorization") token: String,
+        @Path("movieId") movieId: String,
+        @Path("id") reviewId: String,
+        @Body addReviewBody: AddReviewBody
+    )
+
+    @DELETE("${NetworkConstant.REVIEW_URL}{id}/delete")
+    suspend fun deleteReviewMovie(
+        @Header("Authorization") token: String,
+        @Path("movieId") movieId: String,
+        @Path("id") reviewId: String
     )
 
     @GET(NetworkConstant.PROFILE_URL)

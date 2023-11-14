@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.domain.usecase.LoginUserUseCase
 import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
@@ -14,6 +15,7 @@ import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.state.LoginContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,59 +26,30 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUserUseCase: LoginUserUseCase,
     private val validateLoginUseCase: ValidateLoginUseCase,
-    private val passwordValidator: ValidatePasswordUseCase
+    private val validatePasswordUseCase: ValidatePasswordUseCase
 ) : ViewModel() {
 
     private val _errorState = MutableStateFlow<LoginState>(LoginState.Initial)
     val errorState: StateFlow<LoginState> = _errorState
 
-    val loginState: State<LoginContent>
+    val loginContent: State<LoginContent>
         get() = _loginState
-
 
 
     private val _loginState: MutableState<LoginContent> = mutableStateOf(
         LoginContent(
-            username = "rendivy",
-            password = "310191",
+            username = Constants.EMPTY_STRING,
+            password = Constants.EMPTY_STRING,
         )
     )
-
-    private fun checkPasswordCorrect(): Boolean {
-        val passwordResult = passwordValidator.execute(_loginState.value.password)
-        if (!passwordResult.successful) {
-            _loginState.value = _loginState.value.copy(
-                passwordError = passwordResult.errorMessage
-            )
-            return false
-        }
-        _loginState.value = _loginState.value.copy(
-            passwordError = null
-        )
-        return true
-
-    }
-
-    private fun checkLoginCorrect(): Boolean {
-        val loginResult = validateLoginUseCase.execute(_loginState.value.username)
-        if (!loginResult.successful) {
-            _loginState.value = _loginState.value.copy(
-                usernameError = loginResult.errorMessage
-            )
-            return false
-        }
-        _loginState.value = _loginState.value.copy(
-            usernameError = null
-        )
-        return true
-
-    }
 
     private val loginExceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
                 400 -> {
-                    _errorState.value = LoginState.Error(ErrorConstant.AUTHORIZATION_ERROR)
+                    _loginState.value =
+                        loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNAUTHORIZED)
+                    _errorState.value = LoginState.Error(ErrorConstant.UNAUTHORIZED)
                 }
 
                 else -> {
@@ -87,24 +60,34 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginUser() {
-        viewModelScope.launch(loginExceptionHandler) {
+        _loginState.value =
+            loginContent.value.copy(uncorrectedUserName = null)
+        viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
             _errorState.value = LoginState.Loading
-
-            if (!checkLoginCorrect() || !checkPasswordCorrect()) {
-                _errorState.value = LoginState.Initial
-                return@launch
-            }
-            loginUserUseCase.invoke(_loginState.value)
+            loginUserUseCase.invoke(loginContent = loginContent.value)
             _errorState.value = LoginState.Success
         }
     }
 
-    fun setAuthLogin(login: String) {
-        _loginState.value = _loginState.value.copy(username = login)
+    fun validateLoginCredentials() : Boolean {
+        return loginContent.value.passwordError == null &&
+                loginContent.value.password.isNotEmpty() &&
+                loginContent.value.usernameError == null &&
+                loginContent.value.username.isNotEmpty()
     }
 
-    fun setAuthPassword(password: String) {
-        _loginState.value = _loginState.value.copy(password = password)
+    fun setLogin(login: String) {
+        _loginState.value = _loginState.value.copy(
+            username = login,
+            usernameError = validateLoginUseCase.execute(login).errorMessage
+        )
+    }
+
+    fun setPassword(password: String) {
+        _loginState.value = _loginState.value.copy(
+            password = password,
+            passwordError = validatePasswordUseCase.execute(password).errorMessage
+        )
     }
 
 }
