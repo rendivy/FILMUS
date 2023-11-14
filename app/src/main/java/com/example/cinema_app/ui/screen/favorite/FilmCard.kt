@@ -42,6 +42,7 @@ import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.padding5
 import com.example.cinema_app.ui.theme.shortPadding
 import com.example.cinema_app.ui.theme.tinyPadding
 
@@ -135,7 +136,7 @@ fun FilmCard(
             }
 
         }
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(padding5))
         Text(
             text = movieName,
             style = TitleMedium,

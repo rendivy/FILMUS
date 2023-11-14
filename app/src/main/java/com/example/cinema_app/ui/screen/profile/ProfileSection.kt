@@ -135,6 +135,6 @@ fun ProfileSection(
             birth = userState.birthDate,
 
             )
-        ProfileAlert(checked = checked, profileViewModel = profileViewModel)
+        DatePickerAlert(checked = checked, profileViewModel::setBirthDate)
     }
 }

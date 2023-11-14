@@ -29,14 +29,14 @@ class LoginViewModel @Inject constructor(
     private val validatePasswordUseCase: ValidatePasswordUseCase
 ) : ViewModel() {
 
-    private val _errorState = MutableStateFlow<LoginState>(LoginState.Initial)
-    val errorState: StateFlow<LoginState> = _errorState
+    private val _loginState = MutableStateFlow<LoginState>(LoginState.Initial)
+    val loginState: StateFlow<LoginState> = _loginState
 
-    val loginState: State<LoginContent>
-        get() = _loginState
+    val loginContent: State<LoginContent>
+        get() = _loginContent
 
 
-    private val _loginState: MutableState<LoginContent> = mutableStateOf(
+    private val _loginContent: MutableState<LoginContent> = mutableStateOf(
         LoginContent(
             username = Constants.EMPTY_STRING,
             password = Constants.EMPTY_STRING,
@@ -47,13 +47,13 @@ class LoginViewModel @Inject constructor(
         when (exception) {
             is HttpException -> when (exception.code()) {
                 400 -> {
-                    _loginState.value =
-                        loginState.value.copy(uncorrectedUserName = ErrorConstant.UNAUTHORIZED)
-                    _errorState.value = LoginState.Error(ErrorConstant.UNAUTHORIZED)
+                    _loginContent.value =
+                        loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNAUTHORIZED)
+                    _loginState.value = LoginState.Error(ErrorConstant.UNAUTHORIZED)
                 }
 
                 else -> {
-                    _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
+                    _loginState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
                 }
             }
         }
@@ -61,28 +61,28 @@ class LoginViewModel @Inject constructor(
 
     fun loginUser() {
         viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
-            _errorState.value = LoginState.Loading
-            loginUserUseCase.invoke(loginContent = loginState.value)
-            _errorState.value = LoginState.Success
+            _loginState.value = LoginState.Loading
+            loginUserUseCase.invoke(loginContent = loginContent.value)
+            _loginState.value = LoginState.Success
         }
     }
 
     fun validateLoginCredentials() : Boolean {
-        return loginState.value.passwordError == null &&
-                loginState.value.password.isNotEmpty() &&
-                loginState.value.usernameError == null &&
-                loginState.value.username.isNotEmpty()
+        return loginContent.value.passwordError == null &&
+                loginContent.value.password.isNotEmpty() &&
+                loginContent.value.usernameError == null &&
+                loginContent.value.username.isNotEmpty()
     }
 
     fun setLogin(login: String) {
-        _loginState.value = _loginState.value.copy(
+        _loginContent.value = _loginContent.value.copy(
             username = login,
             usernameError = validateLoginUseCase.execute(login).errorMessage
         )
     }
 
     fun setPassword(password: String) {
-        _loginState.value = _loginState.value.copy(
+        _loginContent.value = _loginContent.value.copy(
             password = password,
             passwordError = validatePasswordUseCase.execute(password).errorMessage
         )

@@ -62,8 +62,8 @@ import com.example.cinema_app.ui.theme.shortPadding
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
-    val loginState by remember { loginViewModel.loginState }
-    val errorState by loginViewModel.errorState.collectAsStateWithLifecycle()
+    val loginState by remember { loginViewModel.loginContent }
+    val errorState by loginViewModel.loginState.collectAsStateWithLifecycle()
     var loginError by remember { mutableStateOf(false) }
     val enabled = loginViewModel.validateLoginCredentials()
     val focusManager = LocalFocusManager.current

@@ -266,7 +266,7 @@ fun ProfileScreen(
                     navHostController.popBackStack()
                     navHostController.navigate(NavigationRoutes.Login.route)
                     Toast.makeText(
-                        context, stringResource(id = R.string.confirm),
+                        context, stringResource(id = R.string.unauthorized),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

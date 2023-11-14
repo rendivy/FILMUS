@@ -53,8 +53,9 @@ fun RegistrationScreen(
     userAuthViewModel: RegistrationViewModel,
     navController: NavController
 ) {
-    val registrationState by remember { userAuthViewModel.registrationState }
+    val registrationState by remember { userAuthViewModel.registrationContent }
     val focusManager = LocalFocusManager.current
+    val enabled = !userAuthViewModel.isFirstRegistrationPageValid()
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -111,6 +112,7 @@ fun RegistrationScreen(
                             navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route)
                         }
                     },
+                    enabled = enabled,
                     shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent

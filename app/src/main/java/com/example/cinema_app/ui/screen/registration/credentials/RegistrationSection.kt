@@ -24,7 +24,7 @@ import com.example.cinema_app.presentation.validator.ErrorType
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.switcher.TextSwitchTest
-import com.example.cinema_app.ui.screen.registration.component.DateAlert
+import com.example.cinema_app.ui.screen.profile.DatePickerAlert
 import com.example.cinema_app.ui.screen.registration.component.RegistrationErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.Red
@@ -144,7 +144,7 @@ fun RegistrationSection(
         Spacer(modifier = Modifier.height(shortPadding))
         CustomClickableBox(
             checked = checked,
-            birth = userAuthViewModel.registrationState.value.birthDate,
+            birth = userAuthViewModel.registrationContent.value.birthDate,
             error = userState.birthDateError,
         )
         if (userState.birthDateError != null) {
@@ -154,6 +154,6 @@ fun RegistrationSection(
                 outlinedColor = Red
             )
         }
-        DateAlert(checked = checked, userAuthViewModel = userAuthViewModel)
+        DatePickerAlert(checked = checked, userAuthViewModel::setUserBirthdate)
     }
 }

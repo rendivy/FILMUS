@@ -32,8 +32,6 @@ fun RegistrationPasswordSection(
     userAuthViewModel: RegistrationViewModel,
     focusManager: FocusManager
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()

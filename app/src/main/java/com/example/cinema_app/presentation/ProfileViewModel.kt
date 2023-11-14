@@ -55,7 +55,6 @@ class ProfileViewModel @Inject constructor(
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        Log.d("ProfileViewModel", exception.message.toString())
         when (exception) {
             is HttpException -> when (exception.code()) {
                 401 -> {
