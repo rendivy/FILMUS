@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
+import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.shortPadding
 
 
@@ -26,10 +27,8 @@ import com.example.cinema_app.ui.theme.shortPadding
 fun CustomTextField(
     modifier: Modifier = Modifier,
     textFieldValue: String = Constants.EMPTY_STRING,
-    outlined: Color = Color.Gray,
     singleLine: Boolean = true,
     error: String? = null,
-    container: Color = Gray900,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
@@ -61,7 +60,7 @@ fun CustomTextField(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(12.dp),
+                    .padding(semiMediumPadding),
                 horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                 innerTextField()

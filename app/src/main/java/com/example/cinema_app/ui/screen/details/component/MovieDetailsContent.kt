@@ -44,7 +44,6 @@ import com.example.cinema_app.ui.theme.mediumPadding
 @Composable
 fun MovieDetailsContent(
     content: DetailsDTO,
-    filmRating: String,
     movieDetailsViewModel: MovieDetailsViewModel,
     navController: NavController
 ) {
@@ -84,7 +83,6 @@ fun MovieDetailsContent(
                     item {
                         ExpandedText(
                             text = content.description,
-                            color = Color.White,
                             modifier = Modifier.padding(
                                 start = mediumPadding,
                                 end = mediumPadding,

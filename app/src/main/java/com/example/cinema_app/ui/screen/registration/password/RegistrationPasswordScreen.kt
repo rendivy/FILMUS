@@ -30,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
@@ -41,7 +42,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.RegistrationViewModel
-import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.presentation.state.RegistrationState
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimation
@@ -68,6 +68,7 @@ fun RegistrationPasswordScreen(
     val registrationState by userAuthViewModel.registrationState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
     val enabled = !userAuthViewModel.isSecondRegistrationPageValid()
+    val alpha = if (enabled) 1f else 0.45f
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -118,13 +119,14 @@ fun RegistrationPasswordScreen(
                 Spacer(modifier = Modifier.height(padding20))
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth().alpha(alpha)
                         .padding(start = mediumPadding, end = mediumPadding),
                     onClick = { userAuthViewModel.registerUser() },
                     enabled = enabled,
                     shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Accent
+                        containerColor = Accent,
+                        disabledContainerColor = Accent,
                     ),
                     contentPadding = PaddingValues(semiMediumPadding)
                 ) {

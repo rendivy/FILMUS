@@ -44,7 +44,6 @@ fun MovieDetailsScreen(
             val content = (detailsState as DetailsState.Content).movie
             MovieDetailsContent(
                 content,
-                movieRating,
                 movieDetailsViewModel,
                 navController = navController
             )

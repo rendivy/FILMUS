@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
@@ -56,6 +57,7 @@ fun RegistrationScreen(
     val registrationState by remember { userAuthViewModel.registrationContent }
     val focusManager = LocalFocusManager.current
     val enabled = !userAuthViewModel.isFirstRegistrationPageValid()
+    val alpha = if (enabled) 1f else 0.45f
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -105,7 +107,7 @@ fun RegistrationScreen(
                 Spacer(modifier = Modifier.height(padding20))
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth().alpha(alpha)
                         .padding(start = mediumPadding, end = mediumPadding),
                     onClick = {
                         if (userAuthViewModel.checkAllStates()) {
@@ -115,7 +117,8 @@ fun RegistrationScreen(
                     enabled = enabled,
                     shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Accent
+                        containerColor = Accent,
+                        disabledContainerColor = Accent
                     ),
                     contentPadding = PaddingValues(semiMediumPadding)
                 ) {

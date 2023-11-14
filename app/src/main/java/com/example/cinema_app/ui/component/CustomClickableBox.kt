@@ -21,6 +21,7 @@ import com.example.cinema_app.R
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
@@ -52,14 +53,14 @@ fun CustomClickableBox(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(semiMediumPadding),
             style = TitleMedium,
         )
         Icon(
             painter = painterResource(id = R.drawable.date_picker_icon),
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(12.dp),
+                .padding(semiMediumPadding),
             contentDescription = null,
             tint = Gray400,
         )

@@ -103,7 +103,6 @@ class RegistrationViewModel @Inject constructor(
             confirmPasswordError = validateConfirmPasswordUseCase.execute(
                 password =_registrationContent.value.password,
                 confirmPassword = confirmPassword).errorMessage)
-        Log.d("TAG", "setConfirmPassword: ${_registrationContent.value.confirmPasswordError}")
     }
 
     fun setName(name: String) {
@@ -149,7 +148,8 @@ class RegistrationViewModel @Inject constructor(
 
     fun isSecondRegistrationPageValid(): Boolean {
         return (_registrationContent.value.passwordError != null ||
-                _registrationContent.value.confirmPasswordError != null) || !isPasswordValid()
+                _registrationContent.value.confirmPasswordError != null ||
+                _registrationContent.value.uniqueLoginError != null) || !isPasswordValid()
     }
 
     fun checkAllStates(): Boolean {

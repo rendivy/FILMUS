@@ -33,6 +33,7 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
 import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
@@ -84,7 +85,7 @@ fun PasswordTextField(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(12.dp),
+                    .padding(semiMediumPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {

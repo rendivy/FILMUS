@@ -41,13 +41,11 @@ import com.example.cinema_app.ui.theme.shortPadding
 @Composable
 fun ExpandedText(
     text: String,
-    color: Color,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     style: TextStyle = TitleMedium,
     fontStyle: FontStyle? = null,
     collapsedMaxLine: Int = 2,
-    textAlign: TextAlign? = null,
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
     val clickable = remember { mutableStateOf(false) }
@@ -62,13 +60,11 @@ fun ExpandedText(
     ) {
         ExpandedTextContent(
             text = text,
-            color = color,
             modifier = modifier,
             textModifier = textModifier,
             style = style,
             fontStyle = fontStyle,
             collapsedMaxLine = collapsedMaxLine,
-            textAlign = textAlign,
             isExpanded = isExpanded,
             clickable = clickable,
             lastCharIndex = lastCharIndex,
@@ -79,15 +75,13 @@ fun ExpandedText(
 }
 
 @Composable
-fun ExpandedTextContent(
+private fun ExpandedTextContent(
     text: String,
-    color: Color,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     style: TextStyle = TitleMedium,
     fontStyle: FontStyle? = null,
     collapsedMaxLine: Int = 2,
-    textAlign: TextAlign? = null,
     isExpanded: Boolean,
     clickable: MutableState<Boolean>,
     lastCharIndex: MutableState<Int>,
@@ -117,7 +111,7 @@ fun ExpandedTextContent(
 }
 
 @Composable
-fun ExpandedTextBody(
+private fun ExpandedTextBody(
     text: String,
     modifier: Modifier = Modifier,
     style: TextStyle = TitleMedium,
@@ -187,7 +181,7 @@ fun ExpandedTextBody(
     }
 }
 @Composable
-fun ExpandedTextToggle(
+private fun ExpandedTextToggle(
     isExpanded: Boolean,
     onToggleClick: () -> Unit
 ) {
