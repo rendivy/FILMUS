@@ -34,8 +34,8 @@ import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding12
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
 
 
 @Composable
@@ -45,7 +45,7 @@ fun GreetingsScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize().verticalScroll(rememberScrollState())
             .background(Gray900)
-            .padding(start = padding16, end = padding16),
+            .padding(start = mediumPadding, end = mediumPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -68,7 +68,7 @@ fun GreetingsScreen(navController: NavController) {
             style = TitleSmall,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(padding16))
+        Spacer(modifier = Modifier.height(mediumPadding))
         Button(
             onClick = {
                 navController.navigate(NavigationRoutes.Registration.route)
@@ -76,7 +76,7 @@ fun GreetingsScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(size = padding10),
-            contentPadding = PaddingValues(padding12),
+            contentPadding = PaddingValues(semiMediumPadding),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Accent
             )
@@ -98,7 +98,7 @@ fun GreetingsScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(size = padding10),
-            contentPadding = PaddingValues(padding12),
+            contentPadding = PaddingValues(semiMediumPadding),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Black300
             )

@@ -42,7 +42,7 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TransparentWhite
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding5
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -128,7 +128,7 @@ fun HomeContentState(
                     }
                 }
                 Text(
-                    modifier = Modifier.padding(top = padding16, start = padding16),
+                    modifier = Modifier.padding(top = mediumPadding, start = mediumPadding),
                     text = stringResource(id = R.string.magazine_label),
                     textAlign = TextAlign.Start,
                     style = SemiBoldStyle,

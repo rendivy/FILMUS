@@ -18,7 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.cinema_app.domain.entity.FilmDTO
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding12
+import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.padding24
 
 
@@ -56,7 +56,7 @@ fun FilmColumn(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = padding12)
+                        .padding(bottom = semiMediumPadding)
                 ) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(padding24),

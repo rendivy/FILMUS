@@ -17,7 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.data.entity.ReviewX
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
@@ -25,7 +27,10 @@ import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun ReviewSection(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
@@ -51,7 +56,7 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = padding16, end = padding16, bottom = 20.dp)
+            .padding(start = mediumPadding, end = mediumPadding, bottom = padding20)
             .background(Gray900)
     ) {
         Row(
@@ -76,7 +81,7 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp)
+                    .padding(start = padding10)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -84,7 +89,7 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = review.author?.nickName ?: "Анонимный пользователь",
+                        text = review.author?.nickName ?: stringResource(id = R.string.anonymous_user),
                         style = GenreTitle,
                         color = Color.White
                     )
@@ -92,14 +97,14 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         Text(
             text = review.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         Text(
             text = viewModel.convertDate(review.createDateTime),
             style = GenreTitle,

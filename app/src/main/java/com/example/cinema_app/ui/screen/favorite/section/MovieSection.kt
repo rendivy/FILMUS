@@ -13,12 +13,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.presentation.state.FavouriteState
-import com.example.cinema_app.ui.FilmCard
-import com.example.cinema_app.ui.LargeFilmCard
+import com.example.cinema_app.ui.screen.favorite.FilmCard
+import com.example.cinema_app.ui.screen.favorite.LargeFilmCard
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding20
@@ -48,7 +47,7 @@ fun MovieSection(movieState: FavouriteState, padding: PaddingValues, navControll
                 ) {
                     for (i in 0 until 2) {
                         if (i == firstIndex) {
-                            Spacer(modifier = Modifier.width(15.dp))
+                            Spacer(modifier = Modifier.width(padding15))
                         }
                         if (i < movieGroup.size) {
                             FilmCard(

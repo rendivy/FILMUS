@@ -21,7 +21,7 @@ import com.example.cinema_app.R
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleMedium
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun CustomClickableBox(
@@ -36,12 +36,12 @@ fun CustomClickableBox(
             .clickable { checked.value = !checked.value }
             .background(
                 color = containerColor,
-                shape = RoundedCornerShape(padding8)
+                shape = RoundedCornerShape(shortPadding)
             )
             .border(
                 width = 1.dp,
                 color = outlinedColor,
-                shape = RoundedCornerShape(padding8)
+                shape = RoundedCornerShape(shortPadding)
             )
             .height(42.dp)
             .fillMaxWidth()

@@ -49,7 +49,8 @@ import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
 import com.example.cinema_app.ui.theme.TitleMedium
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -79,9 +80,9 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
+                    .padding(start = mediumPadding, end = mediumPadding, top = mediumPadding, bottom = mediumPadding),
                 onClick = onClick,
-                shape = RoundedCornerShape(size = 10.dp),
+                shape = RoundedCornerShape(size = padding10),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Accent,
                     disabledContainerColor = Accent
@@ -96,7 +97,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
         }
         item{
             Text(
-                modifier = Modifier.padding(top = padding16, start = padding16),
+                modifier = Modifier.padding(top = mediumPadding, start = mediumPadding),
                 text = stringResource(id = R.string.magazine_label),
                 textAlign = TextAlign.Start,
                 style = SemiBoldStyle,
@@ -109,7 +110,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                     .fillMaxWidth()
                     .background(Gray900)
                     .clip(RoundedCornerShape(5.dp))
-                    .padding(padding16)
+                    .padding(mediumPadding)
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Box(modifier = Modifier
@@ -117,7 +118,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                         .width(95.dp)
                         .shimmerEffect()
                         .clickable {})
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(padding10))
                     Column {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -159,8 +160,8 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                                                     top = 4.dp,
                                                     bottom = 4.dp
                                                 )
-                                                .width(padding16)
-                                                .height(padding16),
+                                                .width(mediumPadding)
+                                                .height(mediumPadding),
                                         )
                                         Text(
                                             modifier = Modifier.padding(

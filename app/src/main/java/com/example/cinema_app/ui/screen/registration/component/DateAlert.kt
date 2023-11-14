@@ -18,7 +18,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
@@ -65,7 +67,7 @@ fun DateAlert(checked: MutableState<Boolean>, userAuthViewModel: RegistrationVie
                             userAuthViewModel.setUserBirthdate(datePickerState.selectedDateMillis)
                         }) {
                         Text(
-                            text = "Подтвердить",
+                            text = stringResource(id = R.string.continue_label),
                             style = TitleMedium,
                             color = Accent
                         )

@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
-import com.example.cinema_app.data.converter.DateConverter
+import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
 import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase

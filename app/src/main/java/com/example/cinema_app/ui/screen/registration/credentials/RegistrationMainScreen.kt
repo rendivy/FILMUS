@@ -40,11 +40,11 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleSmall
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding12
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
 
 @ExperimentalMaterial3Api
@@ -74,7 +74,7 @@ fun RegistrationScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(width = 6.dp, height = padding12),
+                            modifier = Modifier.size(width = 6.dp, height = semiMediumPadding),
                             tint = Color.White,
                         )
                     }
@@ -105,7 +105,7 @@ fun RegistrationScreen(
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = padding16, end = padding16),
+                        .padding(start = mediumPadding, end = mediumPadding),
                     onClick = {
                         if (userAuthViewModel.checkAllStates()) {
                             navController.navigate(NavigationRoutes.RegistrationPasswordScreen.route)
@@ -115,7 +115,7 @@ fun RegistrationScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent
                     ),
-                    contentPadding = PaddingValues(padding12)
+                    contentPadding = PaddingValues(semiMediumPadding)
                 ) {
                     Text(
                         text = stringResource(id = R.string.continue_label),
@@ -129,7 +129,7 @@ fun RegistrationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Gray900)
-                    .padding(bottom = padding16),
+                    .padding(bottom = mediumPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -137,7 +137,7 @@ fun RegistrationScreen(
                     text = stringResource(id = R.string.already_registered),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(ShortSpace))
+                Spacer(modifier = Modifier.size(tinyPadding))
                 Text(
                     text = stringResource(id = R.string.enter_button),
                     modifier = Modifier.clickable(

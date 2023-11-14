@@ -14,15 +14,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.cinema_app.R
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.padding10
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
 
 @Composable
 fun HomeLoadingState(cardHeight: Dp) {
@@ -39,8 +41,8 @@ fun HomeLoadingState(cardHeight: Dp) {
                 .shimmerEffect(),
         )
         Text(
-            modifier = Modifier.padding(top = padding16, start = padding16),
-            text = "Каталог",
+            modifier = Modifier.padding(top = mediumPadding, start = mediumPadding),
+            text = stringResource(id = R.string.magazine_label),
             textAlign = TextAlign.Start,
             style = SemiBoldStyle,
             fontSize = 24.sp,
@@ -49,7 +51,7 @@ fun HomeLoadingState(cardHeight: Dp) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = padding16, bottom = padding16)
+                    .padding(start = mediumPadding, bottom = mediumPadding)
             ) {
                 Box(
                     modifier = Modifier

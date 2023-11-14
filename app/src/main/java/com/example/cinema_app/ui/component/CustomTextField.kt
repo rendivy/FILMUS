@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
-import com.example.cinema_app.ui.theme.padding8
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
@@ -39,12 +39,12 @@ fun CustomTextField(
         modifier = Modifier
             .background(
                 color = containerColor,
-                shape = RoundedCornerShape(padding8)
+                shape = RoundedCornerShape(shortPadding)
             )
             .border(
                 width = 1.dp,
                 color = outlinedColor,
-                shape = RoundedCornerShape(padding8)
+                shape = RoundedCornerShape(shortPadding)
             )
             .fillMaxWidth(),
         value = textFieldValue,

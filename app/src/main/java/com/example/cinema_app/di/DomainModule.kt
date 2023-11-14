@@ -1,6 +1,6 @@
 package com.example.cinema_app.di
 
-import com.example.cinema_app.data.converter.DateConverter
+import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.data.repository.AuthRepositoryImpl
 import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.IsUserLoggedUseCase

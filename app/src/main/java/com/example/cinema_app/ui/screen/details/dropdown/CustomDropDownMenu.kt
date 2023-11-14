@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import com.example.cinema_app.common.Constants
 
 const val InTransitionDuration = 120
 const val OutTransitionDuration = 75
@@ -81,19 +82,16 @@ fun DropdownMenuContent(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    // Menu open/close animation.
     val transition = updateTransition(expandedStates, "DropDownMenu")
 
     val scale by transition.animateFloat(
         transitionSpec = {
             if (false isTransitioningTo true) {
-                // Dismissed to expanded
                 tween(
                     durationMillis = InTransitionDuration,
                     easing = LinearOutSlowInEasing
                 )
             } else {
-                // Expanded to dismissed.
                 tween(
                     durationMillis = 1,
                     delayMillis = OutTransitionDuration - 1
@@ -102,10 +100,8 @@ fun DropdownMenuContent(
         }, label = ""
     ) {
         if (it) {
-            // Menu is expanded.
             1f
         } else {
-            // Menu is dismissed.
             0.8f
         }
     }
@@ -113,19 +109,15 @@ fun DropdownMenuContent(
     val alpha by transition.animateFloat(
         transitionSpec = {
             if (false isTransitioningTo true) {
-                // Dismissed to expanded
                 tween(durationMillis = 30)
             } else {
-                // Expanded to dismissed.
                 tween(durationMillis = OutTransitionDuration)
             }
-        }, label = ""
+        }, label = Constants.EMPTY_STRING
     ) {
         if (it) {
-            // Menu is expanded.
             1f
         } else {
-            // Menu is dismissed.
             0f
         }
     }
@@ -162,13 +154,10 @@ data class DropdownMenuPositionProvider(
         layoutDirection: LayoutDirection,
         popupContentSize: IntSize
     ): IntOffset {
-        // The min margin above and below the menu, relative to the screen.
         val verticalMargin = with(density) { MenuVerticalMargin.roundToPx() }
-        // The content offset specified using the dropdown offset parameter.
         val contentOffsetX = with(density) { contentOffset.x.roundToPx() }
         val contentOffsetY = with(density) { contentOffset.y.roundToPx() }
 
-        // Compute horizontal position.
         val toRight = anchorBounds.left + contentOffsetX
         val toLeft = anchorBounds.right - contentOffsetX - popupContentSize.width
         val toDisplayRight = windowSize.width - popupContentSize.width
@@ -177,23 +166,18 @@ data class DropdownMenuPositionProvider(
             sequenceOf(
                 toRight,
                 toLeft,
-                // If the anchor gets outside of the window on the left, we want to position
-                // toDisplayLeft for proximity to the anchor. Otherwise, toDisplayRight.
                 if (anchorBounds.left >= 0) toDisplayRight else toDisplayLeft
             )
         } else {
             sequenceOf(
                 toLeft,
                 toRight,
-                // If the anchor gets outside of the window on the right, we want to position
-                // toDisplayRight for proximity to the anchor. Otherwise, toDisplayLeft.
                 if (anchorBounds.right <= windowSize.width) toDisplayLeft else toDisplayRight
             )
         }.firstOrNull {
             it >= 0 && it + popupContentSize.width <= windowSize.width
         } ?: toLeft
 
-        // Compute vertical position.
         val toBottom = maxOf(anchorBounds.bottom + contentOffsetY, verticalMargin)
         val toTop = anchorBounds.top - contentOffsetY - popupContentSize.height
         val toCenter = anchorBounds.top - popupContentSize.height / 2
