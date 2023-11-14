@@ -10,7 +10,6 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
-import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.LogoutUserUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
@@ -33,7 +32,6 @@ class ProfileViewModel @Inject constructor(
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val dateUseCase: DateConverter,
-    private val convertDateUseCase: ConvertDateUseCase,
     private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
@@ -60,11 +58,9 @@ class ProfileViewModel @Inject constructor(
         Log.d("ProfileViewModel", exception.message.toString())
         when (exception) {
             is HttpException -> when (exception.code()) {
-                401 ->{
+                401 -> {
                     _credentialsState.value = ProfileState.Error(ErrorConstant.UNAUTHORIZED)
                 }
-
-
                 400 -> {
                     _profileState.value =
                         _profileState.value.copy(emailError = ErrorConstant.UNIQUE_EMAIL)

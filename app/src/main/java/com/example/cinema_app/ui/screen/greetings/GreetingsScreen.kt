@@ -33,6 +33,9 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding12
+import com.example.cinema_app.ui.theme.padding16
 
 
 @Composable
@@ -42,7 +45,7 @@ fun GreetingsScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize().verticalScroll(rememberScrollState())
             .background(Gray900)
-            .padding(start = 16.dp, end = 16.dp),
+            .padding(start = padding16, end = padding16),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -65,15 +68,15 @@ fun GreetingsScreen(navController: NavController) {
             style = TitleSmall,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding16))
         Button(
             onClick = {
                 navController.navigate(NavigationRoutes.Registration.route)
             },
             modifier = Modifier
                 .fillMaxWidth(),
-            shape = RoundedCornerShape(size = 10.dp),
-            contentPadding = PaddingValues(12.dp),
+            shape = RoundedCornerShape(size = padding10),
+            contentPadding = PaddingValues(padding12),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Accent
             )
@@ -94,8 +97,8 @@ fun GreetingsScreen(navController: NavController) {
 
             modifier = Modifier
                 .fillMaxWidth(),
-            shape = RoundedCornerShape(size = 10.dp),
-            contentPadding = PaddingValues(12.dp),
+            shape = RoundedCornerShape(size = padding10),
+            contentPadding = PaddingValues(padding12),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Black300
             )

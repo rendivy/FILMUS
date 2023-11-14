@@ -102,7 +102,7 @@ fun FavouriteScreen(
                                         modifier = Modifier
                                             .weight(1f)
                                             .height(240.dp)
-                                            .clip(RoundedCornerShape(5.dp))
+                                            .clip(RoundedCornerShape(padding5))
                                             .shimmerEffect(),
                                     )
                                 }

@@ -4,7 +4,7 @@ import com.example.cinema_app.data.database.MovieDataBase
 import com.example.cinema_app.data.mappers.FilmMapper
 import com.example.cinema_app.data.pagination.MoviePagingSource
 import com.example.cinema_app.data.remote.MovieApiService
-import com.example.cinema_app.data.repository.ProfileRepositoryImpl
+import com.example.cinema_app.domain.repository.ProfileRepository
 import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase
 import com.example.cinema_app.domain.usecase.GetUserIdUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
@@ -39,8 +39,8 @@ object AppModule {
 
 
     @Provides
-    fun provideUserIdUseCase(profileRepositoryImpl: ProfileRepositoryImpl): GetUserIdUseCase {
-        return GetUserIdUseCase(profileRepositoryImpl = profileRepositoryImpl)
+    fun provideUserIdUseCase(profileRepository: ProfileRepository): GetUserIdUseCase {
+        return GetUserIdUseCase(profileRepository = profileRepository)
     }
 
     @Provides
@@ -56,7 +56,6 @@ object AppModule {
         movieDataBase: MovieDataBase,
         filmMapper: FilmMapper,
         getUserProfileUseCase: GetUserProfileUseCase,
-        userIdUseCase: GetUserIdUseCase
     ): MoviePagingSource {
         return MoviePagingSource(
             movieApiService,

@@ -43,8 +43,11 @@ import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
+import com.example.cinema_app.ui.theme.ShortSpace
 import com.example.cinema_app.ui.theme.TitleMedium
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding8
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -121,7 +124,7 @@ fun HomeFilmCard(
             }
 
 
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(padding10))
             Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -132,7 +135,7 @@ fun HomeFilmCard(
                         style = CardTitle,
                         color = Color.White,
                         modifier = Modifier
-                            .padding(start = 4.dp)
+                            .padding(start = ShortSpace)
                             .fillMaxWidth(0.8f)
                     )
                     if (userRating != null) {
@@ -158,19 +161,19 @@ fun HomeFilmCard(
                                     contentDescription = "star rating",
                                     modifier = Modifier
                                         .padding(
-                                            start = 4.dp,
-                                            end = 4.dp,
-                                            top = 4.dp,
-                                            bottom = 4.dp
+                                            start = ShortSpace,
+                                            end = ShortSpace,
+                                            top = ShortSpace,
+                                            bottom = ShortSpace
                                         )
                                         .width(padding16)
                                         .height(padding16),
                                 )
                                 Text(
                                     modifier = Modifier.padding(
-                                        end = 4.dp,
-                                        top = 4.dp,
-                                        bottom = 4.dp
+                                        end = ShortSpace,
+                                        top = ShortSpace,
+                                        bottom = ShortSpace
                                     ),
                                     text = "${userRating}",
                                     style = TitleMedium,
@@ -182,18 +185,18 @@ fun HomeFilmCard(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(ShortSpace))
                 Row() {
                     Text(
                         text = filmCountry,
                         style = TitleMedium,
                         color = Color.White,
-                        fontSize = 12.sp, modifier = Modifier.padding(start = 4.dp)
+                        fontSize = 12.sp, modifier = Modifier.padding(start = ShortSpace)
                     )
                     Text(
                         text = "·", style = TitleMedium,
                         color = Color.White,
-                        fontSize = 12.sp, modifier = Modifier.padding(start = 4.dp, end = 4.dp)
+                        fontSize = 12.sp, modifier = Modifier.padding(start = ShortSpace, end = ShortSpace)
                     )
 
                     Text(
@@ -269,11 +272,11 @@ fun GenreTag(
     backgroundColor: Color = Gray750,
     style: TextStyle = TitleMedium,
     tinyPadding: Dp = 2.dp,
-    mediumPadding: Dp = 8.dp
+    mediumPadding: Dp = padding8
 ) {
     Box(
         modifier = Modifier
-            .padding(start = 4.dp, end = 4.dp, bottom = 4.dp, top = 4.dp)
+            .padding(start = ShortSpace, end = ShortSpace, bottom = ShortSpace, top = ShortSpace)
             .background(color = backgroundColor, shape = RoundedCornerShape(5.dp))
 
     ) {

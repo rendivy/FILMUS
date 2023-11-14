@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesApiService: MovieApiService,
-    private val tokenManager: TokenLocalStorage,
+    private val tokenLocalStorage: TokenLocalStorage,
     private val reviewMapperUseCase: ReviewMapperUseCase,
     private val dataBase: MovieDataBase
 ) : MoviesRepository {
@@ -39,7 +39,7 @@ class MoviesRepositoryImpl @Inject constructor(
         dao.updateUserRating(
             userRating = userRating,
         )
-        val token = tokenManager.getToken()
+        val token = tokenLocalStorage.getToken()
         val addReviewBody = AddReviewBody(
             reviewText = reviewText,
             rating = rating,
@@ -57,7 +57,7 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteReview(movieId: String, reviewId: String) {
-        val token = tokenManager.getToken()
+        val token = tokenLocalStorage.getToken()
         val dao = dataBase.userDao()
         val userRating = UserRating(
             filmId = movieId,
@@ -82,8 +82,8 @@ class MoviesRepositoryImpl @Inject constructor(
         dao.updateUserRating(
             userRating = userRating,
         )
-        val token = tokenManager.getToken()
-        val remoteReviewBody = reviewMapperUseCase.map(review)
+        val token = tokenLocalStorage.getToken()
+        val remoteReviewBody = reviewMapperUseCase.execute(review)
         moviesApiService.editReviewMovie(
             token = "Bearer $token",
             movieId = movieId,

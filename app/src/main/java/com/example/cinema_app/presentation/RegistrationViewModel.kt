@@ -10,8 +10,6 @@ import com.example.cinema_app.common.Constants
 import com.example.cinema_app.data.converter.DateConverter
 import com.example.cinema_app.data.entity.RegistrationBody
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
-import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
-import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,9 +21,7 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val dateConverter: DateConverter,
-    private val passwordValidator: ValidatePasswordUseCase,
     private val validateRegCredentialsUseCase: ValidateRegistrationCredentialsUseCase,
-    private val validateConfirmPasswordUseCase: ValidateConfirmPasswordUseCase
 ) : ViewModel() {
 
     val registrationState: State<RegistrationContent>

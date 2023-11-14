@@ -12,7 +12,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -20,6 +19,7 @@ import com.example.cinema_app.domain.entity.FilmDTO
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding12
+import com.example.cinema_app.ui.theme.padding24
 
 
 @Composable
@@ -59,7 +59,7 @@ fun FilmColumn(
                         .padding(bottom = padding12)
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(padding24),
                         color = Accent,
                         trackColor = Gray900
                     )

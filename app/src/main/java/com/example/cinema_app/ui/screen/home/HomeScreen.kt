@@ -1,7 +1,5 @@
 package com.example.cinema_app.ui.screen.home
 
-import android.os.Build
-import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -26,13 +24,15 @@ fun HomeScreen(
     val moviesPaging = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
     val cardHeight = (screenHeight * 0.9f).coerceAtMost(497.dp)
 
+
     when (moviesPaging.loadState.refresh) {
         is LoadState.Error -> {
             HandleErrorState(
                 navController = navHostController,
                 context = context,
                 refreshState = moviesPaging.loadState.refresh,
-                onClick = { moviesPaging.retry() }
+                onClick = { moviesPaging.retry() },
+                homeViewModel = homeViewModel
             )
         }
 
@@ -49,7 +49,6 @@ fun HomeScreen(
                 moviesPaging = moviesPaging
             )
         }
-
     }
 }
 

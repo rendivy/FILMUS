@@ -2,18 +2,22 @@ package com.example.cinema_app.ui.screen.home.component
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
+import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.badRequestScreen.ErrorUiScreen
+import com.example.cinema_app.ui.screen.home.CachedFilmScreen
 import retrofit2.HttpException
 
 @Composable
 fun HandleErrorState(
     navController: NavHostController,
     context: Context,
+    homeViewModel: HomeViewModel,
     refreshState: LoadState,
     onClick: () -> Unit
 ) {
@@ -37,6 +41,9 @@ fun HandleErrorState(
         }
     }
     else {
-        ErrorUiScreen(onClick)
+        AnimatedVisibility(true) {
+            CachedFilmScreen(homeViewModel = homeViewModel, onClick = onClick)
+
+        }
     }
 }

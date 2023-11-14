@@ -51,8 +51,6 @@ interface MovieApiService {
     )
 
 
-
-
     @POST(NetworkConstant.LOGOUT_URL)
     suspend fun logout(@Header("Authorization") token: String)
 

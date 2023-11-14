@@ -26,7 +26,6 @@ import androidx.navigation.NavController
 import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
-import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
@@ -69,6 +68,7 @@ fun DetailsTopBar(
 @Composable
 fun DetailsTop(
     navController: NavController,
+    onClick: () -> Unit,
     painter: Painter,
     tintColor: Color,
     content: DetailsDTO
@@ -93,7 +93,7 @@ fun DetailsTop(
         ),
         actions = {
             IconButton(
-                onClick = { },
+                onClick = onClick,
                 modifier = Modifier
                     .background(
                         color = Gray750,
@@ -113,7 +113,6 @@ fun DetailsTop(
         navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
-                navController.navigate(NavigationRoutes.Home.route)
             }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),

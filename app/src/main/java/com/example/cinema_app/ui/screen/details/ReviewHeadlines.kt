@@ -16,7 +16,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
@@ -25,6 +24,8 @@ import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding32
+import com.example.cinema_app.ui.theme.padding50
 
 @Composable
 fun ReviewHeadlines(
@@ -48,9 +49,9 @@ fun ReviewHeadlines(
         if (content.userReviewX == null) {
             Box(
                 modifier = Modifier
-                    .size(32.dp)
-                    .background(color = Accent, shape = RoundedCornerShape(50.dp))
-                    .clip(RoundedCornerShape(50.dp))
+                    .size(padding32)
+                    .background(color = Accent, shape = RoundedCornerShape(padding50))
+                    .clip(RoundedCornerShape(padding50))
             ) {
                 IconButton(onClick = {
                     reviewDialogOpen.value = true

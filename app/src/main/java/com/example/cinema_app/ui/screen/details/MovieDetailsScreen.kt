@@ -24,6 +24,7 @@ fun MovieDetailsScreen(
     movieId: String,
     movieRating: String,
     movieDetailsViewModel: MovieDetailsViewModel,
+    navHostController: NavController,
     navController: NavController
 ) {
     val detailsState by movieDetailsViewModel.detailsState.collectAsStateWithLifecycle()
@@ -50,10 +51,10 @@ fun MovieDetailsScreen(
         else -> {
             val errorMessage = (detailsState as DetailsState.Error).message
             if (errorMessage == ErrorConstant.UNAUTHORIZED) {
-                navController.popBackStack()
-                navController.navigate(NavigationRoutes.Login.route)
+                navHostController.popBackStack()
+                navHostController.navigate(NavigationRoutes.Login.route)
                 Toast.makeText(
-                    navController.context,
+                    navHostController.context,
                     "Ваша сессия закончилась, пожалуйста войдите снова",
                     Toast.LENGTH_SHORT
                 ).show()

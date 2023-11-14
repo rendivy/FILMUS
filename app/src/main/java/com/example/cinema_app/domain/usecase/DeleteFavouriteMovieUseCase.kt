@@ -1,12 +1,12 @@
 package com.example.cinema_app.domain.usecase
 
-import com.example.cinema_app.data.repository.FavouriteMovieRepositoryImpl
+import com.example.cinema_app.domain.repository.FavouriteMovieRepository
 import javax.inject.Inject
 
-class DeleteFavouriteMovieUseCase @Inject constructor(private val favouriteMovieRepositoryImpl: FavouriteMovieRepositoryImpl)
+class DeleteFavouriteMovieUseCase @Inject constructor(private val favouriteMovieRepository: FavouriteMovieRepository)
 {
     suspend fun execute(movieId: String){
-        favouriteMovieRepositoryImpl.deleteFavouriteMovie(movieId = movieId)
+        favouriteMovieRepository.deleteFavouriteMovie(movieId = movieId)
     }
 
 }

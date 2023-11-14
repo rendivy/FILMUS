@@ -46,12 +46,13 @@ fun MainScreen(navHostController: NavHostController) {
                         navController = navController
                     )
                 }
-                composable(NavigationRoutes.Home.route) { entry ->
+                composable(NavigationRoutes.Home.route)
+                {
                     HomeScreen(
-                        homeViewModel = hiltViewModel(),
-                        navController = navController,
-                        navHostController = navHostController
-                    )
+                            homeViewModel = hiltViewModel(),
+                            navController = navController,
+                            navHostController = navHostController
+                        )
                 }
                 composable(
                     route = "movieDetails/{id}/{movieRating}",
@@ -62,7 +63,8 @@ fun MainScreen(navHostController: NavHostController) {
                         backStackEntry.arguments?.getString("id").toString(),
                         backStackEntry.arguments?.getString("movieRating").toString(),
                         movieDetailsViewModel = hiltViewModel(),
-                        navController = navHostController
+                        navHostController = navHostController,
+                        navController = navController
                     )
                 }
                 composable(NavigationRoutes.Favourite.route) {

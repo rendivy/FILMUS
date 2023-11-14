@@ -44,6 +44,9 @@ class MoviePagingSource @Inject constructor(
                             filmId = it.id,
                             userRating = userRatings?.rating
                         )
+                        movieDataBase.movieDao().insertMovie(
+                            filmMapper.mapToCached(it, userRatings?.rating)
+                        )
                         movieDataBase.userDao().insertUserRating(userRating)
                         movies += filmMapper.map(it, userRatings?.rating)
                     }

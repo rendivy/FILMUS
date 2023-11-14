@@ -99,16 +99,16 @@ fun MovieDetailsContent(
                     GenreHeadline(content)
                 }
                 item {
-                    if (content.userReviewX != null) {
-                        UserReview(content, movieDetailsViewModel)
-                    }
-                }
-                item {
                     ReviewHeadlines(
                         content = content,
                         movieDetailsViewModel = movieDetailsViewModel,
                         reviewDialogOpen = reviewDialogOpen
                     )
+                }
+                item{
+                    if (content.userReviewX != null) {
+                        UserReview(content, movieDetailsViewModel)
+                    }
                 }
                 items(content.reviews.size) {
                     if (content.reviews[it].isAnonymous) {
@@ -135,7 +135,8 @@ fun MovieDetailsContent(
                     navController = navController,
                     content = content,
                     painter = painter,
-                    tintColor = tintColor
+                    tintColor = tintColor,
+                    onClick = { movieDetailsViewModel.setFavouriteState(movieId = content.id) }
                 )
             }
         }

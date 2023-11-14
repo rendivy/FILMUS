@@ -37,7 +37,6 @@ class MovieDetailsViewModel @Inject constructor(
     private val editUserReviewUseCase: EditUserReviewUseCase
 ) : ViewModel() {
 
-
     private val _detailsState = MutableStateFlow<DetailsState>(DetailsState.Initial)
     val detailsState: StateFlow<DetailsState> = _detailsState
 
@@ -107,19 +106,19 @@ class MovieDetailsViewModel @Inject constructor(
             deleteUserReviewUseCase.execute(movieId, reviewId)
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null, isRatingChanged = true
             )
         }
     }
 
-    fun deleteFavouriteMovie(movieId: String) {
+    private fun deleteFavouriteMovie(movieId: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             deleteFavouriteMovieUseCase.execute(movieId = movieId)
         }
     }
 
 
-    fun addFavouriteMovie(movieId: String) {
+    private fun addFavouriteMovie(movieId: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
@@ -136,7 +135,8 @@ class MovieDetailsViewModel @Inject constructor(
             )
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null,
+                isRatingChanged = true
             )
 
         }
@@ -145,7 +145,6 @@ class MovieDetailsViewModel @Inject constructor(
 
     fun setFavouriteState(movieId: String){
         viewModelScope.launch(Dispatchers.IO + exceptionHandler){
-
             if (_favouriteState.value.filmInFavourite){
                 deleteFavouriteMovie(movieId = movieId)
                 _favouriteState.value = _favouriteState.value.copy(
@@ -172,7 +171,8 @@ class MovieDetailsViewModel @Inject constructor(
             )
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null,
+                isRatingChanged = true
             )
         }
     }
