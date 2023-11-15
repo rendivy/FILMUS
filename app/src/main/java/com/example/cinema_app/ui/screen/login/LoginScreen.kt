@@ -3,6 +3,7 @@ package com.example.cinema_app.ui.screen.login
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -104,7 +106,10 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)
+                    .padding(it).pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            focusManager.clearFocus()
+                        })}
                     .background(color = Gray900)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Top,

@@ -1,6 +1,7 @@
 package com.example.cinema_app.ui.screen.details
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,7 +32,9 @@ import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.TitleLarge
 import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding24
+import com.example.cinema_app.ui.theme.semiMediumPadding
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +59,7 @@ fun DetailsTopBar(
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                     contentDescription = "back_icon_button",
-                    modifier = Modifier.size(12.dp),
+                    modifier = Modifier.size(semiMediumPadding),
                     tint = Color.White,
                 )
             }
@@ -110,6 +113,7 @@ fun DetailsTop(
                     contentDescription = null
                 )
             }
+            Spacer(modifier = Modifier.width(padding15))
         },
         navigationIcon = {
             IconButton(onClick = {

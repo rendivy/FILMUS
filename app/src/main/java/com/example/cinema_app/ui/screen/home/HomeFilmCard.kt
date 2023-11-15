@@ -74,8 +74,8 @@ fun HomeFilmCard(
             in 3.0..4.0 -> SemiBadRatingColor
             in 4.0..5.0 -> SemiMediumRatingColor
             in 5.0..6.0 -> MediumRatingColor
-            in 6.0..8.0 -> MediumRatingColor
-            in 8.0..8.9 -> SemiGoodRatingColor
+            in 6.0..6.9 -> MediumRatingColor
+            in 7.0..8.9 -> SemiGoodRatingColor
             in 9.0..10.0 -> GoodRatingColor
             else -> Color.White
         }
@@ -269,7 +269,7 @@ fun RatingBox(ratingValue: String) {
 
 @Composable
 fun GenreTag(
-    values: String = "драма",
+    values: String,
     backgroundColor: Color = Gray750,
     style: TextStyle = TitleMedium,
     tinyPadding: Dp = 2.dp,
