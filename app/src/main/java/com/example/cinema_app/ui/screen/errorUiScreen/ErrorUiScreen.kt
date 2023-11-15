@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.example.cinema_app.R
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
@@ -51,7 +52,7 @@ fun ErrorUiScreen(
             modifier = Modifier.size(maxFavouriteCardSize)
         )
         Spacer(modifier = Modifier.height(mediumPadding))
-        Text(text = "Произошла ошибка", style = SemiBoldStyle)
+        Text(text = stringResource(id = R.string.error_happend), style = SemiBoldStyle)
         Spacer(modifier = Modifier.height(mediumPadding))
         Button(
             modifier = Modifier
@@ -65,7 +66,7 @@ fun ErrorUiScreen(
             contentPadding = PaddingValues(semiMediumPadding)
         ) {
             Text(
-                text = "Повторить",
+                text = stringResource(id = R.string.repeat),
                 style = SecondarySemiBoldStyle
             )
         }

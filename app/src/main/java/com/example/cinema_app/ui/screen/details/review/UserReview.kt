@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
@@ -88,12 +90,12 @@ fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
                     Column {
                         Text(
                             text = content.userReviewX?.author?.nickName
-                                ?: "Анонимный пользователь",
+                                ?: stringResource(id = R.string.anonymous_user),
                             style = GenreTitle,
                             color = Color.White
                         )
                         Text(
-                            text = "мой отзыв",
+                            text = stringResource(id = R.string.my_review),
                             style = GenreTitle,
                             color = Color.Gray,
                         )
