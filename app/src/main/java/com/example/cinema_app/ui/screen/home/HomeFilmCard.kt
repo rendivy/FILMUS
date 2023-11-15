@@ -143,9 +143,10 @@ fun HomeFilmCard(
                         val color = when (userRating) {
                             in 0..2 -> BadRatingColor
                             in 2..4 -> SemiBadRatingColor
-                            in 4..6 -> SemiMediumRatingColor
-                            in 6..8 -> MediumRatingColor
-                            in 8..10 -> GoodRatingColor
+                            in 4..5 -> SemiMediumRatingColor
+                            in 6 until 7 -> MediumRatingColor
+                            in 7..8 -> SemiGoodRatingColor
+                            in 9..10 -> GoodRatingColor
                             else -> Color.White
                         }
                         Box(
@@ -231,7 +232,8 @@ fun RatingBox(ratingValue: String) {
             in 3.0..4.0 -> SemiBadRatingColor
             in 4.0..5.0 -> SemiMediumRatingColor
             in 5.0..6.0 -> SemiMediumRatingColor
-            in 6.0..8.0 -> MediumRatingColor
+            in 6.0..6.9 -> MediumRatingColor
+            in 7.0 .. 8.0 -> SemiGoodRatingColor
             in 8.0..8.9 -> SemiGoodRatingColor
             in 9.0..10.0 -> GoodRatingColor
             else -> Color.White

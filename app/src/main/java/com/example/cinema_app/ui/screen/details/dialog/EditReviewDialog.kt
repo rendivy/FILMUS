@@ -172,7 +172,7 @@ fun EditReviewDialog(
                     contentPadding = PaddingValues(semiMediumPadding)
                 ) {
                     Text(
-                        text = "Cохранить",
+                        text = stringResource(id = R.string.save),
                         style = SecondarySemiBoldStyle
                     )
                 }
@@ -201,7 +201,7 @@ fun EditReviewDialog(
                     )
                 ) {
                     Text(
-                        text = "Отмена",
+                        text = stringResource(id = R.string.cancel),
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
