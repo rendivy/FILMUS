@@ -21,6 +21,7 @@ import com.example.cinema_app.presentation.state.RegistrationState
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -175,7 +176,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun registerUser() {
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             _registrationState.value = RegistrationState.Loading
             val registrationBody = createRegistrationBody()
             registerUserUseCase.invoke(registrationBody)

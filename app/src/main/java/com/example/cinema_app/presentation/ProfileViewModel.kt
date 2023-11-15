@@ -115,7 +115,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUserProfile(callback: () -> Unit) {
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             updateUserProfileUseCase.execute(
                 ProfileCredentials(
                     avatarLink = _profileState.value.userAvatar,

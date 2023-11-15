@@ -57,8 +57,6 @@ class MoviePagingSource @Inject constructor(
 
 
                 }
-
-
                 val prevKey = if (page > 0) page - 1 else null
                 val nextKey = if (response.movies.isNotEmpty()) page + 1 else null
 

@@ -80,8 +80,6 @@ fun FavouriteScreen(
         )
     }) {
         when (movieState) {
-
-
             is FavouriteState.Loading -> {
                 Column(modifier = Modifier.padding(top = mediumPadding)) {
                     for (j in 0..3) {

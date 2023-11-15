@@ -107,6 +107,7 @@ object DataModule {
 
     @Provides
     @Singleton
+    //два клиента разных делай))
     fun provideService(okHttpClient: OkHttpClient): MovieApiService = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(BASE_URL)
