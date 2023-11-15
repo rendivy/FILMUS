@@ -15,38 +15,42 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.ui.screen.home.RatingBox
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.shortPadding
 
 
 @Composable
 fun MovieHeadline(
     content: DetailsDTO,
+    painter: Painter,
+    tintColor: Color,
     onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .background(color = Gray900)
             .padding(
-                start = padding16,
-                end = padding16,
-                top = padding16,
-                bottom = 20.dp
+                start = mediumPadding,
+                end = mediumPadding,
+                top = mediumPadding,
+                bottom = padding20
             )
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         RatingBox(content.averageFilmRating.toString())
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(shortPadding))
         Text(
             text = content.name,
             modifier = Modifier
@@ -55,7 +59,7 @@ fun MovieHeadline(
             style = InternBoldLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(shortPadding))
         IconButton(
             onClick = onClick,
             modifier = Modifier
@@ -67,7 +71,8 @@ fun MovieHeadline(
                 .height(40.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.favourite_icon),
+                painter = painter,
+                tint = tintColor,
                 contentDescription = null
             )
         }

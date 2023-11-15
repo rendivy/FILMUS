@@ -6,5 +6,7 @@ interface FavouriteMovieRepository {
 
     suspend fun getFavouriteMovie(): Movie
 
+    suspend fun deleteFavouriteMovie(movieId: String)
+
     suspend fun addFavouriteMovie(movieId: String)
 }

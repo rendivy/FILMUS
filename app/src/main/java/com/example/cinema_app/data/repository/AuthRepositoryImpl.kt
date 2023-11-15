@@ -17,7 +17,9 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override suspend fun registerUser(registrationBody: RegistrationBody) {
-        tokenLocalStorage.saveToken(movieApiService.register(registrationBody = registrationBody).token)
+        tokenLocalStorage.saveToken(
+            movieApiService.register(registrationBody = registrationBody).token
+        )
     }
 
 

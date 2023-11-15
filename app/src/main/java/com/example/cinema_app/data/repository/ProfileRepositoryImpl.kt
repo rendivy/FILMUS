@@ -10,28 +10,29 @@ import javax.inject.Singleton
 
 @Singleton
 class ProfileRepositoryImpl @Inject constructor(
-    private val tokenManager: TokenLocalStorage,
+    private val tokenLocalStorage: TokenLocalStorage,
     private val movieApiService: MovieApiService,
     private val dataBase: MovieDataBase
 ) : ProfileRepository {
 
     override suspend fun getProfileData(): ProfileCredentials {
-        val token = tokenManager.getToken()
+        val token = tokenLocalStorage.getToken()
         return movieApiService.getUserData(token = "Bearer $token")
     }
 
     override suspend fun logout() {
         val dao = dataBase.userDao()
-        val token = tokenManager.getToken()
+        val token = tokenLocalStorage.getToken()
         dao.deleteAllUserRatings()
         movieApiService.logout(
             token = "Bearer $token"
         )
+        tokenLocalStorage.deleteToken()
     }
 
 
     override suspend fun updateProfileData(profileCredentials: ProfileCredentials) {
-        val token = tokenManager.getToken()
+        val token = tokenLocalStorage.getToken()
         movieApiService.updateUserData(
             token = "Bearer $token",
             newCredentials = profileCredentials

@@ -1,5 +1,6 @@
 package com.example.cinema_app.presentation
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -7,9 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.data.converter.DateConverter
+import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.data.entity.ProfileCredentials
-import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.LogoutUserUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
@@ -32,7 +32,6 @@ class ProfileViewModel @Inject constructor(
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val dateUseCase: DateConverter,
-    private val convertDateUseCase: ConvertDateUseCase,
     private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
@@ -58,12 +57,12 @@ class ProfileViewModel @Inject constructor(
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
-                401 ->
+                401 -> {
                     _credentialsState.value = ProfileState.Error(ErrorConstant.UNAUTHORIZED)
-
+                }
                 400 -> {
                     _profileState.value =
-                        _profileState.value.copy(emailError = ErrorConstant.UNKNOWN_ERROR)
+                        _profileState.value.copy(emailError = ErrorConstant.UNIQUE_EMAIL)
                 }
             }
 
@@ -88,16 +87,25 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
+    fun validateName(name: String): ValidationResult {
+        if (name.isEmpty()) {
+            return ValidationResult(false, "Имя не может быть пустым")
+        } else {
+            return ValidationResult(true)
+        }
+    }
+
     fun setName(name: String) {
         _profileState.value = _profileState.value.copy(
-            name = name
+            name = name, nameError = validateName(name).errorMessage
         )
     }
 
     fun setEmail(email: String) {
         _profileState.value = _profileState.value.copy(
-            email = email
+            email = email, emailError = validateEmail(email).errorMessage
         )
+
     }
 
     fun setUserAvatar(avatar: String) {
@@ -106,8 +114,8 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
-    fun updateUserProfile() {
-        viewModelScope.launch(exceptionHandler) {
+    fun updateUserProfile(callback: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             updateUserProfileUseCase.execute(
                 ProfileCredentials(
                     avatarLink = _profileState.value.userAvatar,
@@ -120,11 +128,12 @@ class ProfileViewModel @Inject constructor(
                 )
             )
             _profileState.value = _profileState.value.copy(emailError = null)
+            callback()
         }
     }
 
 
-    fun validateEmail(email: String): ValidationResult {
+    private fun validateEmail(email: String): ValidationResult {
         return validateEmailUseCase.execute(email)
     }
 
@@ -157,6 +166,7 @@ class ProfileViewModel @Inject constructor(
             val credentials = getUserProfileUseCase.execute()
             setProfileContent(credentials)
             _credentialsState.value = ProfileState.Content(_profileState.value)
+
         }
     }
 }

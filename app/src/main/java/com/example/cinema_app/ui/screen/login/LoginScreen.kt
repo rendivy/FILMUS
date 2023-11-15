@@ -3,6 +3,7 @@ package com.example.cinema_app.ui.screen.login
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,12 +34,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cinema_app.R
@@ -46,20 +48,29 @@ import com.example.cinema_app.presentation.LoginViewModel
 import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.login.component.LoginSection
+import com.example.cinema_app.ui.screen.registration.component.LoginErrorAnimation
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray400
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
-import com.example.cinema_app.ui.theme.ShortSpace
+import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.shortPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
-    val loginState by remember { loginViewModel.loginState }
+    val loginState by remember { loginViewModel.loginContent }
     val errorState by loginViewModel.errorState.collectAsStateWithLifecycle()
     var loginError by remember { mutableStateOf(false) }
+    val enabled = loginViewModel.validateLoginCredentials()
     val focusManager = LocalFocusManager.current
+    val buttonAlpha = if (enabled) 1f else 0.45f
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -78,7 +89,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.back_button_icon),
                             contentDescription = "back_icon_button",
-                            modifier = Modifier.size(12.dp),
+                            modifier = Modifier.size(semiMediumPadding),
                             tint = Color.White,
                         )
                     }
@@ -95,7 +106,10 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)
+                    .padding(it).pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            focusManager.clearFocus()
+                        })}
                     .background(color = Gray900)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Top,
@@ -107,16 +121,19 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     loginError = loginError,
                     navController = navController
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(padding20))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp),
+                        .alpha(buttonAlpha)
+                        .padding(start = mediumPadding, end = mediumPadding),
                     onClick = { loginViewModel.loginUser() },
-                    contentPadding = PaddingValues(12.dp),
-                    shape = RoundedCornerShape(size = 10.dp),
+                    enabled = enabled,
+                    contentPadding = PaddingValues(semiMediumPadding),
+                    shape = RoundedCornerShape(size = padding10),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Accent
+                        containerColor = Accent,
+                        disabledContainerColor = Accent,
                     ),
                 ) {
                     Row(
@@ -138,10 +155,10 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                                     Column(
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                         verticalArrangement = Arrangement.Center,
-                                        modifier = Modifier.padding(end = 8.dp)
+                                        modifier = Modifier.padding(end = shortPadding)
                                     ) {
                                         CircularProgressIndicator(
-                                            modifier = Modifier.size(12.dp),
+                                            modifier = Modifier.size(semiMediumPadding),
                                             color = Color.White,
                                             trackColor = Gray400
                                         )
@@ -158,6 +175,21 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                         )
                     }
                 }
+                AnimatedVisibility(visible = loginState.uncorrectedUserName != null) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = mediumPadding, end = mediumPadding),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center){
+                        loginState.uncorrectedUserName?.let { it1 ->
+                            LoginErrorAnimation(
+                                errorMessage = it1
+                            )
+                        }
+
+                    }
+                }
             }
 
         },
@@ -166,7 +198,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Gray900)
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = mediumPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -174,7 +206,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
                     text = stringResource(id = R.string.dont_have_account),
                     style = TitleSmall
                 )
-                Spacer(modifier = Modifier.size(ShortSpace))
+                Spacer(modifier = Modifier.size(tinyPadding))
                 Text(
                     text = stringResource(id = R.string.register_label),
                     modifier = Modifier.clickable(onClick = {

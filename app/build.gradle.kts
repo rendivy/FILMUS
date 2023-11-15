@@ -3,9 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
-    id("kotlin-kapt")
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
+
+
 
 
 
@@ -29,6 +32,9 @@ android {
         }
     }
 
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 
 
     buildTypes {
@@ -96,13 +102,13 @@ dependencies {
     implementation("androidx.security:security-crypto:$securityCryptoVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
-    implementation ("com.squareup.retrofit2:converter-gson:$gsonConverterVersion")
-    implementation ("com.squareup.okhttp3:okhttp:$okHttpVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$gsonConverterVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
-    implementation ("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinSerialization")
-    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinSerialization")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("androidx.paging:paging-runtime-ktx:$paging3Version")
     implementation("androidx.paging:paging-compose:$paging3Version")
     implementation("androidx.room:room-paging:$room_version")

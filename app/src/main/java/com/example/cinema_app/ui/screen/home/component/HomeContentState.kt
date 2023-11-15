@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -33,12 +34,16 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
+import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.FilmDTO
 import com.example.cinema_app.ui.screen.home.FilmColumn
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TransparentWhite
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding5
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -81,7 +86,7 @@ fun HomeContentState(
                                             .fillMaxSize()
                                             .shimmerEffect()
                                             .height(cardHeight)
-                                            .clip(RoundedCornerShape(5.dp))
+                                            .clip(RoundedCornerShape(padding5))
                                     )
                                 }
 
@@ -93,7 +98,7 @@ fun HomeContentState(
                     }
                     Row(
                         modifier = Modifier
-                            .padding(bottom = 10.dp)
+                            .padding(bottom = padding10)
                             .height(24.dp)
                             .width(72.dp)
                             .background(
@@ -110,8 +115,8 @@ fun HomeContentState(
                             Box(
                                 modifier = Modifier
                                     .clip(CircleShape)
-                                    .width(10.dp)
-                                    .height(10.dp)
+                                    .width(padding10)
+                                    .height(padding10)
                                     .background(color = color)
                                     .border(width = 2.dp, color = Color.White)
 
@@ -123,8 +128,8 @@ fun HomeContentState(
                     }
                 }
                 Text(
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp),
-                    text = "Каталог",
+                    modifier = Modifier.padding(top = mediumPadding, start = mediumPadding),
+                    text = stringResource(id = R.string.magazine_label),
                     textAlign = TextAlign.Start,
                     style = SemiBoldStyle,
                     fontSize = 24.sp,

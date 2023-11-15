@@ -1,6 +1,5 @@
 package com.example.cinema_app.ui.screen.favorite.section
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,12 +13,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.presentation.state.FavouriteState
-import com.example.cinema_app.ui.FilmCard
-import com.example.cinema_app.ui.LargeFilmCard
+import com.example.cinema_app.ui.screen.favorite.FilmCard
+import com.example.cinema_app.ui.screen.favorite.LargeFilmCard
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding20
@@ -27,6 +25,8 @@ import com.example.cinema_app.ui.theme.padding20
 @Composable
 fun MovieSection(movieState: FavouriteState, padding: PaddingValues, navController: NavController) {
     val movies = (movieState as FavouriteState.Content).movie
+    val firstIndex = 1
+    val secondIndex = 2
     LazyColumn(
         modifier = Modifier
             .padding(padding)
@@ -46,8 +46,8 @@ fun MovieSection(movieState: FavouriteState, padding: PaddingValues, navControll
                         ),
                 ) {
                     for (i in 0 until 2) {
-                        if (i == 1) {
-                            Spacer(modifier = Modifier.width(15.dp))
+                        if (i == firstIndex) {
+                            Spacer(modifier = Modifier.width(padding15))
                         }
                         if (i < movieGroup.size) {
                             FilmCard(
@@ -58,17 +58,16 @@ fun MovieSection(movieState: FavouriteState, padding: PaddingValues, navControll
                                 userRating = movieGroup[i].userReview,
                                 navController = navController
                             )
-                            Log.d("FilmCard", "FilmCard: ${movieGroup[i].userReview}")
                         }
 
                     }
                 }
-                if (movieGroup.size > 2) {
+                if (movieGroup.size > secondIndex) {
                     LargeFilmCard(
-                        path = movieGroup[2].poster,
-                        userRating = movieGroup[2].userReview,
-                        movieName = movieGroup[2].name,
-                        movieId = movieGroup[2].id,
+                        path = movieGroup[secondIndex].poster,
+                        userRating = movieGroup[secondIndex].userReview,
+                        movieName = movieGroup[secondIndex].name,
+                        movieId = movieGroup[secondIndex].id,
                         navController = navController
                     )
                 }

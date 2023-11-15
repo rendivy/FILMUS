@@ -1,11 +1,12 @@
 package com.example.cinema_app.domain.usecase
 
-import com.example.cinema_app.data.repository.ProfileRepositoryImpl
+import com.example.cinema_app.domain.repository.ProfileRepository
 import javax.inject.Inject
 
-class GetUserIdUseCase @Inject constructor(private val profileRepositoryImpl: ProfileRepositoryImpl) {
+class GetUserIdUseCase @Inject constructor(
+    private val profileRepository: ProfileRepository) {
 
         suspend fun execute(): String {
-            return profileRepositoryImpl.getProfileData().id
+            return profileRepository.getProfileData().id
         }
 }

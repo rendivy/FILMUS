@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
@@ -30,7 +32,10 @@ import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
@@ -50,7 +55,7 @@ fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = padding16, end = padding16, bottom = 20.dp)
+            .padding(start = mediumPadding, end = mediumPadding, bottom = padding20)
             .background(Gray900)
     ) {
         Row(
@@ -74,7 +79,7 @@ fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp)
+                    .padding(start = padding10)
             )
             {
                 Row(
@@ -85,19 +90,19 @@ fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
                     Column {
                         Text(
                             text = content.userReviewX?.author?.nickName
-                                ?: "Анонимный пользователь",
+                                ?: stringResource(id = R.string.anonymous_user),
                             style = GenreTitle,
                             color = Color.White
                         )
                         Text(
-                            text = "мой отзыв",
+                            text = stringResource(id = R.string.my_review),
                             style = GenreTitle,
                             color = Color.Gray,
                         )
                     }
                     Row() {
                         UserRatingBox(userRating = content.userReviewX!!.rating)
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(padding10))
                         Box(
                             modifier = Modifier
                                 .size(26.dp)
@@ -124,14 +129,14 @@ fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         Text(
             text = content.userReviewX!!.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(shortPadding))
         Text(
             text = viewModel.convertDate(content.userReviewX.createDateTime),
             style = GenreTitle,

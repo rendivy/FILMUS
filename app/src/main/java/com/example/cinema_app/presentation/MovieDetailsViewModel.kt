@@ -10,10 +10,12 @@ import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.domain.usecase.AddFavouriteMovieUseCase
 import com.example.cinema_app.domain.usecase.AddUserReviewUseCase
 import com.example.cinema_app.domain.usecase.ConvertDateUseCase
+import com.example.cinema_app.domain.usecase.DeleteFavouriteMovieUseCase
 import com.example.cinema_app.domain.usecase.DeleteUserReviewUseCase
 import com.example.cinema_app.domain.usecase.EditUserReviewUseCase
 import com.example.cinema_app.domain.usecase.GetMovieDetailsUseCase
 import com.example.cinema_app.presentation.state.DetailsState
+import com.example.cinema_app.ui.state.DetailsFavouriteContent
 import com.example.cinema_app.ui.state.ReviewContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -28,12 +30,12 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     private val movieDetailsUseCase: GetMovieDetailsUseCase,
     private val convertDateUseCase: ConvertDateUseCase,
+    private val deleteFavouriteMovieUseCase: DeleteFavouriteMovieUseCase,
     private val addUserReviewUseCase: AddUserReviewUseCase,
     private val deleteUserReviewUseCase: DeleteUserReviewUseCase,
     private val addUserFavouriteMovieUseCase: AddFavouriteMovieUseCase,
     private val editUserReviewUseCase: EditUserReviewUseCase
 ) : ViewModel() {
-
 
     private val _detailsState = MutableStateFlow<DetailsState>(DetailsState.Initial)
     val detailsState: StateFlow<DetailsState> = _detailsState
@@ -47,6 +49,14 @@ class MovieDetailsViewModel @Inject constructor(
         )
     )
 
+    val favouriteState: State<DetailsFavouriteContent>
+        get() = _favouriteState
+
+    private val _favouriteState: MutableState<DetailsFavouriteContent> = mutableStateOf(
+        DetailsFavouriteContent(false)
+    )
+
+
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
@@ -56,13 +66,15 @@ class MovieDetailsViewModel @Inject constructor(
 
                 400 -> {
                     _reviewState.value = _reviewState.value.copy(
-                        anonymousError = ErrorConstant.ANONYMOUS_ERROR
-                    )
+                        anonymousError = ErrorConstant.ANONYMOUS_ERROR,
+
+                        )
                 }
             }
 
             else -> {
                 _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+
             }
         }
     }
@@ -94,14 +106,19 @@ class MovieDetailsViewModel @Inject constructor(
             deleteUserReviewUseCase.execute(movieId, reviewId)
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null, isRatingChanged = true
             )
         }
+    }
 
+    private fun deleteFavouriteMovie(movieId: String) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            deleteFavouriteMovieUseCase.execute(movieId = movieId)
+        }
     }
 
 
-    fun addFavouriteMovie(movieId: String) {
+    private fun addFavouriteMovie(movieId: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
@@ -118,9 +135,28 @@ class MovieDetailsViewModel @Inject constructor(
             )
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null,
+                isRatingChanged = true
             )
 
+        }
+
+    }
+
+    fun setFavouriteState(movieId: String){
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler){
+            if (_favouriteState.value.filmInFavourite){
+                deleteFavouriteMovie(movieId = movieId)
+                _favouriteState.value = _favouriteState.value.copy(
+                    filmInFavourite = false
+                )
+            }
+            else {
+                addFavouriteMovie(movieId = movieId)
+                _favouriteState.value = _favouriteState.value.copy(
+                    filmInFavourite = true
+                )
+            }
         }
 
     }
@@ -135,7 +171,8 @@ class MovieDetailsViewModel @Inject constructor(
             )
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
-                anonymousError = null
+                anonymousError = null,
+                isRatingChanged = true
             )
         }
     }
@@ -145,10 +182,13 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun getMovieDetails(id: String) {
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             _detailsState.value = DetailsState.Loading
             val movieDetails = movieDetailsUseCase.execute(id, _reviewState)
             _detailsState.value = DetailsState.Content(movieDetails)
+            _favouriteState.value = _favouriteState.value.copy(
+                filmInFavourite = movieDetails.filmInFavourite
+            )
         }
     }
 }

@@ -13,13 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.data.converter.BudgetConverter
+import com.example.cinema_app.R
+import com.example.cinema_app.presentation.converter.BudgetConverter
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
-import com.example.cinema_app.ui.theme.padding16
+import com.example.cinema_app.ui.theme.padding10
+import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding20
+import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun FilmDetailsSection(content: DetailsDTO) {
@@ -27,27 +32,27 @@ fun FilmDetailsSection(content: DetailsDTO) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = padding16, vertical = 20.dp),
+            .padding(horizontal = mediumPadding, vertical = padding20),
         horizontalAlignment = Alignment.Start
     ) {
-        AboutItem("Год", content.year.toString())
-        Spacer(modifier = Modifier.height(10.dp))
-        AboutItem("Cтрана", content.country)
-        Spacer(modifier = Modifier.height(10.dp))
-        AboutItem("Cлоган", content.tagline)
-        Spacer(modifier = Modifier.height(10.dp))
-        AboutItem("Режиссёр", content.director)
-        Spacer(modifier = Modifier.height(10.dp))
+        AboutItem(stringResource(id = R.string.year), content.year.toString())
+        Spacer(modifier = Modifier.height(padding10))
+        AboutItem(stringResource(id = R.string.country), content.country)
+        Spacer(modifier = Modifier.height(padding10))
+        AboutItem(stringResource(id = R.string.tagline), content.tagline)
+        Spacer(modifier = Modifier.height(padding10))
+        AboutItem(stringResource(id = R.string.director), content.director)
+        Spacer(modifier = Modifier.height(padding10))
         content.budget?.let {
-            AboutItem("Бюджет", BudgetConverter.convertBudget(it))
-            Spacer(modifier = Modifier.height(10.dp))
+            AboutItem(stringResource(id = R.string.budget), BudgetConverter.convertBudget(it))
+            Spacer(modifier = Modifier.height(padding10))
         }
         content.fees?.let {
-            AboutItem("Cборы в мире", BudgetConverter.convertBudget(it))
-            Spacer(modifier = Modifier.height(10.dp))}
-        AboutItem("Возраст", "${content.ageLimit}+")
-        Spacer(modifier = Modifier.height(10.dp))
-        AboutItem("Время", "${content.time} мин")
+            AboutItem(stringResource(id = R.string.world_fees), BudgetConverter.convertBudget(it))
+            Spacer(modifier = Modifier.height(padding10))}
+        AboutItem(stringResource(id = R.string.age_limit), "${content.ageLimit}+")
+        Spacer(modifier = Modifier.height(padding10))
+        AboutItem(stringResource(id = R.string.time), "${content.time} мин")
     }
 }
 
@@ -58,7 +63,7 @@ fun AboutItem(title: String, value: String) {
         modifier = Modifier.fillMaxWidth(),
     ) {
         ItemTitle(title)
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(shortPadding))
         ItemValue(value)
     }
 }
@@ -69,7 +74,7 @@ fun SectionTitle(title: String) {
         text = title,
         modifier = Modifier
             .background(color = Gray900)
-            .padding(horizontal = padding16, vertical = 10.dp),
+            .padding(horizontal = mediumPadding, vertical = padding10),
         style = SemiBoldStyle
     )
 }

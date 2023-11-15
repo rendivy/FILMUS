@@ -16,7 +16,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.cinema_app.presentation.ProfileViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.cinema_app.R
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Black300
 import com.example.cinema_app.ui.theme.Gray900
@@ -27,7 +28,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileAlert(checked: MutableState<Boolean>, profileViewModel: ProfileViewModel) {
+fun DatePickerAlert(checked: MutableState<Boolean>, onClick: (Long?) -> Unit) {
     val datePickerState = remember {
         DatePickerState(
             yearRange = 1950..2022,
@@ -56,10 +57,10 @@ fun ProfileAlert(checked: MutableState<Boolean>, profileViewModel: ProfileViewMo
                         ),
                         onClick = {
                             checked.value = false
-                            profileViewModel.setBirthDate(datePickerState.selectedDateMillis)
+                            onClick(datePickerState.selectedDateMillis)
                         }) {
                         Text(
-                            text = "Подтвердить",
+                            text = stringResource(id = R.string.confirm),
                             style = TitleMedium,
                             color = Accent
                         )

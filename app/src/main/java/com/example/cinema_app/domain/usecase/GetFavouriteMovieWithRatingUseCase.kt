@@ -1,18 +1,15 @@
 package com.example.cinema_app.domain.usecase
 
 import com.example.cinema_app.data.database.MovieDataBase
-import com.example.cinema_app.data.repository.FavouriteMovieRepositoryImpl
-import com.example.cinema_app.data.repository.MoviesRepositoryImpl
 import com.example.cinema_app.domain.entity.FavouriteDTO
+import com.example.cinema_app.domain.repository.FavouriteMovieRepository
 import com.example.cinema_app.presentation.mappers.PresentationFilmMapper
 import javax.inject.Inject
 
 class GetFavouriteMovieWithRatingUseCase @Inject constructor(
-    private val favouriteMovieRepository: FavouriteMovieRepositoryImpl,
+    private val favouriteMovieRepository: FavouriteMovieRepository,
     private val presentationFilmMapper: PresentationFilmMapper,
-    private val movieRepositoryImpl: MoviesRepositoryImpl,
     private val database: MovieDataBase,
-    private val getUserProfileUseCase: GetUserProfileUseCase
 ) {
     suspend fun execute(): List<FavouriteDTO> {
         val movie = favouriteMovieRepository.getFavouriteMovie().movies

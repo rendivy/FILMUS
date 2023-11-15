@@ -1,11 +1,11 @@
 package com.example.cinema_app.domain.usecase
 
-import com.example.cinema_app.data.repository.ProfileRepositoryImpl
+import com.example.cinema_app.domain.repository.ProfileRepository
 import javax.inject.Inject
 
-class LogoutUserUseCase @Inject constructor(private val profileRepositoryImpl: ProfileRepositoryImpl) {
+class LogoutUserUseCase @Inject constructor(private val profileRepository: ProfileRepository) {
 
     suspend fun execute() {
-        profileRepositoryImpl.logout()
+        profileRepository.logout()
     }
 }
