@@ -80,7 +80,12 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = mediumPadding, end = mediumPadding, top = mediumPadding, bottom = mediumPadding),
+                    .padding(
+                        start = mediumPadding,
+                        end = mediumPadding,
+                        top = mediumPadding,
+                        bottom = mediumPadding
+                    ),
                 onClick = onClick,
                 shape = RoundedCornerShape(size = padding10),
                 colors = ButtonDefaults.buttonColors(
@@ -90,7 +95,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                 contentPadding = PaddingValues(12.dp)
             ) {
                 Text(
-                    text = "Повторить",
+                    text = stringResource(id = R.string.repeat),
                     style = SecondarySemiBoldStyle
                 )
             }

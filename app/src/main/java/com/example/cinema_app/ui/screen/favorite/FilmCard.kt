@@ -37,6 +37,7 @@ import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.GoodRatingColor
 import com.example.cinema_app.ui.theme.MediumRatingColor
 import com.example.cinema_app.ui.theme.SemiBadRatingColor
+import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.mediumPadding
@@ -91,9 +92,10 @@ fun FilmCard(
                 val color = when (userRating) {
                     in 0..2 -> BadRatingColor
                     in 2..4 -> SemiBadRatingColor
-                    in 4..6 -> SemiMediumRatingColor
-                    in 6..8 -> MediumRatingColor
-                    in 8..10 -> GoodRatingColor
+                    in 4..5 -> SemiMediumRatingColor
+                    in 6 until 7 -> MediumRatingColor
+                    in 7..8 -> SemiGoodRatingColor
+                    in 9..10 -> GoodRatingColor
                     else -> Color.White
                 }
                 Box(

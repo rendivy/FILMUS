@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.cinema_app.R
 import com.example.cinema_app.presentation.converter.BudgetConverter
 import com.example.cinema_app.domain.entity.DetailsDTO
 import com.example.cinema_app.ui.theme.GenreTitle
@@ -33,24 +35,24 @@ fun FilmDetailsSection(content: DetailsDTO) {
             .padding(horizontal = mediumPadding, vertical = padding20),
         horizontalAlignment = Alignment.Start
     ) {
-        AboutItem("Год", content.year.toString())
+        AboutItem(stringResource(id = R.string.year), content.year.toString())
         Spacer(modifier = Modifier.height(padding10))
-        AboutItem("Cтрана", content.country)
+        AboutItem(stringResource(id = R.string.country), content.country)
         Spacer(modifier = Modifier.height(padding10))
-        AboutItem("Cлоган", content.tagline)
+        AboutItem(stringResource(id = R.string.tagline), content.tagline)
         Spacer(modifier = Modifier.height(padding10))
-        AboutItem("Режиссёр", content.director)
+        AboutItem(stringResource(id = R.string.director), content.director)
         Spacer(modifier = Modifier.height(padding10))
         content.budget?.let {
-            AboutItem("Бюджет", BudgetConverter.convertBudget(it))
+            AboutItem(stringResource(id = R.string.budget), BudgetConverter.convertBudget(it))
             Spacer(modifier = Modifier.height(padding10))
         }
         content.fees?.let {
-            AboutItem("Cборы в мире", BudgetConverter.convertBudget(it))
+            AboutItem(stringResource(id = R.string.world_fees), BudgetConverter.convertBudget(it))
             Spacer(modifier = Modifier.height(padding10))}
-        AboutItem("Возраст", "${content.ageLimit}+")
+        AboutItem(stringResource(id = R.string.age_limit), "${content.ageLimit}+")
         Spacer(modifier = Modifier.height(padding10))
-        AboutItem("Время", "${content.time} мин")
+        AboutItem(stringResource(id = R.string.time), "${content.time} мин")
     }
 }
 

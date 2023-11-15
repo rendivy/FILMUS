@@ -53,9 +53,17 @@ class LoginViewModel @Inject constructor(
                 }
 
                 else -> {
+                    _loginState.value =
+                        loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNEXPECTED_ERROR)
                     _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
                 }
             }
+            else -> {
+                _loginState.value =
+                    loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNEXPECTED_ERROR)
+                _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
+            }
+
         }
     }
 
