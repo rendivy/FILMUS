@@ -15,7 +15,7 @@
     <string name="time">Время</string>
     <string name="no_favourite_label">У вас пока нет любимых фильмов</string>
     <string name="no_favourite_text">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
-    <string name="date_label">Дата роджения</string>
+    <string name="date_label">Дата рождения</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="repeat">Повторить</string>
     <string name="error_happend">Произошла ошибка</string>
