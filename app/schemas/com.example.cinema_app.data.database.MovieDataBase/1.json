@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "15047c42bd0bcbfa239ed5bf1939500c",
+    "entities": [
+      {
+        "tableName": "user_ratings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` TEXT NOT NULL, `user_rating` INTEGER, PRIMARY KEY(`filmId`))",
+        "fields": [
+          {
+            "fieldPath": "filmId",
+            "columnName": "filmId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "user_rating",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "filmId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "movie_cached",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`film_name` TEXT NOT NULL, `user_rating` INTEGER, `film_contry` TEXT NOT NULL, `film_year` INTEGER NOT NULL, `film_genres` TEXT NOT NULL, PRIMARY KEY(`film_name`))",
+        "fields": [
+          {
+            "fieldPath": "filmName",
+            "columnName": "film_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "user_rating",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filmCountry",
+            "columnName": "film_contry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filmYear",
+            "columnName": "film_year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filmGenres",
+            "columnName": "film_genres",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "film_name"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '15047c42bd0bcbfa239ed5bf1939500c')"
+    ]
+  }
+}
