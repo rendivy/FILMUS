@@ -1,14 +1,14 @@
 package com.example.cinema_app.domain.repository
 
-import com.example.cinema_app.data.entity.LoginBody
-import com.example.cinema_app.data.entity.RegistrationBody
+import com.example.cinema_app.data.api.auth.LoginApi
+import com.example.cinema_app.data.api.auth.RegistrationApi
 
 
 interface AuthRepository {
 
-    suspend fun registerUser(registrationBody: RegistrationBody)
+    suspend fun registerUser(registrationApi: RegistrationApi)
 
     suspend fun isUserLoggedIn(): Boolean
 
-    suspend fun loginUser(loginBody: LoginBody)
+    suspend fun loginUser(loginApi: LoginApi)
 }

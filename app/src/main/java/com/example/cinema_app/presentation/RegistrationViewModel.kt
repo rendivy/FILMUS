@@ -1,6 +1,5 @@
 package com.example.cinema_app.presentation
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -9,14 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.converter.DateConverter
-import com.example.cinema_app.data.entity.RegistrationBody
+import com.example.cinema_app.data.api.auth.RegistrationApi
 import com.example.cinema_app.domain.usecase.RegisterUserUseCase
 import com.example.cinema_app.domain.usecase.ValidateConfirmPasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
 import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
 import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
 import com.example.cinema_app.domain.usecase.ValidateRegistrationCredentialsUseCase
-import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.presentation.state.RegistrationState
 import com.example.cinema_app.ui.state.RegistrationContent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,9 +70,9 @@ class RegistrationViewModel @Inject constructor(
                 _registrationContent.value.name.isNotEmpty()
     }
 
-    private fun createRegistrationBody(): RegistrationBody {
+    private fun createRegistrationBody(): RegistrationApi {
         val registrationState = _registrationContent.value
-        return RegistrationBody(
+        return RegistrationApi(
             userName = registrationState.login,
             name = registrationState.name,
             password = registrationState.password,

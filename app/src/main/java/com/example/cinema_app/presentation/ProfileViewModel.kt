@@ -1,6 +1,5 @@
 package com.example.cinema_app.presentation
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.converter.DateConverter
-import com.example.cinema_app.data.entity.ProfileCredentials
+import com.example.cinema_app.data.api.ProfileApi
 import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
 import com.example.cinema_app.domain.usecase.LogoutUserUseCase
 import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
@@ -117,7 +116,7 @@ class ProfileViewModel @Inject constructor(
     fun updateUserProfile(callback: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             updateUserProfileUseCase.execute(
-                ProfileCredentials(
+                ProfileApi(
                     avatarLink = _profileState.value.userAvatar,
                     birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
                     email = _profileState.value.email,
@@ -138,7 +137,7 @@ class ProfileViewModel @Inject constructor(
     }
 
 
-    private fun setProfileContent(credentials: ProfileCredentials) {
+    private fun setProfileContent(credentials: ProfileApi) {
         _profileState.value = _profileState.value.copy(
             name = credentials.name,
             gender = credentials.gender,

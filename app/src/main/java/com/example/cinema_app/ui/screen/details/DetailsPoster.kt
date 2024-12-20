@@ -14,11 +14,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.cinema_app.domain.entity.DetailsDTO
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.ui.theme.Gray900
 
 @Composable
-fun DetailsPoster(content: DetailsDTO, lazyListState: LazyListState) {
+fun DetailsPoster(content: FilmDetails, lazyListState: LazyListState) {
     var scrolledY = 0f
     var previousOffset = 0
     Box {

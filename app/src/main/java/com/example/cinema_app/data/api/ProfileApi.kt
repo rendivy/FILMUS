@@ -1,10 +1,10 @@
-package com.example.cinema_app.data.entity
+package com.example.cinema_app.data.api
 
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ProfileCredentials(
+data class ProfileApi(
     val avatarLink: String?,
     val birthDate: String,
     val email: String,

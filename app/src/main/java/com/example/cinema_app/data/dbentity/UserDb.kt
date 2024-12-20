@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "user_ratings")
-data class UserRating(
+data class UserDb(
     @PrimaryKey
     val filmId: String,
     @ColumnInfo(name = "user_rating")

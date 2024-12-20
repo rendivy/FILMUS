@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.converter.BudgetConverter
-import com.example.cinema_app.domain.entity.DetailsDTO
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
@@ -27,7 +27,7 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun FilmDetailsSection(content: DetailsDTO) {
+fun FilmDetailsSection(content: FilmDetails) {
     SectionTitle("О фильме")
     Column(
         modifier = Modifier

@@ -25,8 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.DetailsDTO
-import com.example.cinema_app.presentation.MovieDetailsViewModel
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
@@ -75,7 +74,7 @@ fun DetailsTop(
     onClick: () -> Unit,
     painter: Painter,
     tintColor: Color,
-    content: DetailsDTO
+    content: FilmDetails
 ) {
     CenterAlignedTopAppBar(
         modifier = Modifier.height(44.dp),

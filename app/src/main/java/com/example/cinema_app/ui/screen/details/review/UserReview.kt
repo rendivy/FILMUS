@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.DetailsDTO
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.screen.details.dialog.CustomDropDownMenu
@@ -38,7 +38,7 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun UserReview(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
+fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
     val reviewDialogOpen = remember { mutableStateOf(false) }
 
     if (reviewDialogOpen.value) {

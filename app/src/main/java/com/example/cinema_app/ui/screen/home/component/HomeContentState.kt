@@ -1,6 +1,5 @@
 package com.example.cinema_app.ui.screen.home.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -35,21 +34,20 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmDTO
+import com.example.cinema_app.domain.entity.FilmItemUi
 import com.example.cinema_app.ui.screen.home.FilmColumn
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.TransparentWhite
-import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding5
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeContentState(
     navController: NavHostController,
-    moviesPaging: LazyPagingItems<FilmDTO>,
+    moviesPaging: LazyPagingItems<FilmItemUi>,
     cardHeight: Dp
 ) {
     val pagerState = rememberPagerState(pageCount = { 4 })

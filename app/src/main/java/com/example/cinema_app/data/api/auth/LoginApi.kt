@@ -1,11 +1,10 @@
-package com.example.cinema_app.data.entity
+package com.example.cinema_app.data.api.auth
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
-data class LoginBody(
+class LoginApi(
     @SerialName("username")
     val username: String,
     @SerialName("password")

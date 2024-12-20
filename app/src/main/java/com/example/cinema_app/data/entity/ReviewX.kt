@@ -10,5 +10,5 @@ data class ReviewX(
     val id: String,
     val isAnonymous: Boolean,
     val rating: Int,
-    val reviewText: String
+    val reviewText: String,
 )

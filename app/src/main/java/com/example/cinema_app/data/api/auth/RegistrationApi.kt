@@ -1,11 +1,10 @@
-package com.example.cinema_app.data.entity
+package com.example.cinema_app.data.api.auth
 
-import com.example.cinema_app.common.Constants
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RegistrationBody(
+class RegistrationApi(
     @SerialName("userName")
     val userName: String,
     @SerialName("name")
@@ -15,7 +14,7 @@ data class RegistrationBody(
     @SerialName("email")
     val email: String,
     @SerialName("birthDate")
-    val birthDate: String = Constants.EMPTY_STRING,
+    val birthDate: String,
     @SerialName("gender")
-    val gender: Int = 0
+    val gender: Int = 0,
 )

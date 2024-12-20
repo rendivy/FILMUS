@@ -1,30 +1,30 @@
 package com.example.cinema_app.data.mappers
 
-import com.example.cinema_app.data.dbentity.MovieCached
-import com.example.cinema_app.data.entity.Film
-import com.example.cinema_app.domain.entity.FilmDTO
+import com.example.cinema_app.data.dbentity.MovieDb
+import com.example.cinema_app.data.entity.FilmShort
+import com.example.cinema_app.domain.entity.FilmItemUi
 import com.example.cinema_app.domain.usecase.GetAverageFilmRatingsUseCase
 import javax.inject.Inject
 
 class FilmMapper @Inject constructor(
     private val getAverageFilmRatingsUseCase: GetAverageFilmRatingsUseCase
 ) {
-    fun map(data: Film, userRating: Int?): FilmDTO {
-        return FilmDTO(
+    fun map(data: FilmShort, userRating: Int?): FilmItemUi {
+        return FilmItemUi(
             country = data.country,
             genres = data.genres,
             id = data.id,
             name = data.name,
             poster = data.poster,
-            reviews = data.reviews,
+            reviewShortApis = data.reviewShortApis,
             year = data.year,
-            filmRating = getAverageFilmRatingsUseCase.execute(data.reviews, 1),
+            filmRating = getAverageFilmRatingsUseCase.execute(data.reviewShortApis, 1),
             userReview = userRating
         )
     }
 
-    fun mapToCached(data: Film, userRating: Int?): MovieCached {
-        return MovieCached(
+    fun mapToCached(data: FilmShort, userRating: Int?): MovieDb {
+        return MovieDb(
             filmName = data.name,
             userRating = userRating,
             filmCountry = data.country,
@@ -34,8 +34,8 @@ class FilmMapper @Inject constructor(
     }
 
 
-    private fun extractGenresFromFilm(film: Film): List<String> {
-        return film.genres.map { it.name }
+    private fun extractGenresFromFilm(filmShort: FilmShort): List<String> {
+        return filmShort.genres.map { it.name }
     }
 }
 

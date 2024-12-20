@@ -1,10 +1,10 @@
 package com.example.cinema_app.domain.usecase
 
-import com.example.cinema_app.data.entity.Review
+import com.example.cinema_app.data.entity.ReviewShortApi
 
 class GetAverageFilmRatingsUseCase {
 
-    fun execute(data: List<Review>, precision: Int): Double {
+    fun execute(data: List<ReviewShortApi>, precision: Int): Double {
         if (data.isEmpty()) {
             return 0.0
         }

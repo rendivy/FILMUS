@@ -2,12 +2,12 @@ package com.example.cinema_app.data.remote
 
 
 import com.example.cinema_app.common.NetworkConstant
-import com.example.cinema_app.data.entity.AddReviewBody
-import com.example.cinema_app.data.entity.FilmDetails
-import com.example.cinema_app.data.entity.LoginBody
-import com.example.cinema_app.data.entity.Movie
-import com.example.cinema_app.data.entity.ProfileCredentials
-import com.example.cinema_app.data.entity.RegistrationBody
+import com.example.cinema_app.data.api.ProfileApi
+import com.example.cinema_app.data.api.auth.LoginApi
+import com.example.cinema_app.data.api.auth.RegistrationApi
+import com.example.cinema_app.data.api.review.AddReviewApi
+import com.example.cinema_app.data.entity.FilmDetailsApi
+import com.example.cinema_app.data.entity.FilmShort
 import com.example.cinema_app.data.entity.Token
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -20,22 +20,22 @@ import retrofit2.http.Path
 
 interface MovieApiService {
     @POST(NetworkConstant.REGISTRATION_URL)
-    suspend fun register(@Body registrationBody: RegistrationBody): Token
+    suspend fun register(@Body registrationApi: RegistrationApi): Token
 
     @GET(NetworkConstant.FAVORITE_MOVIES_URL)
-    suspend fun getFavoriteMovies(@Header("Authorization") token: String): Movie
+    suspend fun getFavoriteMovies(@Header("Authorization") token: String): List<FilmShort>
 
     @POST(NetworkConstant.LOGIN_URL)
-    suspend fun login(@Body loginBody: LoginBody): Token
+    suspend fun login(@Body loginApi: LoginApi): Token
 
     @GET(NetworkConstant.MOVIES_URL)
-    suspend fun getMovies(@Path("page") page: Int): Movie
+    suspend fun getMovies(@Path("page") page: Int): List<FilmShort>
 
     @POST("${NetworkConstant.REVIEW_URL}add")
     suspend fun addReviewMovie(
         @Header("Authorization") token: String,
         @Path("movieId") movieId: String,
-        @Body addReviewBody: AddReviewBody
+        @Body addReviewApi: AddReviewApi,
     )
 
     @POST("${NetworkConstant.FAVORITE_MOVIES_URL}/{id}/add")
@@ -59,7 +59,7 @@ interface MovieApiService {
         @Header("Authorization") token: String,
         @Path("movieId") movieId: String,
         @Path("id") reviewId: String,
-        @Body addReviewBody: AddReviewBody
+        @Body addReviewApi: AddReviewApi
     )
 
     @DELETE("${NetworkConstant.REVIEW_URL}{id}/delete")
@@ -70,17 +70,17 @@ interface MovieApiService {
     )
 
     @GET(NetworkConstant.PROFILE_URL)
-    suspend fun getUserData(@Header("Authorization") token: String): ProfileCredentials
+    suspend fun getUserData(@Header("Authorization") token: String): ProfileApi
 
 
     @GET(NetworkConstant.MOVIE_DETAILS_URL)
-    suspend fun getMovieDetails(@Path("id") id: String): FilmDetails
+    suspend fun getMovieDetails(@Path("id") id: String): FilmDetailsApi
 
 
     @PUT(NetworkConstant.PROFILE_URL)
     suspend fun updateUserData(
         @Header("Authorization") token: String,
-        @Body newCredentials: ProfileCredentials
+        @Body newCredentials: ProfileApi
     )
 
 }

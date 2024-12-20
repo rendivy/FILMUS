@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.DetailsDTO
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.DetailsPoster
 import com.example.cinema_app.ui.screen.details.DetailsTop
@@ -43,7 +43,7 @@ import com.example.cinema_app.ui.theme.mediumPadding
 @ExperimentalMaterial3Api
 @Composable
 fun MovieDetailsContent(
-    content: DetailsDTO,
+    content: FilmDetails,
     movieDetailsViewModel: MovieDetailsViewModel,
     navController: NavController
 ) {

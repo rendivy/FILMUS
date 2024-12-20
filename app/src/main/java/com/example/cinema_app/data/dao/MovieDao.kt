@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.cinema_app.data.dbentity.MovieCached
+import com.example.cinema_app.data.dbentity.MovieDb
 
 
 @Dao
 interface MovieDao {
 
     @Query("SELECT * FROM movie_cached")
-    fun getAllMovies(): List<MovieCached>
+    fun getAllMovies(): List<MovieDb>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movieCached: MovieCached)
+    fun insertMovie(movieDb: MovieDb)
 
 }

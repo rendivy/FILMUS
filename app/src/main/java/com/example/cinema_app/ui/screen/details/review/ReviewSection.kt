@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.data.entity.ReviewX
-import com.example.cinema_app.domain.entity.DetailsDTO
+import com.example.cinema_app.domain.entity.FilmDetails
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.shimmer.shimmerEffect
@@ -33,7 +33,7 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun ReviewSection(content: DetailsDTO, viewModel: MovieDetailsViewModel) {
+fun ReviewSection(content: FilmDetails, viewModel: MovieDetailsViewModel) {
     if (content.userReviewX != null) {
         UserReview(content, viewModel)
     }

@@ -1,12 +1,12 @@
 package com.example.cinema_app.domain.repository
 
-import com.example.cinema_app.data.entity.ProfileCredentials
+import com.example.cinema_app.data.api.ProfileApi
 
 interface ProfileRepository {
 
-    suspend fun getProfileData() : ProfileCredentials
+    suspend fun getProfileData() : ProfileApi
 
     suspend fun logout()
 
-    suspend fun updateProfileData(profileCredentials: ProfileCredentials)
+    suspend fun updateProfileData(profileApi: ProfileApi)
 }

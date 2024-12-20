@@ -1,7 +1,7 @@
 package com.example.cinema_app.data.repository
 
 import com.example.cinema_app.data.database.MovieDataBase
-import com.example.cinema_app.data.entity.ProfileCredentials
+import com.example.cinema_app.data.api.ProfileApi
 import com.example.cinema_app.data.remote.MovieApiService
 import com.example.cinema_app.data.storage.TokenLocalStorage
 import com.example.cinema_app.domain.repository.ProfileRepository
@@ -15,7 +15,7 @@ class ProfileRepositoryImpl @Inject constructor(
     private val dataBase: MovieDataBase
 ) : ProfileRepository {
 
-    override suspend fun getProfileData(): ProfileCredentials {
+    override suspend fun getProfileData(): ProfileApi {
         val token = tokenLocalStorage.getToken()
         return movieApiService.getUserData(token = "Bearer $token")
     }
@@ -31,11 +31,11 @@ class ProfileRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun updateProfileData(profileCredentials: ProfileCredentials) {
+    override suspend fun updateProfileData(profileApi: ProfileApi) {
         val token = tokenLocalStorage.getToken()
         movieApiService.updateUserData(
             token = "Bearer $token",
-            newCredentials = profileCredentials
+            newCredentials = profileApi
         )
     }
 }

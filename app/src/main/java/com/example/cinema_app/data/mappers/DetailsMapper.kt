@@ -1,19 +1,18 @@
 package com.example.cinema_app.data.mappers
 
-import com.example.cinema_app.data.entity.FilmDetails
+import com.example.cinema_app.data.entity.FilmDetailsApi
 import com.example.cinema_app.data.entity.ReviewX
-import com.example.cinema_app.domain.entity.DetailsDTO
 import javax.inject.Inject
 
 class DetailsMapper @Inject constructor() {
 
     fun map(
-        data: FilmDetails,
+        data: FilmDetailsApi,
         userRating: ReviewX?,
         averageFilmRating: Double,
         filmInFavourite: Boolean
-    ): DetailsDTO {
-        return DetailsDTO(
+    ): com.example.cinema_app.domain.entity.FilmDetails {
+        return com.example.cinema_app.domain.entity.FilmDetails(
             country = data.country,
             genres = data.genres,
             id = data.id,

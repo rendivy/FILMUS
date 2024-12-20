@@ -48,7 +48,7 @@ import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
     userAuthViewModel: RegistrationViewModel,

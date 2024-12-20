@@ -7,7 +7,7 @@ import javax.annotation.Nullable
 
 
 @Entity(tableName = "movie_cached")
-data class MovieCached(
+data class MovieDb(
 
     @ColumnInfo(name = "film_name")
     @PrimaryKey

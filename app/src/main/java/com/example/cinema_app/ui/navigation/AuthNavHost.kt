@@ -17,7 +17,6 @@ import com.example.cinema_app.ui.screen.registration.password.RegistrationPasswo
 import com.example.cinema_app.ui.splash.LaunchScreen
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CinemaNavHost(registrationViewModel: RegistrationViewModel = hiltViewModel()) {
     val navController = rememberNavController()
