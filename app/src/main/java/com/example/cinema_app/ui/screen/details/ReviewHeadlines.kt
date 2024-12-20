@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.dialog.AddReviewDialog
 import com.example.cinema_app.ui.theme.Accent
@@ -30,7 +30,7 @@ import com.example.cinema_app.ui.theme.padding50
 
 @Composable
 fun ReviewHeadlines(
-    content: FilmDetails,
+    content: MovieDetailsUi,
     movieDetailsViewModel: MovieDetailsViewModel,
     reviewDialogOpen: MutableState<Boolean>
 ) {
@@ -47,7 +47,7 @@ fun ReviewHeadlines(
                 .padding(start = mediumPadding, end = mediumPadding, bottom = mediumPadding),
             style = SemiBoldStyle
         )
-        if (content.userReviewX == null) {
+        if (content.userReviewApiX == null) {
             Box(
                 modifier = Modifier
                     .size(largePadding)

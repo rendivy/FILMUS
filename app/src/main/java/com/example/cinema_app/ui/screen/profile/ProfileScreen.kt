@@ -44,7 +44,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.presentation.state.ProfileState

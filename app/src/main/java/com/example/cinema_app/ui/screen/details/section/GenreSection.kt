@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.cinema_app.data.entity.Genre
-import com.example.cinema_app.data.entity.GenreX
+import com.example.cinema_app.data.movie.entities.GenreApi
+import com.example.cinema_app.domain.entities.Genre
 import com.example.cinema_app.ui.screen.home.GenreTag
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900

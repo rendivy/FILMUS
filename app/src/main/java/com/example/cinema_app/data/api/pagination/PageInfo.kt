@@ -1,9 +1,10 @@
 package com.example.cinema_app.data.api.pagination
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
-internal data class PageInfo(
+data class PageInfo(
+    @SerialName("pageInfo")
     val pageInfo: PaginationPageInfoApi,
 )

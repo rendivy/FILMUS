@@ -20,8 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.data.entity.ReviewX
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.data.review.entities.ReviewApi
+import com.example.cinema_app.domain.entities.Review
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.shimmer.shimmerEffect
@@ -33,11 +34,11 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun ReviewSection(content: FilmDetails, viewModel: MovieDetailsViewModel) {
-    if (content.userReviewX != null) {
+fun ReviewSection(content: MovieDetailsUi, viewModel: MovieDetailsViewModel) {
+    if (content.userReviewApiX != null) {
         UserReview(content, viewModel)
     }
-    content.reviews.forEach {
+    content.review.forEach {
         if (it.isAnonymous) {
             AnonymousCard(it, viewModel = viewModel)
         }
@@ -52,7 +53,7 @@ fun ReviewSection(content: FilmDetails, viewModel: MovieDetailsViewModel) {
 
 
 @Composable
-fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
+fun ReviewItem(reviewApi: Review, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,8 +65,8 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (review.author?.avatar != null) {
-                UserAvatar(model = review.author.avatar)
+            if (reviewApi.author?.avatar != null) {
+                UserAvatar(model = reviewApi.author.avatar)
             } else {
                 Box(
                     modifier = Modifier
@@ -89,24 +90,24 @@ fun ReviewItem(review: ReviewX, viewModel: MovieDetailsViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = review.author?.nickName ?: stringResource(id = R.string.anonymous_user),
+                        text = reviewApi.author?.nickName ?: stringResource(id = R.string.anonymous_user),
                         style = GenreTitle,
                         color = Color.White
                     )
-                    UserRatingBox(userRating = review.rating)
+                    UserRatingBox(userRating = reviewApi.rating)
                 }
             }
         }
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = review.reviewText,
+            text = reviewApi.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = viewModel.convertDate(review.createDateTime),
+            text = viewModel.convertDate(reviewApi.createDateTime),
             style = GenreTitle,
             color = Color.Gray,
             modifier = Modifier.fillMaxWidth()

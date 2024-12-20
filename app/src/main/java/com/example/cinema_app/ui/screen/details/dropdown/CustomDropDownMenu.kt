@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 
 const val InTransitionDuration = 120
 const val OutTransitionDuration = 75

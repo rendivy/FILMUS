@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.ui.screen.details.section.FilmDetailsSection
 import com.example.cinema_app.ui.screen.details.section.GenreSection
 import com.example.cinema_app.ui.theme.Gray900
@@ -24,7 +24,7 @@ import com.example.cinema_app.ui.theme.mediumPadding
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GenreHeadline(content: FilmDetails) {
+fun GenreHeadline(content: MovieDetailsUi) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,7 +39,7 @@ fun GenreHeadline(content: FilmDetails) {
                 .padding(start = mediumPadding, end = mediumPadding, bottom = padding10),
             style = SemiBoldStyle
         )
-        GenreSection(content.genres)
+        GenreSection(content.genreApis)
         Spacer(
             modifier = Modifier
                 .height(padding10)

@@ -1,16 +1,15 @@
 package com.example.cinema_app.ui.state
 
-import com.example.cinema_app.common.Constants
 
 data class ProfileContent(
-    val id: String,
-    val login: String,
-    val name: String,
+    val id: String = "",
+    val login: String = "",
+    val name: String = "",
     val nameError: String? = null,
-    val email: String,
+    val email: String = "",
     val emailError: String? = null,
-    val gender: Int ,
-    val birthDate: String = Constants.EMPTY_STRING,
+    val gender: Int = 0,
+    val birthDate: String = "",
     val unexpectedError: String? = null,
     val userAvatar: String? = null,
 )

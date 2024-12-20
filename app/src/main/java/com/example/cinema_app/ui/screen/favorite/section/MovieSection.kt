@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.state.FavouriteState
 import com.example.cinema_app.ui.screen.favorite.FilmCard
 import com.example.cinema_app.ui.screen.favorite.LargeFilmCard

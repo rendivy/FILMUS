@@ -22,7 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.data.entity.ReviewX
+import com.example.cinema_app.data.review.entities.ReviewApi
+import com.example.cinema_app.domain.entities.Review
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.theme.GenreTitle
@@ -33,7 +34,7 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun AnonymousCard(review: ReviewX, viewModel: MovieDetailsViewModel) {
+fun AnonymousCard(reviewApi: Review, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,21 +72,21 @@ fun AnonymousCard(review: ReviewX, viewModel: MovieDetailsViewModel) {
                         style = GenreTitle,
                         color = Color.White
                     )
-                    UserRatingBox(userRating = review.rating)
+                    UserRatingBox(userRating = reviewApi.rating)
                 }
 
             }
         }
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = review.reviewText,
+            text = reviewApi.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = viewModel.convertDate(review.createDateTime),
+            text = viewModel.convertDate(reviewApi.createDateTime),
             style = GenreTitle,
             color = Color.Gray,
             modifier = Modifier.fillMaxWidth()

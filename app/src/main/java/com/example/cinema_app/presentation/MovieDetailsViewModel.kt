@@ -5,15 +5,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.domain.usecase.AddFavouriteMovieUseCase
 import com.example.cinema_app.domain.usecase.AddUserReviewUseCase
-import com.example.cinema_app.domain.usecase.ConvertDateUseCase
 import com.example.cinema_app.domain.usecase.DeleteFavouriteMovieUseCase
 import com.example.cinema_app.domain.usecase.DeleteUserReviewUseCase
 import com.example.cinema_app.domain.usecase.EditUserReviewUseCase
-import com.example.cinema_app.domain.usecase.GetMovieDetailsUseCase
+import com.example.cinema_app.domain.usecase.GetMovieDetailsFacade
+import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.presentation.state.DetailsState
 import com.example.cinema_app.ui.state.DetailsFavouriteContent
 import com.example.cinema_app.ui.state.ReviewContent
@@ -28,13 +27,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val movieDetailsUseCase: GetMovieDetailsUseCase,
-    private val convertDateUseCase: ConvertDateUseCase,
+    private val movieDetailsUseCase: GetMovieDetailsFacade,
+    private val dateConverter: DateConverter,
     private val deleteFavouriteMovieUseCase: DeleteFavouriteMovieUseCase,
     private val addUserReviewUseCase: AddUserReviewUseCase,
     private val deleteUserReviewUseCase: DeleteUserReviewUseCase,
     private val addUserFavouriteMovieUseCase: AddFavouriteMovieUseCase,
-    private val editUserReviewUseCase: EditUserReviewUseCase
+    private val editUserReviewUseCase: EditUserReviewUseCase,
 ) : ViewModel() {
 
     private val _detailsState = MutableStateFlow<DetailsState>(DetailsState.Initial)
@@ -42,12 +41,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     val reviewState: State<ReviewContent>
         get() = _reviewState
-    private val _reviewState: MutableState<ReviewContent> = mutableStateOf(
-        ReviewContent(
-            reviewText = Constants.EMPTY_STRING,
-            rating = 0f
-        )
-    )
+    private val _reviewState: MutableState<ReviewContent> = mutableStateOf(ReviewContent())
 
     val favouriteState: State<DetailsFavouriteContent>
         get() = _favouriteState
@@ -73,7 +67,7 @@ class MovieDetailsViewModel @Inject constructor(
             }
 
             else -> {
-                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
+                throw exception
 
             }
         }
@@ -98,11 +92,11 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun convertDate(date: String): String {
-        return convertDateUseCase.execute(date)
+        return dateConverter.convertDateToUi(date)
     }
 
     fun deleteUserReview(movieId: String, reviewId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO) {
             deleteUserReviewUseCase.execute(movieId, reviewId)
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
@@ -112,21 +106,21 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun deleteFavouriteMovie(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO) {
             deleteFavouriteMovieUseCase.execute(movieId = movieId)
         }
     }
 
 
     private fun addFavouriteMovie(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO) {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
     }
 
 
     fun addReview(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO) {
             addUserReviewUseCase.execute(
                 movieId,
                 _reviewState.value.reviewText,
@@ -143,15 +137,14 @@ class MovieDetailsViewModel @Inject constructor(
 
     }
 
-    fun setFavouriteState(movieId: String){
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler){
-            if (_favouriteState.value.filmInFavourite){
+    fun setFavouriteState(movieId: String) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            if (_favouriteState.value.filmInFavourite) {
                 deleteFavouriteMovie(movieId = movieId)
                 _favouriteState.value = _favouriteState.value.copy(
                     filmInFavourite = false
                 )
-            }
-            else {
+            } else {
                 addFavouriteMovie(movieId = movieId)
                 _favouriteState.value = _favouriteState.value.copy(
                     filmInFavourite = true
@@ -161,13 +154,14 @@ class MovieDetailsViewModel @Inject constructor(
 
     }
 
-
     fun editReview(movieId: String, reviewId: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             editUserReviewUseCase.execute(
-                _reviewState.value,
-                movieId,
-                reviewId
+                movieId = movieId,
+                reviewId = reviewId,
+                reviewText = _reviewState.value.reviewText,
+                rating = _reviewState.value.rating,
+                isAnonymous = _reviewState.value.isAnonymous,
             )
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(

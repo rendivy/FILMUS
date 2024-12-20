@@ -31,7 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.cinema_app.R
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.common.NavigationConstant
 import com.example.cinema_app.presentation.FavouritesMovieViewModel

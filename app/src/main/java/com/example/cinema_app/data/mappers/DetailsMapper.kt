@@ -1,24 +1,27 @@
 package com.example.cinema_app.data.mappers
 
-import com.example.cinema_app.data.entity.FilmDetailsApi
-import com.example.cinema_app.data.entity.ReviewX
+import com.example.cinema_app.data.movie.entities.MovieDetailsApi
+import com.example.cinema_app.data.review.entities.ReviewApi
+import com.example.cinema_app.data.review.mapper.toDomain
+import com.example.cinema_app.domain.entities.Review
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import javax.inject.Inject
 
 class DetailsMapper @Inject constructor() {
 
     fun map(
-        data: FilmDetailsApi,
-        userRating: ReviewX?,
+        data: MovieDetailsApi,
+        userReview: Review?,
         averageFilmRating: Double,
         filmInFavourite: Boolean
-    ): com.example.cinema_app.domain.entity.FilmDetails {
-        return com.example.cinema_app.domain.entity.FilmDetails(
+    ): MovieDetailsUi {
+        return MovieDetailsUi(
             country = data.country,
-            genres = data.genres,
+            genreApis = data.genreApis.map { it.toDomain() },
             id = data.id,
             name = data.name,
             poster = data.poster,
-            reviews = data.reviews,
+            review = data.reviewApis.map { it.toDomain() },
             year = data.year,
             ageLimit = data.ageLimit,
             budget = data.budget,
@@ -27,7 +30,7 @@ class DetailsMapper @Inject constructor() {
             fees = data.fees,
             tagline = data.tagline,
             time = data.time,
-            userReviewX = userRating,
+            userReviewApiX = userReview,
             averageFilmRating = averageFilmRating,
             filmInFavourite = filmInFavourite
         )

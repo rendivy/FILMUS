@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-internal data class PaginationPageInfoApi(
+data class PaginationPageInfoApi(
     val currentPage: Int,
     val pageCount: Int,
     val pageSize: Int

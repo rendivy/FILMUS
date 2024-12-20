@@ -17,7 +17,7 @@ import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
 
 @Composable
-fun UserAvatar(model: String) {
+fun UserAvatar(model: String?) {
     val context = LocalContext.current
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(context).data(model).crossfade(true).build(),

@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.screen.details.DetailsPoster
 import com.example.cinema_app.ui.screen.details.DetailsTop
@@ -43,7 +43,7 @@ import com.example.cinema_app.ui.theme.mediumPadding
 @ExperimentalMaterial3Api
 @Composable
 fun MovieDetailsContent(
-    content: FilmDetails,
+    content: MovieDetailsUi,
     movieDetailsViewModel: MovieDetailsViewModel,
     navController: NavController
 ) {
@@ -103,16 +103,16 @@ fun MovieDetailsContent(
                     )
                 }
                 item{
-                    if (content.userReviewX != null) {
+                    if (content.userReviewApiX != null) {
                         UserReview(content, movieDetailsViewModel)
                     }
                 }
-                items(content.reviews.size) {
-                    if (content.reviews[it].isAnonymous) {
-                        AnonymousCard(content.reviews[it], viewModel = movieDetailsViewModel)
+                items(content.review.size) {
+                    if (content.review[it].isAnonymous) {
+                        AnonymousCard(content.review[it], viewModel = movieDetailsViewModel)
                     } else {
-                        if (content.reviews[it].author != null) {
-                            ReviewItem(content.reviews[it], viewModel = movieDetailsViewModel)
+                        if (content.review[it].author != null) {
+                            ReviewItem(content.review[it], viewModel = movieDetailsViewModel)
                         }
 
                     }

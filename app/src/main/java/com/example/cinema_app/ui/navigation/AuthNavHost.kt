@@ -2,7 +2,6 @@ package com.example.cinema_app.ui.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost

@@ -34,7 +34,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmItemUi
+import com.example.cinema_app.domain.entities.movie.MovieWithRatings
 import com.example.cinema_app.ui.screen.home.FilmColumn
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
@@ -47,7 +47,7 @@ import com.example.cinema_app.ui.theme.padding5
 @Composable
 fun HomeContentState(
     navController: NavHostController,
-    moviesPaging: LazyPagingItems<FilmItemUi>,
+    moviesPaging: LazyPagingItems<MovieWithRatings>,
     cardHeight: Dp
 ) {
     val pagerState = rememberPagerState(pageCount = { 4 })

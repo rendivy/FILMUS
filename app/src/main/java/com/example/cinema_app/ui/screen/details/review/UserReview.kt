@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.screen.details.dialog.CustomDropDownMenu
@@ -38,7 +38,7 @@ import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
-fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
+fun UserReview(content: MovieDetailsUi, viewModel: MovieDetailsViewModel) {
     val reviewDialogOpen = remember { mutableStateOf(false) }
 
     if (reviewDialogOpen.value) {
@@ -46,7 +46,7 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
             dialogIsOpen = reviewDialogOpen,
             movieDetailsViewModel = viewModel,
             movieId = content.id,
-            ratingId = content.userReviewX!!.id
+            ratingId = content.userReviewApiX!!.id
         )
     }
 
@@ -63,8 +63,8 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (content.userReviewX?.author?.avatar != null) {
-                UserAvatar(model = content.userReviewX.author.avatar)
+            if (content.userReviewApiX?.author?.avatar != null) {
+                UserAvatar(model = content.userReviewApiX.author.avatar)
             } else {
                 Box(
                     modifier = Modifier
@@ -89,7 +89,7 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
                 ) {
                     Column {
                         Text(
-                            text = content.userReviewX?.author?.nickName
+                            text = content.userReviewApiX?.author?.nickName
                                 ?: stringResource(id = R.string.anonymous_user),
                             style = GenreTitle,
                             color = Color.White
@@ -101,7 +101,7 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
                         )
                     }
                     Row() {
-                        UserRatingBox(userRating = content.userReviewX!!.rating)
+                        UserRatingBox(userRating = content.userReviewApiX!!.rating)
                         Spacer(modifier = Modifier.width(padding10))
                         Box(
                             modifier = Modifier
@@ -115,7 +115,7 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
                                 {
                                     viewModel.deleteUserReview(
                                         movieId = content.id,
-                                        reviewId = content.userReviewX.id
+                                        reviewId = content.userReviewApiX.id
                                     )
                                 },
                                 {
@@ -131,14 +131,14 @@ fun UserReview(content: FilmDetails, viewModel: MovieDetailsViewModel) {
         }
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = content.userReviewX!!.reviewText,
+            text = content.userReviewApiX!!.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = viewModel.convertDate(content.userReviewX.createDateTime),
+            text = viewModel.convertDate(content.userReviewApiX.createDateTime),
             style = GenreTitle,
             color = Color.Gray,
             modifier = Modifier.fillMaxWidth()

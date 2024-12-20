@@ -24,10 +24,9 @@ import com.example.cinema_app.ui.screen.details.component.MovieDetailsContent
 @Composable
 fun MovieDetailsScreen(
     movieId: String,
-    movieRating: String,
     movieDetailsViewModel: MovieDetailsViewModel,
     navHostController: NavController,
-    navController: NavController
+    navController: NavController,
 ) {
     val detailsState by movieDetailsViewModel.detailsState.collectAsStateWithLifecycle()
 

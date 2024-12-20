@@ -61,7 +61,6 @@ fun MainScreen(navHostController: NavHostController) {
                 ) { backStackEntry ->
                     MovieDetailsScreen(
                         backStackEntry.arguments?.getString("id").toString(),
-                        backStackEntry.arguments?.getString("movieRating").toString(),
                         movieDetailsViewModel = hiltViewModel(),
                         navHostController = navHostController,
                         navController = navController

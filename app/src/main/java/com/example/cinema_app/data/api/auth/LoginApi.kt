@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 class LoginApi(
     @SerialName("username")
-    val username: String,
+    val login: String,
     @SerialName("password")
     val password: String,
 )

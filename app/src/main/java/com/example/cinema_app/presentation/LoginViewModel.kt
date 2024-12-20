@@ -6,11 +6,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.domain.usecase.LoginUserUseCase
-import com.example.cinema_app.domain.usecase.ValidateLoginUseCase
-import com.example.cinema_app.domain.usecase.ValidatePasswordUseCase
+import com.example.cinema_app.domain.usecase.auth.LoginUserUseCase
+import com.example.cinema_app.presentation.usecases.ValidateLoginUseCase
+import com.example.cinema_app.presentation.usecases.ValidatePasswordUseCase
 import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.state.LoginContent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,12 +35,7 @@ class LoginViewModel @Inject constructor(
         get() = _loginState
 
 
-    private val _loginState: MutableState<LoginContent> = mutableStateOf(
-        LoginContent(
-            username = Constants.EMPTY_STRING,
-            password = Constants.EMPTY_STRING,
-        )
-    )
+    private val _loginState: MutableState<LoginContent> = mutableStateOf(LoginContent())
 
     private val loginExceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
@@ -58,6 +52,7 @@ class LoginViewModel @Inject constructor(
                     _errorState.value = LoginState.Error(ErrorConstant.UNKNOWN_ERROR)
                 }
             }
+
             else -> {
                 _loginState.value =
                     loginContent.value.copy(uncorrectedUserName = ErrorConstant.UNEXPECTED_ERROR)
@@ -68,16 +63,18 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginUser() {
-        _loginState.value =
-            loginContent.value.copy(uncorrectedUserName = null)
+        _loginState.value = loginContent.value.copy(uncorrectedUserName = null)
         viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
             _errorState.value = LoginState.Loading
-            loginUserUseCase.invoke(loginContent = loginContent.value)
+            loginUserUseCase(
+                login = loginContent.value.username,
+                password = loginContent.value.password,
+            )
             _errorState.value = LoginState.Success
         }
     }
 
-    fun validateLoginCredentials() : Boolean {
+    fun validateLoginCredentials(): Boolean {
         return loginContent.value.passwordError == null &&
                 loginContent.value.password.isNotEmpty() &&
                 loginContent.value.usernameError == null &&
@@ -87,14 +84,14 @@ class LoginViewModel @Inject constructor(
     fun setLogin(login: String) {
         _loginState.value = _loginState.value.copy(
             username = login,
-            usernameError = validateLoginUseCase.execute(login).errorMessage
+            usernameError = validateLoginUseCase(login).errorMessage
         )
     }
 
     fun setPassword(password: String) {
         _loginState.value = _loginState.value.copy(
             password = password,
-            passwordError = validatePasswordUseCase.execute(password).errorMessage
+            passwordError = validatePasswordUseCase(password).errorMessage
         )
     }
 

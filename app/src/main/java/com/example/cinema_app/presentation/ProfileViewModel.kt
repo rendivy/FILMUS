@@ -5,16 +5,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.common.Constants
 import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.domain.usecase.auth.LogoutUserUseCase
+import com.example.cinema_app.domain.usecase.profile.GetUserProfileUseCase
+import com.example.cinema_app.domain.usecase.profile.UpdateUserProfileUseCase
+import com.example.cinema_app.presentation.usecases.ValidateEmailUseCase
 import com.example.cinema_app.presentation.converter.DateConverter
-import com.example.cinema_app.data.api.ProfileApi
-import com.example.cinema_app.domain.usecase.GetUserProfileUseCase
-import com.example.cinema_app.domain.usecase.LogoutUserUseCase
-import com.example.cinema_app.domain.usecase.UpdateUserProfileUseCase
-import com.example.cinema_app.domain.usecase.ValidateEmailUseCase
 import com.example.cinema_app.presentation.state.ProfileState
-import com.example.cinema_app.presentation.validator.ValidationResult
 import com.example.cinema_app.ui.state.ProfileContent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -41,17 +38,8 @@ class ProfileViewModel @Inject constructor(
         get() = _profileState
 
     private val _profileState: MutableState<ProfileContent> = mutableStateOf(
-        ProfileContent(
-            name = Constants.EMPTY_STRING,
-            email = Constants.EMPTY_STRING,
-            birthDate = Constants.EMPTY_STRING,
-            login = Constants.EMPTY_STRING,
-            id = Constants.EMPTY_STRING,
-            userAvatar = Constants.EMPTY_STRING,
-            gender = 1
-        )
+        ProfileContent()
     )
-
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
@@ -116,7 +104,7 @@ class ProfileViewModel @Inject constructor(
     fun updateUserProfile(callback: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             updateUserProfileUseCase.execute(
-                ProfileApi(
+                com.example.cinema_app.domain.entities.profile.Profile(
                     avatarLink = _profileState.value.userAvatar,
                     birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
                     email = _profileState.value.email,
@@ -133,11 +121,11 @@ class ProfileViewModel @Inject constructor(
 
 
     private fun validateEmail(email: String): ValidationResult {
-        return validateEmailUseCase.execute(email)
+        return validateEmailUseCase(email)
     }
 
 
-    private fun setProfileContent(credentials: ProfileApi) {
+    private fun setProfileContent(credentials: com.example.cinema_app.domain.entities.profile.Profile) {
         _profileState.value = _profileState.value.copy(
             name = credentials.name,
             gender = credentials.gender,
@@ -162,7 +150,7 @@ class ProfileViewModel @Inject constructor(
     fun getUserProfile() {
         viewModelScope.launch(exceptionHandler) {
             _credentialsState.value = ProfileState.Loading
-            val credentials = getUserProfileUseCase.execute()
+            val credentials = getUserProfileUseCase()
             setProfileContent(credentials)
             _credentialsState.value = ProfileState.Content(_profileState.value)
 

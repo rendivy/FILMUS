@@ -1,14 +1,18 @@
 package com.example.cinema_app.domain.repository
 
-import com.example.cinema_app.data.api.auth.LoginApi
-import com.example.cinema_app.data.api.auth.RegistrationApi
-
 
 interface AuthRepository {
 
-    suspend fun registerUser(registrationApi: RegistrationApi)
+    suspend fun registerUser(
+        userName: String,
+        email: String,
+        birthDate: String,
+        password: String,
+        name: String,
+        gender: Int,
+    )
 
     suspend fun isUserLoggedIn(): Boolean
 
-    suspend fun loginUser(loginApi: LoginApi)
+    suspend fun loginUser(login: String, password: String)
 }

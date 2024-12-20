@@ -29,6 +29,7 @@ navigationCompose = "2.8.5"
 okhttp = "4.12.0"
 pagingCompose = "3.3.5"
 pagingRuntimeKtx = "3.3.5"
+converterKotlinxSerialization = "2.11.0"
 retrofit = "2.11.0"
 roomKtx = "2.6.1"
 roomPaging = "2.6.1"
@@ -56,6 +57,7 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
 androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "converterKotlinxSerialization" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }

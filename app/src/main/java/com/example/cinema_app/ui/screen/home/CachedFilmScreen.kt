@@ -58,7 +58,6 @@ import com.example.cinema_app.ui.theme.mediumPadding
 fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val moviesPaging = homeViewModel.movieState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
     val cardHeight = (screenHeight * 0.9f).coerceAtMost(497.dp)
     LaunchedEffect(Unit) {
         homeViewModel.getAllCachedFilms()
@@ -130,7 +129,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = moviesPaging.value[it].filmName,
+                                text = moviesPaging.value[it].name,
                                 style = CardTitle,
                                 color = Color.White,
                                 modifier = Modifier
@@ -185,9 +184,9 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                             }
                         }
                         Spacer(modifier = Modifier.height(4.dp))
-                        Row() {
+                        Row {
                             Text(
-                                text = moviesPaging.value[it].filmCountry,
+                                text = moviesPaging.value[it].country,
                                 style = TitleMedium,
                                 color = Color.White,
                                 fontSize = 12.sp, modifier = Modifier.padding(start = 4.dp)
@@ -201,7 +200,7 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                             )
 
                             Text(
-                                text = moviesPaging.value[it].filmYear.toString(),
+                                text = moviesPaging.value[it].year.toString(),
                                 style = TitleMedium,
                                 color = Color.White,
                                 fontSize = 12.sp
@@ -211,8 +210,8 @@ fun CachedFilmScreen(homeViewModel: HomeViewModel, onClick: () -> Unit) {
                         FlowRow(
                             verticalArrangement = Arrangement.Center,
                         ) {
-                            moviesPaging.value[it].filmGenres.forEach {
-                                GenreTag(values = it)
+                            moviesPaging.value[it].genres.forEach {
+                                GenreTag(values = it.name)
                             }
                         }
                     }

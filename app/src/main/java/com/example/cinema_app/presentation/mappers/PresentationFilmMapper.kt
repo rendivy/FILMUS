@@ -1,15 +1,15 @@
 package com.example.cinema_app.presentation.mappers
 
-import com.example.cinema_app.data.entity.FilmShort
-import com.example.cinema_app.domain.entity.FavouriteDTO
+import com.example.cinema_app.domain.entities.movie.MovieShort
+import com.example.cinema_app.presentation.entities.FavouriteMovieUi
 
 class PresentationFilmMapper {
 
-    fun map(filmShortData: FilmShort, userReview: Int?): FavouriteDTO {
-        return FavouriteDTO(
-            id = filmShortData.id,
-            name = filmShortData.name,
-            poster = filmShortData.poster,
+    fun map(movieShortData: MovieShort, userReview: Int?): FavouriteMovieUi {
+        return FavouriteMovieUi(
+            id = movieShortData.id,
+            name = movieShortData.name,
+            poster = movieShortData.poster,
             userReview = userReview
         )
     }

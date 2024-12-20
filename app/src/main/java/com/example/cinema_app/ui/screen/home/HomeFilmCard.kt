@@ -31,7 +31,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.data.entity.Genre
+import com.example.cinema_app.domain.entities.Genre
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.CardTitle
@@ -43,12 +43,12 @@ import com.example.cinema_app.ui.theme.SemiBadRatingColor
 import com.example.cinema_app.ui.theme.SemiBoldStyle
 import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
-import com.example.cinema_app.ui.theme.tinyPadding
 import com.example.cinema_app.ui.theme.TitleMedium
-import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding5
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.cinema_app.ui.theme.tinyPadding
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -58,7 +58,7 @@ fun HomeFilmCard(
     filmYear: String,
     filmCountry: String,
     filmPoster: String,
-    filmGenres: List<Genre>,
+    filmGenreApis: List<Genre>,
     filmRating: Double,
     userRating: Int?
 ) {
@@ -213,7 +213,7 @@ fun HomeFilmCard(
                 FlowRow(
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    filmGenres.forEach { genreName ->
+                    filmGenreApis.forEach { genreName ->
                         GenreTag(genreName.name)
                     }
                 }

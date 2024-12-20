@@ -5,12 +5,10 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-
 class DateConverter {
     fun convertMillisToDateString(millis: Long, locale: Locale = Locale.getDefault()): String {
         val sdf = SimpleDateFormat("dd.MM.yyyy", locale)
-        sdf.timeZone =
-            TimeZone.getTimeZone("UTC")
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
         val date = Date(millis)
         return sdf.format(date)
     }
@@ -18,7 +16,6 @@ class DateConverter {
     fun convertUiDateToRemote(date: String): String {
         val inputFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
         val parsedDate = inputFormat.parse(date)
 
         return parsedDate?.let { outputFormat.format(it) } ?: date

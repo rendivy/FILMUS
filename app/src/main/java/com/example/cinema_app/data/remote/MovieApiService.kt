@@ -1,14 +1,14 @@
 package com.example.cinema_app.data.remote
 
-
-import com.example.cinema_app.common.NetworkConstant
-import com.example.cinema_app.data.api.ProfileApi
+import com.example.cinema_app.data.NetworkConstant
 import com.example.cinema_app.data.api.auth.LoginApi
 import com.example.cinema_app.data.api.auth.RegistrationApi
-import com.example.cinema_app.data.api.review.AddReviewApi
-import com.example.cinema_app.data.entity.FilmDetailsApi
-import com.example.cinema_app.data.entity.FilmShort
+import com.example.cinema_app.data.entity.FavouriteMovieApi
+import com.example.cinema_app.data.entity.PaginatorMovieList
 import com.example.cinema_app.data.entity.Token
+import com.example.cinema_app.data.movie.entities.MovieDetailsApi
+import com.example.cinema_app.data.profile.entities.ProfileApi
+import com.example.cinema_app.data.review.entities.AddReviewApi
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -19,17 +19,18 @@ import retrofit2.http.Path
 
 
 interface MovieApiService {
+
     @POST(NetworkConstant.REGISTRATION_URL)
     suspend fun register(@Body registrationApi: RegistrationApi): Token
 
     @GET(NetworkConstant.FAVORITE_MOVIES_URL)
-    suspend fun getFavoriteMovies(@Header("Authorization") token: String): List<FilmShort>
+    suspend fun getFavoriteMovies(@Header("Authorization") token: String): FavouriteMovieApi
 
     @POST(NetworkConstant.LOGIN_URL)
     suspend fun login(@Body loginApi: LoginApi): Token
 
     @GET(NetworkConstant.MOVIES_URL)
-    suspend fun getMovies(@Path("page") page: Int): List<FilmShort>
+    suspend fun getMovies(@Path("page") page: Int): PaginatorMovieList
 
     @POST("${NetworkConstant.REVIEW_URL}add")
     suspend fun addReviewMovie(
@@ -74,7 +75,7 @@ interface MovieApiService {
 
 
     @GET(NetworkConstant.MOVIE_DETAILS_URL)
-    suspend fun getMovieDetails(@Path("id") id: String): FilmDetailsApi
+    suspend fun getMovieDetails(@Path("id") id: String): MovieDetailsApi
 
 
     @PUT(NetworkConstant.PROFILE_URL)

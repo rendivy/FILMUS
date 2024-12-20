@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.example.cinema_app.domain.entity.FilmItemUi
+import com.example.cinema_app.domain.entities.movie.MovieWithRatings
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.semiMediumPadding
@@ -24,7 +24,7 @@ import com.example.cinema_app.ui.theme.padding24
 
 @Composable
 fun FilmColumn(
-    moviesPaging: LazyPagingItems<FilmItemUi>,
+    moviesPaging: LazyPagingItems<MovieWithRatings>,
     startIndex: Int = 0,
     navController: NavController
 ) {
@@ -43,9 +43,9 @@ fun FilmColumn(
                     filmYear = it.year.toString(),
                     filmCountry = it.country,
                     filmPoster = it.poster,
-                    filmGenres = it.genres,
-                    filmRating = it.filmRating,
-                    userRating = it.userReview
+                    filmGenreApis = it.genres,
+                    filmRating = it.filmRating ?: 1.0,
+                    userRating = it.userRating
                 )
             }
         }

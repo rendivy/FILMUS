@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.domain.entity.FilmDetails
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.ui.screen.home.RatingBox
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
@@ -31,7 +31,7 @@ import com.example.cinema_app.ui.theme.shortPadding
 
 @Composable
 fun MovieHeadline(
-    content: FilmDetails,
+    content: MovieDetailsUi,
     painter: Painter,
     tintColor: Color,
     onClick: () -> Unit,

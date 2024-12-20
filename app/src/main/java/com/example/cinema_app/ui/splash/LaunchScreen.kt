@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,8 +25,9 @@ import com.example.cinema_app.ui.navigation.NavigationRoutes
 
 
 @Composable
-fun LaunchScreen(navController: NavController, authViewModel: AuthViewModel) {
-    val token by remember { authViewModel.tokenState }
+internal fun LaunchScreen(navController: NavController, authViewModel: AuthViewModel) {
+
+    val token by authViewModel.tokenState.collectAsState()
 
     LaunchedEffect(Unit) {
         authViewModel.isUserLogged()

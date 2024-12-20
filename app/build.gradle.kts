@@ -80,6 +80,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.ui.tooling.preview)
 
 
@@ -88,6 +89,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
     implementation(libs.compose.ratingbar)
+    implementation(libs.converter.kotlinx.serialization)
     implementation(libs.converter.gson)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.serialization.json)

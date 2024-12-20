@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen

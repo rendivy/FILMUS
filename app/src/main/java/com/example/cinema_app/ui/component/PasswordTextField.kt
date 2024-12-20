@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinema_app.R
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
 import com.example.cinema_app.ui.theme.padding20

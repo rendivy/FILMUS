@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.example.cinema_app.common.Constants
+import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.switcher.TextSwitch
 import com.example.cinema_app.ui.theme.shortPadding
