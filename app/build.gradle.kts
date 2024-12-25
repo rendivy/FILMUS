@@ -12,6 +12,12 @@ android {
     namespace = "com.example.cinema_app"
     compileSdk = 35
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.cinema_app"
         minSdk = 26
@@ -102,7 +108,11 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.junit)
-    implementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    implementation(libs.junit.jupiter.api)
+    implementation(libs.androidx.monitor)
+    implementation(libs.androidx.ui.test.junit4.android)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.junit)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

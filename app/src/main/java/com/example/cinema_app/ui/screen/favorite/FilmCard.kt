@@ -11,27 +11,27 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
+import com.example.cinema_app.ui.screen.favorite.testTags.FavouriteScreenTags
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.GoodRatingColor
@@ -41,214 +41,140 @@ import com.example.cinema_app.ui.theme.SemiGoodRatingColor
 import com.example.cinema_app.ui.theme.SemiMediumRatingColor
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.mediumPadding
-import com.example.cinema_app.ui.theme.padding15
-import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.padding5
-import com.example.cinema_app.ui.theme.shortPadding
 import com.example.cinema_app.ui.theme.tinyPadding
-
 
 @Composable
 fun FilmCard(
     path: String,
-    movieName: String,
-    modifier: Modifier,
     movieId: String,
-    navController: NavController,
+    movieName: String,
+    onCardClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
     userRating: Int? = null,
 ) {
-    Column(
-        modifier = modifier,
-    ) {
-        Box(contentAlignment = Alignment.TopEnd) {
-            SubcomposeAsyncImage(
-                modifier = Modifier
-                    .height(240.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .clickable {
-                        navController.navigate("movieDetails/${movieId}/'")
-                    },
-                model = path,
-                contentScale = ContentScale.Crop,
-                contentDescription = "Film Card"
-            ) {
-                when (painter.state) {
-                    is AsyncImagePainter.State.Loading -> {
-                        Box(
-                            modifier = Modifier
-                                .height(240.dp)
-                                .width(width = 200.dp)
-                                .clip(RoundedCornerShape(5.dp))
-                                .shimmerEffect()
-                        )
-                    }
-
-                    else -> {
-                        SubcomposeAsyncImageContent()
-                    }
-                }
-            }
-            if (userRating != null) {
-                val color = when (userRating) {
-                    in 0..2 -> BadRatingColor
-                    in 2..4 -> SemiBadRatingColor
-                    in 4..5 -> SemiMediumRatingColor
-                    in 6 until 7 -> MediumRatingColor
-                    in 7..8 -> SemiGoodRatingColor
-                    in 9..10 -> GoodRatingColor
-                    else -> Color.White
-                }
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(35.dp))
-                        .background(color)
-                        .padding(top = 2.dp, end = 2.dp),
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.star_3),
-                            contentDescription = "star rating",
-                            modifier = Modifier
-                                .padding(
-                                    start = tinyPadding,
-                                    end = tinyPadding,
-                                    top = tinyPadding,
-                                    bottom = tinyPadding
-                                )
-                                .width(mediumPadding)
-                                .height(mediumPadding),
-                        )
-                        Text(
-                            modifier = Modifier.padding(
-                                end = tinyPadding,
-                                top = tinyPadding,
-                                bottom = tinyPadding
-                            ),
-                            text = "${userRating}",
-                            style = TitleMedium,
-                            color = Color.White,
-                            fontSize = 16.sp,
-                        )
-                    }
-
-                }
-            }
-
-        }
+    Column(modifier = modifier.testTag(FavouriteScreenTags.FavouriteCardTag)) {
+        FilmImage(path, movieId, onCardClick, userRating)
         Spacer(modifier = Modifier.height(padding5))
-        Text(
-            text = movieName,
-            style = TitleMedium,
-            fontSize = 14.sp,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-        )
+        FilmTitle(movieName)
     }
-
 }
 
+@Preview(showBackground = true)
+@Composable
+fun FilmCardPreview() {
+    FilmCard(
+        path = "https://example.com/movie_poster.jpg",
+        movieId = "12345",
+        movieName = "Sample Movie Title",
+        onCardClick = { movieId -> /* Handle card click */ },
+        userRating = 8,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
 
 @Composable
-fun LargeFilmCard(
+private fun FilmImage(
     path: String,
-    movieName: String,
-    userRating: Int?,
     movieId: String,
-    navController: NavController
+    onCardClick: (String) -> Unit,
+    userRating: Int?
 ) {
-    Column(
-        modifier = Modifier.padding(start = padding15, top = padding20, bottom = padding20, end = padding15),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(contentAlignment = TopEnd) {
-            SubcomposeAsyncImage(
-                model = path,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(240.dp)
-                    .clickable {
-                        navController.navigate("movieDetails/${movieId}/${6.2}")
-                    }
-                    .clip(RoundedCornerShape(shortPadding)),
-                contentDescription = "Film Card"
-            ) {
-                when (painter.state) {
-                    is AsyncImagePainter.State.Loading -> {
-                        Box(
-                            modifier = Modifier
-                                .height(240.dp)
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(shortPadding))
-                                .shimmerEffect()
-                        )
-                    }
-
-                    else -> {
-                        SubcomposeAsyncImageContent()
-                    }
-                }
-            }
-            if (userRating != null) {
-                val color = when (userRating) {
-                    in 0..2 -> BadRatingColor
-                    in 2..4 -> SemiBadRatingColor
-                    in 4..6 -> SemiMediumRatingColor
-                    in 6..8 -> MediumRatingColor
-                    in 8..10 -> GoodRatingColor
-                    else -> Color.White
-                }
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(35.dp))
-                        .background(color)
-                        .padding(top = 2.dp, end = 2.dp),
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.star_3),
-                            contentDescription = "star rating",
-                            modifier = Modifier
-                                .padding(
-                                    start = tinyPadding,
-                                    end = tinyPadding,
-                                    top = tinyPadding,
-                                    bottom = tinyPadding
-                                )
-                                .width(mediumPadding)
-                                .height(mediumPadding),
-                        )
-                        Text(
-                            modifier = Modifier.padding(
-                                end = tinyPadding,
-                                top = tinyPadding,
-                                bottom = tinyPadding
-                            ),
-                            text = "${userRating}",
-                            style = TitleMedium,
-                            color = Color.White,
-                            fontSize = 16.sp,
-                        )
-                    }
-
-                }
+    Box(contentAlignment = Alignment.TopEnd) {
+        SubcomposeAsyncImage(
+            modifier = Modifier
+                .height(240.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .clickable { onCardClick(movieId) }
+                .testTag(FavouriteScreenTags.FavouriteCardImageTag),
+            model = path,
+            contentScale = ContentScale.Crop,
+            contentDescription = "Film Card"
+        ) {
+            when (painter.state) {
+                is AsyncImagePainter.State.Loading -> LoadingPlaceholder()
+                else -> SubcomposeAsyncImageContent()
             }
         }
-        Text(
-            text = movieName,
-            style = TitleMedium,
-            textAlign = TextAlign.Start,
-            modifier = Modifier
-                .padding(top = 5.dp)
-                .fillMaxWidth()
-        )
+        userRating?.let { RatingBadge(it) }
     }
+}
 
+@Composable
+private fun LoadingPlaceholder() {
+    Box(
+        modifier = Modifier
+            .height(240.dp)
+            .width(200.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun RatingBadge(userRating: Int) {
+    val color = getRatingColor(userRating)
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(35.dp))
+            .background(color)
+            .padding(2.dp)
+            .testTag(FavouriteScreenTags.FavouriteCardRatingBadge),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            StarIcon()
+            UserRatingText(userRating)
+        }
+    }
+}
+
+@Composable
+private fun StarIcon() {
+    Image(
+        painter = painterResource(id = R.drawable.star_3),
+        contentDescription = "star rating",
+        modifier = Modifier
+            .padding(tinyPadding)
+            .size(
+                mediumPadding
+            )
+    )
+}
+
+@Composable
+private fun UserRatingText(userRating: Int) {
+    Text(
+        text = "$userRating",
+        style = TitleMedium,
+        color = Color.White,
+        fontSize = 16.sp,
+        modifier = Modifier.padding(end = tinyPadding)
+    )
+}
+
+@Composable
+private fun FilmTitle(movieName: String, modifier: Modifier = Modifier) {
+    Text(
+        text = movieName,
+        style = TitleMedium,
+        fontSize = 14.sp,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier.testTag(FavouriteScreenTags.FavouriteCardTitleTag)
+    )
+}
+
+@Composable
+private fun getRatingColor(userRating: Int): Color {
+    return when (userRating) {
+        in 0..2 -> BadRatingColor
+        in 2..4 -> SemiBadRatingColor
+        in 4..5 -> SemiMediumRatingColor
+        in 6 until 7 -> MediumRatingColor
+        in 7..8 -> SemiGoodRatingColor
+        in 9..10 -> GoodRatingColor
+        else -> Color.White
+    }
 }

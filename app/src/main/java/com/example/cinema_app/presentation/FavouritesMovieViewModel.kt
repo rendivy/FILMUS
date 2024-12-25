@@ -1,6 +1,7 @@
 package com.example.cinema_app.presentation
 
 import android.util.Log
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.presentation.common.ErrorConstant
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
-
+@Stable
 @HiltViewModel
 class FavouritesMovieViewModel @Inject constructor(
     private val getFavouriteMovieWithRatingFacade: GetFavouriteMovieWithRatingFacade,
@@ -30,12 +31,15 @@ class FavouritesMovieViewModel @Inject constructor(
                     _favouriteMovieState.value = FavouriteState.Error(ErrorConstant.UNAUTHORIZED)
                 }
             }
-
             else -> {
                 Log.d("TAG", "errorHandler: ${exception.message}")
                 _favouriteMovieState.value = FavouriteState.Error(ErrorConstant.BAD_REQUEST)
             }
         }
+    }
+
+    init {
+        getFavouriteMovie()
     }
 
     fun retry() {
