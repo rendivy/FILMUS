@@ -10,7 +10,6 @@ import com.example.feature_filmus_movie_api.entities.movie.MovieWithRatings
 import com.example.feature_filmus_movie_api.usecase.GetAllCachedFilmsUseCase
 import com.example.feature_filmus_movie_impl.data.pagination.MoviePagingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +30,7 @@ class HomeViewModel @Inject constructor(
     }.flow.cachedIn(viewModelScope)
 
     fun getAllCachedFilms() {
-        viewModelScope.launch(Dispatchers.IO)
+        viewModelScope.launch()
         {
             _movieState.value = getAllCachedFilmsUseCase()
         }

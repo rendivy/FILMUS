@@ -13,8 +13,6 @@ import com.example.feature_filmus_movie_impl.data.review.entities.ReviewApi
 import com.example.feature_filmus_movie_impl.database.dao.MovieDao
 import com.example.feature_filmus_movie_impl.database.dao.RatingDao
 import com.example.feature_filmus_movie_impl.database.entities.RatingsDb
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -36,61 +34,59 @@ class MoviePagingRepository @Inject constructor(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieWithRatings> {
-        return withContext(Dispatchers.IO) {
-            try {
-                val movies: MutableList<MovieWithRatings> = mutableListOf()
-                val page = 0
-                val moviesList = movieApiService.getMovies(page).movies.map { movie ->
-                    movie.toDomain()
-                }
-                moviesList.forEach {
-                    val filmRatings = averageFilmRatingsProvider(it.reviewShortList)
-                    val filmDetails = movieApiService.getMovieDetails(it.id)
-                    if (ratingsDao.getUserRating(it.id) == null) {
-                        val userId = profileRepository.getProfileData().id
-                        val userRatings = getUserReview(
-                            userId = userId,
-                            filmReviewApis = filmDetails.reviewApis
-                        )
-                        val userRatingsDb = RatingsDb(
-                            filmId = it.id,
-                            userRating = userRatings
-                        )
-                        movieDao.insertMovie(
-                            movieShortToDbMapper(
-                                it,
-                                userRatings,
-                                filmRating = null
-                            )
-                        )
-                        ratingsDao.insertUserRating(userRatingsDb)
-                        movies += movieShortToMovieWithRatingsMapper(
+        return try {
+            val movies: MutableList<MovieWithRatings> = mutableListOf()
+            val page = 0
+            val moviesList = movieApiService.getMovies(page).movies.map { movie ->
+                movie.toDomain()
+            }
+            moviesList.forEach {
+                val filmRatings = averageFilmRatingsProvider(it.reviewShortList)
+                val filmDetails = movieApiService.getMovieDetails(it.id)
+                if (ratingsDao.getUserRating(it.id) == null) {
+                    val userId = profileRepository.getProfileData().id
+                    val userRatings = getUserReview(
+                        userId = userId,
+                        filmReviewApis = filmDetails.reviewApis
+                    )
+                    val userRatingsDb = RatingsDb(
+                        filmId = it.id,
+                        userRating = userRatings
+                    )
+                    movieDao.insertMovie(
+                        movieShortToDbMapper(
                             it,
                             userRatings,
-                            filmRating = filmRatings
+                            filmRating = null
                         )
-                    } else {
-                        val userRatings = ratingsDao.getUserRating(it.id)
-                        movies += movieShortToMovieWithRatingsMapper(
-                            it,
-                            userRatings?.userRating,
-                            filmRating = filmRatings
-                        )
-                    }
+                    )
+                    ratingsDao.insertUserRating(userRatingsDb)
+                    movies += movieShortToMovieWithRatingsMapper(
+                        it,
+                        userRatings,
+                        filmRating = filmRatings
+                    )
+                } else {
+                    val userRatings = ratingsDao.getUserRating(it.id)
+                    movies += movieShortToMovieWithRatingsMapper(
+                        it,
+                        userRatings?.userRating,
+                        filmRating = filmRatings
+                    )
                 }
-                val prevKey = 0
-                val nextKey = 1
-
-                LoadResult.Page(
-                    data = movies,
-                    prevKey = prevKey,
-                    nextKey = nextKey
-                )
-            } catch (e: IOException) {
-                LoadResult.Error(e)
-            } catch (e: HttpException) {
-                LoadResult.Error(e)
             }
+            val prevKey = 0
+            val nextKey = 1
+
+            LoadResult.Page(
+                data = movies,
+                prevKey = prevKey,
+                nextKey = nextKey
+            )
+        } catch (e: IOException) {
+            LoadResult.Error(e)
+        } catch (e: HttpException) {
+            LoadResult.Error(e)
         }
     }
 

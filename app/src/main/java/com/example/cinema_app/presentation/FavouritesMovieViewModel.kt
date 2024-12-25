@@ -8,7 +8,6 @@ import com.example.cinema_app.presentation.facade.GetFavouriteMovieWithRatingFac
 import com.example.cinema_app.presentation.state.FavouriteState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -45,7 +44,7 @@ class FavouritesMovieViewModel @Inject constructor(
 
 
     fun getFavouriteMovie() {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+        viewModelScope.launch(errorHandler) {
             _favouriteMovieState.value = FavouriteState.Loading
             val favouriteMovie = getFavouriteMovieWithRatingFacade.execute()
             if (favouriteMovie.isEmpty()) {

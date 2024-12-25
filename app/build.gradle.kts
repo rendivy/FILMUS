@@ -41,11 +41,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -85,6 +85,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.junit)
+
 
 
     implementation(libs.androidx.material3.window.size)
@@ -98,6 +101,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+    implementation(libs.junit)
+    implementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -106,6 +111,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.junit)
+    testImplementation(libs.turbine)
 
     testImplementation(libs.mockito)
     testImplementation(libs.mockito.kotlin)
@@ -114,4 +120,5 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+    testImplementation(kotlin("test"))
 }

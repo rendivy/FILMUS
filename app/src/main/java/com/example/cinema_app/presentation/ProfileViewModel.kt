@@ -6,9 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.presentation.common.ErrorConstant
-import com.example.cinema_app.presentation.usecases.ValidateEmailUseCase
 import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.presentation.state.ProfileState
+import com.example.cinema_app.presentation.usecases.ValidateEmailUseCase
 import com.example.cinema_app.ui.state.ProfileContent
 import com.example.feature_filmus_movie_api.entities.profile.Profile
 import com.example.feature_filmus_movie_api.usecase.auth.LogoutUserUseCase
@@ -103,7 +103,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUserProfile(callback: () -> Unit) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch( exceptionHandler) {
             updateUserProfileUseCase.execute(
                 Profile(
                     avatarLink = _profileState.value.userAvatar,
@@ -139,7 +139,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun logoutUser() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             logoutUserUseCase.execute()
         }
     }

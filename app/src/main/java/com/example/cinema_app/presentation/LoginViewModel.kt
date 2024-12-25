@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(
 
     fun loginUser() {
         _loginState.value = loginContent.value.copy(uncorrectedUserName = null)
-        viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
+        viewModelScope.launch(loginExceptionHandler) {
             _errorState.value = LoginState.Loading
             loginUserUseCase(
                 login = loginContent.value.username,

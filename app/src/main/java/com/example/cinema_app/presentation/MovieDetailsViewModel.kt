@@ -18,7 +18,6 @@ import com.example.feature_filmus_movie_api.usecase.DeleteUserReviewUseCase
 import com.example.feature_filmus_movie_api.usecase.EditUserReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val movieDetailsUseCase: GetMovieDetailsFacade,
+    private val getMovieDetailsFacade: GetMovieDetailsFacade,
     private val dateConverter: DateConverter,
     private val deleteFavouriteMovieUseCase: DeleteFavouriteMovieUseCase,
     private val addUserReviewUseCase: AddUserReviewUseCase,
@@ -67,8 +66,7 @@ class MovieDetailsViewModel @Inject constructor(
             }
 
             else -> {
-                throw exception
-
+                _detailsState.value = DetailsState.Error(ErrorConstant.BAD_REQUEST)
             }
         }
     }
@@ -96,7 +94,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun deleteUserReview(movieId: String, reviewId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             deleteUserReviewUseCase.execute(movieId, reviewId)
             _detailsState.value = DetailsState.Initial
             _reviewState.value = _reviewState.value.copy(
@@ -106,21 +104,21 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun deleteFavouriteMovie(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             deleteFavouriteMovieUseCase.execute(movieId = movieId)
         }
     }
 
 
     private fun addFavouriteMovie(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             addUserFavouriteMovieUseCase.execute(movieId)
         }
     }
 
 
     fun addReview(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             addUserReviewUseCase.execute(
                 movieId,
                 _reviewState.value.reviewText,
@@ -138,7 +136,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun setFavouriteState(movieId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             if (_favouriteState.value.filmInFavourite) {
                 deleteFavouriteMovie(movieId = movieId)
                 _favouriteState.value = _favouriteState.value.copy(
@@ -155,7 +153,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun editReview(movieId: String, reviewId: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             editUserReviewUseCase.execute(
                 movieId = movieId,
                 reviewId = reviewId,
@@ -176,9 +174,9 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun getMovieDetails(id: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch( exceptionHandler) {
             _detailsState.value = DetailsState.Loading
-            val movieDetails = movieDetailsUseCase.execute(id, _reviewState)
+            val movieDetails = getMovieDetailsFacade.execute(id, _reviewState)
             _detailsState.value = DetailsState.Content(movieDetails)
             _favouriteState.value = _favouriteState.value.copy(
                 filmInFavourite = movieDetails.filmInFavourite

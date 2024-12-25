@@ -29,7 +29,10 @@ internal class LoginViewModelTest {
             viewModel.setLogin("   ")
             viewModel.setPassword("   ")
 
-            assertEquals(viewModel.loginContent.value.usernameError, "Логин не должен быть пустым и содержать не менее двух латинских символов")
+            assertEquals(
+                viewModel.loginContent.value.usernameError,
+                "Логин не должен быть пустым и содержать не менее двух латинских символов"
+            )
             assertEquals(viewModel.loginContent.value.passwordError, PASSWORD_LENGTH_ERROR)
         }
     }

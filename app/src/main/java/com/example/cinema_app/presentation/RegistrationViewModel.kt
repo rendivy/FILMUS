@@ -18,7 +18,6 @@ import com.example.cinema_app.ui.state.clearAllParams
 import com.example.feature_filmus_movie_api.usecase.auth.RegisterUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -150,7 +149,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun registerUser() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             _registrationState.value = RegistrationState.Loading
             createRegistrationParams()
             _registrationState.value = RegistrationState.Success
