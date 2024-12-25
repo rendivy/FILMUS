@@ -18,9 +18,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "FILMUS"
 include(":app")
-include(":feature-movie-api")
-include(":feature-movie-impl")
-include(":feature-movie-database")
-include(":feature-movie-ui")
 include(":feature-filmus-movie-api")
 include(":feature-filmus-movie-impl")
