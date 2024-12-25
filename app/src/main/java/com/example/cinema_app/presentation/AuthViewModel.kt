@@ -25,11 +25,10 @@ class AuthViewModel @Inject constructor(
         isUserLogged()
     }
 
-    fun isUserLogged() {
+    private fun isUserLogged() {
         viewModelScope.launch {
             val isUserLogged = isUserLoggedUseCase()
             _tokenState.update { isUserLogged }
         }
     }
-
 }

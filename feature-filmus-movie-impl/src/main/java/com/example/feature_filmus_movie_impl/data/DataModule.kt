@@ -133,7 +133,7 @@ object DataModule {
             movieDao = movieDao,
             averageFilmRatingsProvider = AverageFilmRatingsProvider(),
             movieShortToDbMapper = MovieShortToDbMapper(),
-            )
+        )
     }
 
 }
