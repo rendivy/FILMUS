@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.entities
 
-import com.example.cinema_app.domain.entities.Genre
-import com.example.cinema_app.domain.entities.Review
+import com.example.feature_filmus_movie_api.entities.Genre
+import com.example.feature_filmus_movie_api.entities.Review
 
 data class MovieDetailsUi(
     val ageLimit: Int,

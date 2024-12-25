@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.RegistrationViewModel
-import com.example.cinema_app.presentation.validator.ErrorType
+import com.example.cinema_app.presentation.ErrorType
 import com.example.cinema_app.ui.component.CustomClickableBox
 import com.example.cinema_app.ui.component.CustomTextField
 import com.example.cinema_app.ui.component.switcher.TextSwitchTest

@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cinema_app.R
-import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.presentation.common.ErrorConstant
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.presentation.state.DetailsState
 import com.example.cinema_app.ui.navigation.NavigationRoutes

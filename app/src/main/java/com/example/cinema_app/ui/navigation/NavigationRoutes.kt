@@ -1,6 +1,6 @@
 package com.example.cinema_app.ui.navigation
 
-import com.example.cinema_app.common.NavigationConstant
+import com.example.cinema_app.presentation.common.NavigationConstant
 
 sealed class NavigationRoutes(val route: String) {
     data object Greetings : NavigationRoutes(NavigationConstant.GREETINGS_ROUTE)

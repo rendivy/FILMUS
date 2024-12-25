@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.cinema_app.presentation.validator.ErrorType
+import com.example.cinema_app.presentation.ErrorType
 import com.example.cinema_app.ui.state.RegistrationContent
 import com.example.cinema_app.ui.theme.TitleMedium
 import com.example.cinema_app.ui.theme.shortPadding

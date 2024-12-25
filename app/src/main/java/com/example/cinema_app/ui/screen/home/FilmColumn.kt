@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.example.cinema_app.domain.entities.movie.MovieWithRatings
 import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.padding24
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.feature_filmus_movie_api.entities.movie.MovieWithRatings
 
 
 @Composable

@@ -1,7 +1,7 @@
 package com.example.cinema_app.ui.navigation
 
 import com.example.cinema_app.R
-import com.example.cinema_app.data.Constants
+import com.example.feature_filmus_movie_impl.data.Constants
 
 sealed class BottomBarRoute(
     val route: String,

@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.screen.details.dialog.CustomDropDownMenu
 import com.example.cinema_app.ui.screen.details.dialog.EditReviewDialog
@@ -32,8 +32,8 @@ import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray750
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
 
@@ -64,7 +64,7 @@ fun UserReview(content: MovieDetailsUi, viewModel: MovieDetailsViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             if (content.userReviewApiX?.author?.avatar != null) {
-                UserAvatar(model = content.userReviewApiX.author.avatar)
+                UserAvatar(model = requireNotNull(content.userReviewApiX.author) { "content.userReviewApiX.author is null" }.avatar)
             } else {
                 Box(
                     modifier = Modifier

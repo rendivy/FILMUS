@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cinema_app.data.Constants
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InterRegular
 import com.example.cinema_app.ui.theme.semiMediumPadding
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.feature_filmus_movie_impl.data.Constants
 
 
 @Composable

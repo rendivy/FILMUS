@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.entities
 
-import com.example.cinema_app.domain.entities.Genre
-import com.example.cinema_app.domain.entities.ReviewShort
+import com.example.feature_filmus_movie_api.entities.Genre
+import com.example.feature_filmus_movie_api.entities.ReviewShort
 
 data class MovieItemUi (
     val country: String,

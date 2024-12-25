@@ -44,9 +44,8 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.data.Constants
-import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.ProfileViewModel
+import com.example.cinema_app.presentation.common.ErrorConstant
 import com.example.cinema_app.presentation.state.ProfileState
 import com.example.cinema_app.ui.component.NoRippleInteractionSource
 import com.example.cinema_app.ui.navigation.NavigationRoutes
@@ -58,11 +57,12 @@ import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.SecondaryAccentStyle
 import com.example.cinema_app.ui.theme.SecondarySemiBoldStyle
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding100
-import com.example.cinema_app.ui.theme.semiMediumPadding
-import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding54
+import com.example.cinema_app.ui.theme.semiMediumPadding
+import com.example.feature_filmus_movie_impl.data.Constants
 
 
 @Composable

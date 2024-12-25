@@ -16,7 +16,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import com.example.cinema_app.R
 import com.example.cinema_app.presentation.RegistrationViewModel
-import com.example.cinema_app.presentation.validator.ErrorType
+import com.example.cinema_app.presentation.ErrorType
 import com.example.cinema_app.ui.component.PasswordTextField
 import com.example.cinema_app.ui.screen.registration.component.RegistrationErrorAnimation
 import com.example.cinema_app.ui.state.RegistrationContent

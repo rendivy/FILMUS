@@ -20,18 +20,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.data.review.entities.ReviewApi
-import com.example.cinema_app.domain.entities.Review
-import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.presentation.MovieDetailsViewModel
+import com.example.cinema_app.presentation.entities.MovieDetailsUi
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.feature_filmus_movie_api.entities.Review
 
 @Composable
 fun ReviewSection(content: MovieDetailsUi, viewModel: MovieDetailsViewModel) {
@@ -53,7 +52,7 @@ fun ReviewSection(content: MovieDetailsUi, viewModel: MovieDetailsViewModel) {
 
 
 @Composable
-fun ReviewItem(reviewApi: Review, viewModel: MovieDetailsViewModel) {
+fun ReviewItem(review: Review, viewModel: MovieDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,8 +64,8 @@ fun ReviewItem(reviewApi: Review, viewModel: MovieDetailsViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (reviewApi.author?.avatar != null) {
-                UserAvatar(model = reviewApi.author.avatar)
+            if (review.author?.avatar != null) {
+                UserAvatar(model = requireNotNull(review.author) { "review.author is null" }.avatar)
             } else {
                 Box(
                     modifier = Modifier
@@ -90,24 +89,24 @@ fun ReviewItem(reviewApi: Review, viewModel: MovieDetailsViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = reviewApi.author?.nickName ?: stringResource(id = R.string.anonymous_user),
+                        text = review.author?.nickName ?: stringResource(id = R.string.anonymous_user),
                         style = GenreTitle,
                         color = Color.White
                     )
-                    UserRatingBox(userRating = reviewApi.rating)
+                    UserRatingBox(userRating = review.rating)
                 }
             }
         }
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = reviewApi.reviewText,
+            text = review.reviewText,
             style = GenreTitle,
             color = Color.White,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(shortPadding))
         Text(
-            text = viewModel.convertDate(reviewApi.createDateTime),
+            text = viewModel.convertDate(review.createDateTime),
             style = GenreTitle,
             color = Color.Gray,
             modifier = Modifier.fillMaxWidth()

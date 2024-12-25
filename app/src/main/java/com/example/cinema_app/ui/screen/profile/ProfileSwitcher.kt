@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.ProfileViewModel
 import com.example.cinema_app.ui.component.switcher.TextSwitch
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.feature_filmus_movie_impl.data.Constants
 
 @Composable
 fun ProfileSwitcher(profileViewModel: ProfileViewModel, index: Int) {

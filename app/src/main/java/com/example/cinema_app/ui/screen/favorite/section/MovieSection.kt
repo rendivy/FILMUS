@@ -14,13 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.state.FavouriteState
 import com.example.cinema_app.ui.screen.favorite.FilmCard
 import com.example.cinema_app.ui.screen.favorite.LargeFilmCard
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.padding15
 import com.example.cinema_app.ui.theme.padding20
+import com.example.feature_filmus_movie_impl.data.Constants
 
 @Composable
 fun MovieSection(movieState: FavouriteState, padding: PaddingValues, navController: NavController) {

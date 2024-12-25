@@ -2,11 +2,12 @@ package com.example.cinema_app.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.domain.usecase.auth.IsUserLoggedUseCase
+import com.example.feature_filmus_movie_api.usecase.auth.IsUserLoggedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,9 +21,14 @@ class AuthViewModel @Inject constructor(
     val tokenState: StateFlow<Boolean>
         get() = _tokenState.asStateFlow()
 
+    init {
+        isUserLogged()
+    }
+
     fun isUserLogged() {
         viewModelScope.launch {
-            _tokenState.value = isUserLoggedUseCase()
+            val isUserLogged = isUserLoggedUseCase()
+            _tokenState.update { isUserLogged }
         }
     }
 

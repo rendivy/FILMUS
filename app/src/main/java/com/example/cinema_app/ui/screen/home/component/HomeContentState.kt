@@ -34,7 +34,6 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entities.movie.MovieWithRatings
 import com.example.cinema_app.ui.screen.home.FilmColumn
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.Gray900
@@ -43,6 +42,7 @@ import com.example.cinema_app.ui.theme.TransparentWhite
 import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding5
+import com.example.feature_filmus_movie_api.entities.movie.MovieWithRatings
 
 @Composable
 fun HomeContentState(

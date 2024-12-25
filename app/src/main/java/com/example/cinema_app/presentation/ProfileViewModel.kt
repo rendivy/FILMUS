@@ -5,14 +5,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.domain.usecase.auth.LogoutUserUseCase
-import com.example.cinema_app.domain.usecase.profile.GetUserProfileUseCase
-import com.example.cinema_app.domain.usecase.profile.UpdateUserProfileUseCase
+import com.example.cinema_app.presentation.common.ErrorConstant
 import com.example.cinema_app.presentation.usecases.ValidateEmailUseCase
 import com.example.cinema_app.presentation.converter.DateConverter
 import com.example.cinema_app.presentation.state.ProfileState
 import com.example.cinema_app.ui.state.ProfileContent
+import com.example.feature_filmus_movie_api.entities.profile.Profile
+import com.example.feature_filmus_movie_api.usecase.auth.LogoutUserUseCase
+import com.example.feature_filmus_movie_api.usecase.profile.GetUserProfileUseCase
+import com.example.feature_filmus_movie_api.usecase.profile.UpdateUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -104,7 +105,7 @@ class ProfileViewModel @Inject constructor(
     fun updateUserProfile(callback: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             updateUserProfileUseCase.execute(
-                com.example.cinema_app.domain.entities.profile.Profile(
+                Profile(
                     avatarLink = _profileState.value.userAvatar,
                     birthDate = dateUseCase.convertUiDateToRemote(_profileState.value.birthDate),
                     email = _profileState.value.email,
@@ -125,7 +126,7 @@ class ProfileViewModel @Inject constructor(
     }
 
 
-    private fun setProfileContent(credentials: com.example.cinema_app.domain.entities.profile.Profile) {
+    private fun setProfileContent(credentials: Profile) {
         _profileState.value = _profileState.value.copy(
             name = credentials.name,
             gender = credentials.gender,

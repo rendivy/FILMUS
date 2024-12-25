@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.mappers
 
-import com.example.cinema_app.domain.entities.movie.MovieShort
 import com.example.cinema_app.presentation.entities.FavouriteMovieUi
+import com.example.feature_filmus_movie_api.entities.movie.MovieShort
 
 class PresentationFilmMapper {
 

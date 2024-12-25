@@ -3,8 +3,8 @@ package com.example.cinema_app.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.domain.usecase.GetFavouriteMovieWithRatingUseCase
+import com.example.cinema_app.presentation.common.ErrorConstant
+import com.example.cinema_app.presentation.facade.GetFavouriteMovieWithRatingFacade
 import com.example.cinema_app.presentation.state.FavouriteState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouritesMovieViewModel @Inject constructor(
-    private val getFavouriteMovieWithRatingUseCase: GetFavouriteMovieWithRatingUseCase,
+    private val getFavouriteMovieWithRatingFacade: GetFavouriteMovieWithRatingFacade,
 ) : ViewModel() {
 
     private val _favouriteMovieState = MutableStateFlow<FavouriteState>(FavouriteState.Initial)
@@ -47,7 +47,7 @@ class FavouritesMovieViewModel @Inject constructor(
     fun getFavouriteMovie() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             _favouriteMovieState.value = FavouriteState.Loading
-            val favouriteMovie = getFavouriteMovieWithRatingUseCase.execute()
+            val favouriteMovie = getFavouriteMovieWithRatingFacade.execute()
             if (favouriteMovie.isEmpty()) {
                 _favouriteMovieState.value = FavouriteState.NoFavourite
             } else {

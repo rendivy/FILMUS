@@ -61,6 +61,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature-filmus-movie-api"))
+    implementation(project(":feature-filmus-movie-impl"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

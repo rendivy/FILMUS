@@ -22,16 +22,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cinema_app.R
-import com.example.cinema_app.data.review.entities.ReviewApi
-import com.example.cinema_app.domain.entities.Review
 import com.example.cinema_app.presentation.MovieDetailsViewModel
 import com.example.cinema_app.ui.component.UserRatingBox
 import com.example.cinema_app.ui.theme.GenreTitle
 import com.example.cinema_app.ui.theme.Gray900
-import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.mediumPadding
+import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.feature_filmus_movie_api.entities.Review
 
 @Composable
 fun AnonymousCard(reviewApi: Review, viewModel: MovieDetailsViewModel) {

@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.facade
 
 import androidx.compose.runtime.MutableState
-import com.example.cinema_app.common.ErrorConstant
+import com.example.cinema_app.presentation.common.ErrorConstant
 import com.example.cinema_app.presentation.usecases.ValidateDateUseCase
 import com.example.cinema_app.presentation.usecases.ValidateEmailUseCase
 import com.example.cinema_app.presentation.usecases.ValidateLoginUseCase

@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import com.example.cinema_app.data.Constants
 import com.example.cinema_app.presentation.HomeViewModel
 import com.example.cinema_app.ui.navigation.NavigationRoutes
 import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.home.CachedFilmScreen
+import com.example.feature_filmus_movie_impl.data.Constants
 import retrofit2.HttpException
 
 @Composable

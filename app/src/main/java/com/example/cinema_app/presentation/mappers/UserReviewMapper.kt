@@ -1,8 +1,7 @@
 package com.example.cinema_app.presentation.mappers
 
-import com.example.cinema_app.data.review.entities.ReviewApi
-import com.example.cinema_app.domain.entities.Review
 import com.example.cinema_app.ui.state.ReviewContent
+import com.example.feature_filmus_movie_api.entities.Review
 
 class UserReviewMapper {
     fun map(data: Review): ReviewContent {

@@ -8,10 +8,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.cinema_app.data.Constants
-import com.example.cinema_app.data.Constants.DEFAULT_SEX_INDEX
 import com.example.cinema_app.presentation.RegistrationViewModel
 import com.example.cinema_app.ui.theme.shortPadding
+import com.example.feature_filmus_movie_impl.data.Constants
+import com.example.feature_filmus_movie_impl.data.Constants.DEFAULT_SEX_INDEX
 
 
 @Composable

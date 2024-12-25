@@ -31,10 +31,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.cinema_app.R
-import com.example.cinema_app.data.Constants
-import com.example.cinema_app.common.ErrorConstant
-import com.example.cinema_app.common.NavigationConstant
 import com.example.cinema_app.presentation.FavouritesMovieViewModel
+import com.example.cinema_app.presentation.common.ErrorConstant
+import com.example.cinema_app.presentation.common.NavigationConstant
 import com.example.cinema_app.presentation.state.FavouriteState
 import com.example.cinema_app.ui.screen.errorUiScreen.ErrorUiScreen
 import com.example.cinema_app.ui.screen.favorite.section.MovieSection
@@ -43,11 +42,12 @@ import com.example.cinema_app.ui.theme.Accent
 import com.example.cinema_app.ui.theme.Gray900
 import com.example.cinema_app.ui.theme.InternBoldLarge
 import com.example.cinema_app.ui.theme.TitleSmall
+import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding100
 import com.example.cinema_app.ui.theme.padding15
-import com.example.cinema_app.ui.theme.mediumPadding
 import com.example.cinema_app.ui.theme.padding20
 import com.example.cinema_app.ui.theme.padding5
+import com.example.feature_filmus_movie_impl.data.Constants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,8 +153,7 @@ fun FavouriteScreen(
                             navController.context,
                             Constants.UNAUTHORIZED,
                             Toast.LENGTH_SHORT
-                        ).show(
-                        )
+                        ).show()
                     }
 
                     else -> {

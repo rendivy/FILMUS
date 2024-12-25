@@ -6,9 +6,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.cinema_app.data.pagination.MoviePagingRepository
-import com.example.cinema_app.domain.entities.movie.MovieWithRatings
-import com.example.cinema_app.domain.usecase.GetAllCachedFilmsUseCase
+import com.example.feature_filmus_movie_api.entities.movie.MovieWithRatings
+import com.example.feature_filmus_movie_api.usecase.GetAllCachedFilmsUseCase
+import com.example.feature_filmus_movie_impl.data.pagination.MoviePagingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
     private val _movieState = MutableStateFlow<List<MovieWithRatings>>(emptyList())
     val movieState: StateFlow<List<MovieWithRatings>> = _movieState
 
-    val moviePagingFlow: Flow<PagingData<MovieWithRatings>> = Pager(PagingConfig(pageSize = 3)) {
+    val moviePagingFlow: Flow<PagingData<MovieWithRatings>> = Pager(PagingConfig(pageSize = 6)) {
         moviePagingRepository
     }.flow.cachedIn(viewModelScope)
 

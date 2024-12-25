@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.usecases
 
-import com.example.cinema_app.common.ErrorConstant
 import com.example.cinema_app.presentation.ValidationResult
+import com.example.cinema_app.presentation.common.ErrorConstant
 
 class ValidateDateUseCase {
 

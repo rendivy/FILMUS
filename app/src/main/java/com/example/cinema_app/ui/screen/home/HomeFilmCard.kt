@@ -31,7 +31,6 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.cinema_app.R
-import com.example.cinema_app.domain.entities.Genre
 import com.example.cinema_app.ui.shimmer.shimmerEffect
 import com.example.cinema_app.ui.theme.BadRatingColor
 import com.example.cinema_app.ui.theme.CardTitle
@@ -49,6 +48,7 @@ import com.example.cinema_app.ui.theme.padding10
 import com.example.cinema_app.ui.theme.padding5
 import com.example.cinema_app.ui.theme.shortPadding
 import com.example.cinema_app.ui.theme.tinyPadding
+import com.example.feature_filmus_movie_api.entities.Genre
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
