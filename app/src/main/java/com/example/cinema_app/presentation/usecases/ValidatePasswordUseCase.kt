@@ -6,7 +6,7 @@ import com.example.cinema_app.presentation.common.ErrorConstant
 class ValidatePasswordUseCase {
 
     operator fun invoke(password: String): ValidationResult {
-        return if (password.length < 6) {
+        return if (password.length < MIN_PASSWORD_LENGTH) {
             ValidationResult(
                 successful = false,
                 errorMessage = ErrorConstant.PASSWORD_LENGTH_ERROR
@@ -18,5 +18,7 @@ class ValidatePasswordUseCase {
         }
     }
 
-
+    private companion object {
+        const val MIN_PASSWORD_LENGTH = 8
+    }
 }

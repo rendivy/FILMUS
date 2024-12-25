@@ -1,18 +1,18 @@
 package com.example.cinema_app.presentation.usecases
 
-import com.example.cinema_app.presentation.common.ErrorConstant
 import com.example.cinema_app.presentation.ValidationResult
+import com.example.cinema_app.presentation.common.ErrorConstant
 
 class ValidateEmailUseCase {
 
     operator fun invoke(email: String): ValidationResult {
-        return if (email.isNotEmpty() && !email.matches(EMAIL_PATTERN.toRegex())) {
+        return if (email.isNotBlank() && email.matches(EMAIL_PATTERN.toRegex())) {
+            ValidationResult(successful = true)
+        } else {
             ValidationResult(
                 successful = false,
                 errorMessage = ErrorConstant.EMAIL_ERROR
             )
-        } else {
-            ValidationResult(successful = true)
         }
     }
 

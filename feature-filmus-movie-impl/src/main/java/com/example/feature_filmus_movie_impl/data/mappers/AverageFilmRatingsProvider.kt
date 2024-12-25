@@ -14,6 +14,13 @@ class AverageFilmRatingsProvider {
         }
         val averageRating = rating.toDouble() / data.size
 
-        return BigDecimal(averageRating).setScale(precision, RoundingMode.HALF_UP).toDouble()
+        return if (averageRating >= 0) {
+            BigDecimal(averageRating).setScale(
+                precision,
+                RoundingMode.HALF_UP
+            ).toDouble()
+        } else {
+            0.0
+        }
     }
 }

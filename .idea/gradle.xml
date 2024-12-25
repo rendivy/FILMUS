@@ -11,10 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/feature-movie-api" />
-            <option value="$PROJECT_DIR$/feature-movie-database" />
-            <option value="$PROJECT_DIR$/feature-movie-impl" />
-            <option value="$PROJECT_DIR$/feature-movie-ui" />
+            <option value="$PROJECT_DIR$/feature-filmus-movie-api" />
+            <option value="$PROJECT_DIR$/feature-filmus-movie-impl" />
           </set>
         </option>
       </GradleProjectSettings>

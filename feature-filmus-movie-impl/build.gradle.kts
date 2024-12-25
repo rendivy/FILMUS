@@ -83,7 +83,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.junit)
 
+    testImplementation(libs.mockito)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
+
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+    testImplementation(kotlin("test"))
 }

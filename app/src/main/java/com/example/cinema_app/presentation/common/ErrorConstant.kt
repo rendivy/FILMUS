@@ -1,7 +1,7 @@
 package com.example.cinema_app.presentation.common
 
 object ErrorConstant {
-    const val PASSWORD_LENGTH_ERROR = "Пароль должен содержать не менее 6 символов."
+    const val PASSWORD_LENGTH_ERROR = "Пароль должен содержать не менее 8 символов."
     const val EMAIL_ERROR = "Email должен соотвествовать стандарту."
     const val UNAUTHORIZED = "Неверный логин или пароль."
     const val UNEXPECTED_ERROR = "Непредвиденная ошибка, пожалуйста проверьте свое интернет-соединение и попробуйте снова"

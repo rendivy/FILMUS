@@ -1,14 +1,15 @@
 package com.example.cinema_app.presentation
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema_app.presentation.common.ErrorConstant
+import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.presentation.usecases.ValidateLoginUseCase
 import com.example.cinema_app.presentation.usecases.ValidatePasswordUseCase
-import com.example.cinema_app.presentation.state.LoginState
 import com.example.cinema_app.ui.state.LoginContent
 import com.example.feature_filmus_movie_api.usecase.auth.LoginUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +33,6 @@ class LoginViewModel @Inject constructor(
 
     val loginContent: State<LoginContent>
         get() = _loginState
-
 
     private val _loginState: MutableState<LoginContent> = mutableStateOf(LoginContent())
 
@@ -73,6 +73,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    @VisibleForTesting
     fun validateLoginCredentials(): Boolean {
         return loginContent.value.passwordError == null &&
                 loginContent.value.password.isNotEmpty() &&
